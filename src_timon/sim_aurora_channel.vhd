@@ -71,7 +71,9 @@ architecture Behavioral of sim_aurora_channel is
     end component scrambler;
     
     signal rst_n_i : std_logic := '0';
+    signal rst_p_i : std_logic := '0'; -- ADDED BY ANATOLIY
     signal rst2_n_i : std_logic := '0';
+    signal rst2_p_i : std_logic := '0'; -- ADDED BY ANATOLIY
     signal clk_rx_i : std_logic := '0';
     signal clk_serdes_i : std_logic := '0';
     signal clk_ddr_i : std_logic := '0';
@@ -133,12 +135,13 @@ begin
         clk_idelay <= '0';
         wait for IDELAY_CLK_PERIOD/2;
     end process idelay_clk_proc;
-    
+
+    rst_p_i <= not rst_n_i; -- ADDED BY ANATOLIY
     IDELAYCTRL_inst : IDELAYCTRL
     port map (
        RDY => idelay_rdy,       -- 1-bit output: Ready output
        REFCLK => clk_idelay, -- 1-bit input: Reference clock input
-       RST => not rst_n_i       -- 1-bit input: Active high reset input
+       RST => rst_p_i      -- 1-bit input: Active high reset input -- ADDED BY ANATOLIY
     );
     
     rst_proc: process
@@ -200,13 +203,14 @@ begin
          end if;
      end process piso_proc;
      
+     rst2_p_i <= not rst2_n_i; -- ADDED BY ANATOLIY
      scrambler_cmp: scrambler port map (
             data_in => tx_data(63 downto 0),
             data_out => tx_data_s(65 downto 0),
             enable => tx_data_valid,
             sync_info => tx_data(65 downto 64),
             clk => clk_ddr_i,
-            rst => not rst2_n_i        
+            rst => rst2_p_i       -- ADDED BY ANATOLIY
      );
             
                  

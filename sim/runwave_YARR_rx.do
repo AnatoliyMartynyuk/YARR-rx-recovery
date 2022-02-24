@@ -15,6 +15,7 @@ vcom -work work ../src/tef1001_R2_type.vhd
 vcom -work work ../src/board_pkg.vhd
 
 #YARR_rx Modules
+vcom -work work ../src/aurora_rx_channel.vhd
 vcom -work work ../src/cdr_serdes.vhd
 vlog -work work ../src/descrambler.v
 vlog -work work ../src/scrambler.v
@@ -22,7 +23,6 @@ vcom -work work ../src/gearbox32to66.vhd
 vcom -work work ../src/aurora_rx_lane.vhd
 vcom -work work ../src/aurora_ch_bond.vhd
 vcom -work work ../src/rr_arbiter.vhd
-vcom -work work ../src/aurora_rx_channel.vhd
 
 
 # YARR_rx sim Modules

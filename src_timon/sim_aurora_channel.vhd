@@ -165,7 +165,8 @@ begin
         trig_tag_i => trig_tag_i,
         rx_data_o => rx_data_o,
         rx_valid_o => rx_valid_o,
-        rx_stat_o => rx_stat_o
+        rx_stat_o => rx_stat_o,
+        rx_polarity_i => (others => '0') -- ADDED BY ANATOLIY
         );
         
     piso_proc: process(clk_rx_i, clk_ddr_i, rst2_n_i)

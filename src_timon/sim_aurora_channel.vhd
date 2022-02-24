@@ -51,6 +51,8 @@ architecture Behavioral of sim_aurora_channel is
             rx_data_i_p : in std_logic_vector(g_NUM_LANES-1 downto 0);
             rx_data_i_n : in std_logic_vector(g_NUM_LANES-1 downto 0);
             trig_tag_i : in std_logic_vector(63 downto 0);
+            rx_polarity_i : in std_logic_vector(g_NUM_LANES-1 downto 0);        -- ADDED BY ANATOLIY
+            rx_active_lanes_i   : in std_logic_vector(g_NUM_LANES-1 downto 0);  -- ADDED BY ANATOLIY
         
             -- Output
             rx_data_o : out std_logic_vector(63 downto 0);
@@ -77,7 +79,7 @@ architecture Behavioral of sim_aurora_channel is
     signal clk_rx_i : std_logic := '0';
     signal clk_serdes_i : std_logic := '0';
     signal clk_ddr_i : std_logic := '0';
-    signal enable_i : std_logic := '0';
+    signal enable_i : std_logic := '1';
     signal rx_data_i_p : std_logic := '0';
     signal rx_data_i_n : std_logic := '0';
     signal trig_tag_i : std_logic_vector(63 downto 0) := (others => '0');
@@ -166,7 +168,8 @@ begin
         rx_data_o => rx_data_o,
         rx_valid_o => rx_valid_o,
         rx_stat_o => rx_stat_o,
-        rx_polarity_i => (others => '0') -- ADDED BY ANATOLIY
+        rx_polarity_i => (others => '0'), -- ADDED BY ANATOLIY
+        rx_active_lanes_i => (others => '1') -- ADDED Y ANATOLIY
         );
         
     piso_proc: process(clk_rx_i, clk_ddr_i, rst2_n_i)

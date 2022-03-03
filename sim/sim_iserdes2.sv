@@ -3,7 +3,7 @@
 module sim_iserdes2();
 
 	localparam CLK_PERIOD = 5ns;
-	localparam WIDTH = 4;
+	localparam WIDTH = 8;
 	
 	logic clk, clk_2, clk_div, rst;
 	logic input1, input2;
@@ -84,7 +84,6 @@ module sim_iserdes2();
 		.SHIFTOUT2		()
 	);
 	
-	
 	logic [WIDTH-1:0] input_word;
 	task write_word (input logic [WIDTH-1:0] word);
         begin
@@ -94,47 +93,33 @@ module sim_iserdes2();
 			input_word = word;
         end
     endtask  
-	
-	
-	logic align;
-	logic rotate;
-	
+
+	int i = 1;
 	initial begin
 		input1 = '0; input2 = '0; rst = 1;
 		#10ns rst = 0;
 		
-		write_word('ha);
-		write_word('ha);
-		write_word('ha);
+		write_word('haa);
+		write_word('haa);
+		write_word('haa);
 		
-		while (align != 1) begin
+		while (out != 'h1) begin
 			write_word('h1);
 		end
-		
-		write_word('h1);
-		write_word('h1);
-		write_word('h1);
-		write_word('h8);
-		write_word('h4);
-		write_word('h2);
-		write_word('h1);
-		
-		while (rotate != 1) begin
-			write_word('h1);
+
+		repeat(200) begin
+			write_word(i);
+			i++;
+			$display("out = %h, time = %t",out, $time);
 		end
+
+		$stop;
 		
-		write_word('h1);
-		write_word('h1);
-		write_word('h1);
-		write_word('h8);
-		write_word('h4);
-		write_word('h2);
-		write_word('h1);
 	end
 	
 	
 	initial begin
-		bitslip = '0; align = 0; rotate = 0;
+		bitslip = '0;
 		
 		#100ns;
 		
@@ -149,95 +134,18 @@ module sim_iserdes2();
 				@(negedge clk_div); bitslip = 0;
 			end
 		end
-		
-		align = 1;
-		
-		wait(out == 'h2); $display($time);
-		wait(comb_out == 0);
-		wait(comb_out == 1);
-		wait(comb_out == 0);
-		@(negedge clk_div); bitslip = 1; $display($time);
-		@(negedge clk_div); bitslip = 0; $display($time);
-		
-		#10ns;
-		
-		while(out != 'h1) begin
-			wait(comb_out == 0);
-			wait(comb_out == 1);
-			wait(comb_out == 0);
-			wait(comb_out == 1);
-			wait(comb_out == 0);
+
+		// bit slip
+		wait(i == 10);
+
+		repeat(8) begin
+			repeat(2) @(posedge clk_2)
 			if (out != 'h1) begin
-				@(negedge clk_div); bitslip = 1; $display($time);
-				@(negedge clk_div); bitslip = 0; $display($time);
+				@(negedge clk_div); bitslip = 1;
+				@(negedge clk_div); bitslip = 0;
 			end
 		end
 		
-		rotate = 1;
 	end
-	
-
-	/*
-	// the rest
-	initial begin
-		input1 = '0; input2 = '0; rst = 1;
-		#10ns rst = 0;
-		
-		write_word(8'haa);
-		write_word(8'haa);
-		write_word(8'haa);
-		write_word(8'haa);
-		write_word(8'haa);
-
-		while (1) write_word(8'h01);
-	end
-	
-	initial begin
-		bitslip = '0;
-		wait (out == 'h08);
-		wait(comb_out == 0);
-		wait(comb_out == 1);
-		wait(comb_out == 0);
-		bitslip <= 1; @(negedge clk_div);
-		bitslip <= 0; @(negedge clk_div);
-		
-		wait(comb_out == 0);
-		wait(comb_out == 1);
-		wait(comb_out == 0);
-		wait(comb_out == 0);
-		wait(comb_out == 1);
-		wait(comb_out == 0);
-		bitslip <= 1; @(negedge clk_div);
-		bitslip <= 0; @(negedge clk_div);
-		
-		wait(comb_out == 0);
-		wait(comb_out == 1);
-		wait(comb_out == 0);
-		wait(comb_out == 0);
-		wait(comb_out == 1);
-		wait(comb_out == 0);
-		bitslip <= 1; @(negedge clk_div);
-		bitslip <= 0; @(negedge clk_div);
-		
-		wait(comb_out == 0);
-		wait(comb_out == 1);
-		wait(comb_out == 0);
-		wait(comb_out == 0);
-		wait(comb_out == 1);
-		wait(comb_out == 0);
-		bitslip <= 1; @(negedge clk_div);
-		bitslip <= 0; @(negedge clk_div);
-		
-		wait(comb_out == 0);
-		wait(comb_out == 1);
-		wait(comb_out == 0);
-		wait(comb_out == 0);
-		wait(comb_out == 1);
-		wait(comb_out == 0);
-		bitslip <= 1; @(negedge clk_div);
-		bitslip <= 0; @(negedge clk_div);
-		
-	end
-	*/
 	
 endmodule

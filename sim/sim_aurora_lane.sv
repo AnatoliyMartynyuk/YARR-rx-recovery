@@ -24,6 +24,7 @@ module sim_aurora_lane();
     logic [65:0] tx_data, tx_data_s, tx_data_t;
     logic [31:0] tx_counter, cnt;
     logic tx_data_valid;
+    logic [65:0] test;
 
     // ----------------------------------------------------------------------
     //                          CLOCK GENERATION
@@ -101,7 +102,7 @@ module sim_aurora_lane();
         // reset all values (fills SR with all 1s)
         if (~rst2_n_i) begin
             tx_data         <= '1;  // all 1s
-            tx_counter      <= 'd1; // all 0s except for lsb = 1
+            tx_counter      <= 'd0; // all 0s except for lsb = 1
             cnt             <= '0;  // all 0s
             tx_data_t       <= '0;  // all 0s
             tx_data_valid   <= '0;  // 0
@@ -117,6 +118,7 @@ module sim_aurora_lane();
             if (tx_counter == 'd64) begin
                 if (cnt % 64 == '0) tx_data <= {2'b01, cnt, cnt};
                 else                tx_data <= {2'b10, cnt, cnt};
+                //tx_data <= test;
 
                 // set the dv and incrememnt cnt 
                 tx_data_valid <= '1;
@@ -134,7 +136,24 @@ module sim_aurora_lane();
     // ----------------------------------------------------------------------
 
     // ----------------------------------------------------------------------
-    //              
+    //                          Testing Sequence
+
+    integer i;
+    initial begin
+        repeat(32) wait(rx_valid);
+
+        for (i = 60; i < 65; i++) begin
+            $display("Normalizing with offset 0 at time %t", $realtime);
+            wait(tx_counter == 0);
+
+            $display("Offset by %2d at time %t", i, $realtime);
+            force tx_counter = i; @(posedge clk_ddr_i);
+            release tx_counter; 
+            repeat(64) begin wait(rx_valid); wait(~rx_valid); end
+        end
+
+        $stop;
+    end
     // ----------------------------------------------------------------------
 
     // ----------------------------------------------------------------------
@@ -148,7 +167,6 @@ module sim_aurora_lane();
 
 
 
-
     // monitors disruptions in lane output data
     initial begin
         $timeformat(-9, 2, "ns");
@@ -158,8 +176,8 @@ module sim_aurora_lane();
             wait(rx_valid == 1);
             //if ($realtime - time_1 > 45ns) $display("large rx_valid delay detected at %t. Duration: %t", $realtime, $realtime - time_1); 
             if ($realtime - time_1 > 96ns) begin
-                $display("rx_valid went low at time: %t. Duration: %t", time_1, $realtime - time_1); 
-                $display("Saw %d serdes slips and %d gearbox slips", serdes_slip_cntr, gbox_slip_cntr);
+                $display("rx_valid low at time: %t. Duration: %t", time_1, $realtime - time_1); 
+                $display("Serdes slips: %3d Gearbox slip: %2d", serdes_slip_cntr, gbox_slip_cntr);
             end
         end
     end

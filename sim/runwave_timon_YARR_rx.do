@@ -15,7 +15,6 @@ vcom -work work ../src_timon/tef1001_R2_type.vhd
 vcom -work work ../src_timon/board_pkg.vhd
 
 #YARR_rx Modules
-vcom -work work ../src_timon/aurora_rx_channel.vhd
 vcom -work work ../src_timon/cdr_serdes.vhd
 vlog -work work ../src_timon/descrambler.v
 vlog -work work ../src_timon/scrambler.v

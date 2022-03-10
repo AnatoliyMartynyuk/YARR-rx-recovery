@@ -75,7 +75,7 @@ port 	(
 	datain_p		:  in std_logic_vector(D-1 downto 0) ;		-- Input from LVDS receiver pin
 	datain_n		:  in std_logic_vector(D-1 downto 0) ;		-- Input from LVDS receiver pin
 	enable_phase_detector	:  in std_logic ;				-- Enables the phase detector logic when high
-	enable_monitor	:  in std_logic ;				-- Enables the monitor logic when high, note time-shared with phase detector function
+	enable_monitor		:  in std_logic ;				-- Enables the monitor logic when high, note time-shared with phase detector function
 	reset			:  in std_logic ;				-- Reset line
 	bitslip			:  in std_logic ;				-- bitslip 
 	idelay_rdy		:  in std_logic ;				-- input delays are ready
@@ -83,12 +83,12 @@ port 	(
 	system_clk		:  in std_logic ;				-- Global/Regional clock output
 	rx_lckd			: out std_logic ;				-- 
 	rx_data			: out std_logic_vector((S*D)-1 downto 0) ;  	-- Output data
-	bit_rate_value	:  in std_logic_vector(15 downto 0) ;	 	-- Bit rate in Mbps, eg X"0585
+	bit_rate_value		:  in std_logic_vector(15 downto 0) ;	 	-- Bit rate in Mbps, eg X"0585
 	dcd_correct		:  in std_logic ;	 			-- '0' = square, '1' = assume 10% DCD
-	bit_time_value	: out std_logic_vector(4 downto 0) ;		-- Calculated bit time value for slave devices
+	bit_time_value		: out std_logic_vector(4 downto 0) ;		-- Calculated bit time value for slave devices
 	debug			: out std_logic_vector(10*D+18 downto 0) ;  	-- Debug bus
 	eye_info		: out std_logic_vector(32*D-1 downto 0) ;  	-- Eye info
-	m_delay_1hot	: out std_logic_vector(32*D-1 downto 0) ;  	-- Master delay control value as a one-hot vector
+	m_delay_1hot		: out std_logic_vector(32*D-1 downto 0) ;  	-- Master delay control value as a one-hot vector
 	clock_sweep		: out std_logic_vector(31 downto 0)) ;  	-- clock Eye info
 		
 end serdes_1_to_468_idelay_ddr ;
@@ -101,17 +101,17 @@ port 	(
 	m_datain		:  in std_logic_vector(S-1 downto 0) ;		-- Inputs from master serdes
 	s_datain		:  in std_logic_vector(S-1 downto 0) ;		-- Inputs from slave serdes
 	enable_phase_detector	:  in std_logic ;				-- Enables the phase detector logic when high
-	enable_monitor	:  in std_logic ;				-- Enables the eye monitoring logic when high
+	enable_monitor		:  in std_logic ;				-- Enables the eye monitoring logic when high
 	reset			:  in std_logic ;				-- Reset line synchronous to clk
-	clk				:  in std_logic ;				-- Global/Regional clock 
+	clk			:  in std_logic ;				-- Global/Regional clock 
 	c_delay_in		:  in std_logic_vector(4 downto 0) ;  		-- delay value found on clock line
 	m_delay_out		: out std_logic_vector(4 downto 0) ;  		-- Master delay control value
 	s_delay_out		: out std_logic_vector(4 downto 0) ;  		-- Master delay control value
 	data_out		: out std_logic_vector(S-1 downto 0) ;  	-- Output data
 	results			: out std_logic_vector(31 downto 0) ;  		-- eye monitor result data
-	m_delay_1hot	: out std_logic_vector(31 downto 0) ;  		-- Master delay control value as a one-hot vector
+	m_delay_1hot		: out std_logic_vector(31 downto 0) ;  		-- Master delay control value as a one-hot vector
 	debug 			: out std_logic_vector(1 downto 0) ;		-- debug data
-	del_mech		:  in std_logic ;							-- changes delay mechanism slightly at higher bit rates
+	del_mech		:  in std_logic ;				-- changes delay mechanism slightly at higher bit rates
 	bt_val			:  in std_logic_vector(4 downto 0)) ;		-- Calculated bit time value for slave devices
 end component ;
 
@@ -119,14 +119,14 @@ signal	m_delay_val_in		: std_logic_vector(5*D-1 downto 0) ;
 signal	s_delay_val_in		: std_logic_vector(5*D-1 downto 0) ;
 signal	m_delay_val_out		: std_logic_vector(5*D-1 downto 0) ;
 signal	s_delay_val_out		: std_logic_vector(5*D-1 downto 0) ;
-signal	cdataout			: std_logic_vector(3 downto 0) ;
-signal	bsstate				: std_logic_vector(1 downto 0) ;
-signal	bcount				: std_logic_vector(3 downto 0) ;
+signal	cdataout		: std_logic_vector(3 downto 0) ;
+signal	bsstate			: std_logic_vector(1 downto 0) ;
+signal	bcount			: std_logic_vector(3 downto 0) ;
 signal	clk_iserdes_data_d	: std_logic_vector(3 downto 0) ;
-signal	enable				: std_logic ;
-signal	flag1				: std_logic ;
+signal	enable			: std_logic ;
+signal	flag1			: std_logic ;
 signal	state2_count		: std_logic_vector(4 downto 0) := "00000" ;
-signal	rx_lckd_int			: std_logic ;
+signal	rx_lckd_int		: std_logic ;
 signal	rx_lckd_intd4		: std_logic ;
 signal	not_rx_lckd_intd4	: std_logic ;
 signal	rx_data_in_p		: std_logic_vector(D-1 downto 0) ;			
@@ -135,31 +135,31 @@ signal	rx_data_in_m		: std_logic_vector(D-1 downto 0) ;
 signal	rx_data_in_s		: std_logic_vector(D-1 downto 0) ;		
 signal	rx_data_in_md		: std_logic_vector(D-1 downto 0) ;			
 signal	rx_data_in_sd		: std_logic_vector(D-1 downto 0) ;
-signal	mdataout			: std_logic_vector(S*D-1 downto 0) ;			
-signal	mdataoutd			: std_logic_vector(S*D-1 downto 0) ;			
-signal	sdataout			: std_logic_vector(S*D-1 downto 0) ;			
-signal	s_serdes			: std_logic_vector(8*D-1 downto 0) ;			
-signal	m_serdes			: std_logic_vector(8*D-1 downto 0) ;			
+signal	mdataout		: std_logic_vector(S*D-1 downto 0) ;			
+signal	mdataoutd		: std_logic_vector(S*D-1 downto 0) ;			
+signal	sdataout		: std_logic_vector(S*D-1 downto 0) ;			
+signal	s_serdes		: std_logic_vector(8*D-1 downto 0) ;			
+signal	m_serdes		: std_logic_vector(8*D-1 downto 0) ;			
 signal	system_clk_int		: std_logic ;
 signal	data_different		: std_logic ;
-signal	bt_val				: std_logic_vector(4 downto 0) ;
-signal	su_locked			: std_logic ;
-signal	m_count				: std_logic_vector(5 downto 0) ;
+signal	bt_val			: std_logic_vector(4 downto 0) ;
+signal	su_locked		: std_logic ;
+signal	m_count			: std_logic_vector(5 downto 0) ;
 signal	c_sweep_delay		: std_logic_vector(4 downto 0) := "00000" ;
-signal	c_found_val			: std_logic_vector(4 downto 0) ;
+signal	c_found_val		: std_logic_vector(4 downto 0) ;
 signal	c_found_offset		: std_logic_vector(4 downto 0) ;
-signal	temp_shift			: std_logic_vector(31 downto 0) ;
-signal	rx_clk_in_p			: std_logic ;
+signal	temp_shift		: std_logic_vector(31 downto 0) ;
+signal	rx_clk_in_p		: std_logic ;
 signal	rx_clk_in_pc		: std_logic ;
 signal	rx_clk_in_pd		: std_logic ;
-signal	rxclk_int			: std_logic ;
-signal	rst_iserdes			: std_logic ;
-signal	not_rxclk			: std_logic ;
+signal	rxclk_int		: std_logic ;
+signal	rst_iserdes		: std_logic ;
+signal	not_rxclk		: std_logic ;
 signal	clock_sweep_int		: std_logic_vector(31 downto 0) ;
-signal	zflag				: std_logic ;
-signal	del_mech			: std_logic ;
-signal	bt_val_d2			: std_logic_vector(4 downto 0) ;
-signal	del_debug			: std_logic_vector(2*D-1 downto 0) ;
+signal	zflag			: std_logic ;
+signal	del_mech		: std_logic ;
+signal	bt_val_d2		: std_logic_vector(4 downto 0) ;
+signal	del_debug		: std_logic_vector(2*D-1 downto 0) ;
 signal	initial_delay		: std_logic_vector(4 downto 0) ;
 
 constant RX_SWAP_MASK 	: std_logic_vector(D-1 downto 0) := (others => '0') ;	-- pinswap mask for input data bits (0 = no swap (default), 1 = swap). Allows inputs to be connected the wrong way round to ease PCB routing.

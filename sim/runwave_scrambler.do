@@ -3,7 +3,7 @@ vlib work
 
 #YARR_rx Modules
 
-vlog -work work ../src_timon/scrambler.v
+vlog -work work ../src/scrambler.v
 
 # YARR_rx sim Modules
 vlog -work work ./sim_scrambler.sv

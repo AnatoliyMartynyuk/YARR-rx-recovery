@@ -44,8 +44,6 @@ module descrambler #
     
 //*********************************Main Body of Code***************************
 
-    // MODIFIED BY ANAOTLIY TO SKIP DESCRAMBLER
-    /*
     always @(descrambler,data_scram)
     begin
         poly = descrambler;
@@ -54,17 +52,6 @@ module descrambler #
             xorBit = data_scram[i] ^ poly[38] ^ poly[57];
             poly = {poly[((RX_DATA_WIDTH*2)-8):0],data_scram[i]};
             tempData[i] = xorBit;
-        end
-    end
-    */
-    always @(descrambler,data_scram)
-    begin
-        poly = descrambler;
-        for (i=0;i<=(RX_DATA_WIDTH-1);i=i+1)
-        begin
-            xorBit = data_scram[i] ^ poly[38] ^ poly[57];
-            poly = {poly[((RX_DATA_WIDTH*2)-8):0],data_scram[i]};
-            tempData[i] = data_scram[i];
         end
     end
 

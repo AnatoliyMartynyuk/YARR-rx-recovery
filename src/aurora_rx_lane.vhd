@@ -343,12 +343,12 @@ begin
         serdes_8to32_proc : process(clk_rx_i, rst_n_i)
         begin
             if (rst_n_i = '0') then
-                serdes_data32       <= (others => '0');
+                serdes_data32 <= (others => '0');
                 serdes_data32_shift <= (others => '0');
                 serdes_data32_valid <= '0';
-                serdes_cnt          <= (others => '0');
-                serdes8_cnt         <= (others => '0');
-                serdes_data8_d      <= (others => '0');
+                serdes_cnt <= (others => '0');
+                serdes8_cnt <= (others => '0');
+                serdes_data8_d <= (others => '0');
             elsif rising_edge(clk_rx_i) then
                 serdes8_cnt <= serdes8_cnt + 1;
                 serdes_data32_valid <= '0';
@@ -374,14 +374,14 @@ begin
         c_SLIP_SERDES_MAX <= to_unsigned(1, 8);
         c_SERDES8_CYCLE <= to_unsigned(0, 4);
         
-        --        data_in : IBUFDS_DIFF_OUT generic map(
-        --            IBUF_LOW_PWR		=> FALSE)
-        --        port map (                      
-        --            I         		=> rx_data_i_p,
-        --            IB         		=> rx_data_i_n,
-        --            O    			=> datain_p,
-        --            OB               => datain_n
-        --        );
+--        data_in : IBUFDS_DIFF_OUT generic map(
+--            IBUF_LOW_PWR		=> FALSE)
+--        port map (                      
+--            I         		=> rx_data_i_p,
+--            IB         		=> rx_data_i_n,
+--            O    			=> datain_p,
+--            OB               => datain_n
+--        );
 
         datain_p <= rx_data_i_p;
         datain_n <= rx_data_i_n;
@@ -415,9 +415,9 @@ begin
                 if (serdes_data2_valid = "01") then
                     serdes_data32_shift <= serdes_data32_shift(31 downto 0) & serdes_data2(0);
                     serdes_cnt <= serdes_cnt + 1;
-        --                elsif (serdes_data2_valid = "10") then
-        --                    serdes_data32_shift <= serdes_data32_shift(31 downto 0) & serdes_data2(1);
-        --                    serdes_cnt <= serdes_cnt + 1;
+--                elsif (serdes_data2_valid = "10") then
+--                    serdes_data32_shift <= serdes_data32_shift(31 downto 0) & serdes_data2(1);
+--                    serdes_cnt <= serdes_cnt + 1;
                 elsif (serdes_data2_valid = "11") then
                     serdes_data32_shift <= serdes_data32_shift(30 downto 0) & serdes_data2(0) & serdes_data2(1);
                     serdes_cnt <= serdes_cnt + 2;

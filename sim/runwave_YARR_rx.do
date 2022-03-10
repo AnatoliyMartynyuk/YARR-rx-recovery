@@ -15,7 +15,6 @@ vcom -work work ../src/tef1001_R2_type.vhd
 vcom -work work ../src/board_pkg.vhd
 
 #YARR_rx Modules
-vcom -work work ../src/aurora_rx_channel.vhd
 vcom -work work ../src/cdr_serdes.vhd
 vlog -work work ../src/descrambler.v
 vlog -work work ../src/scrambler.v
@@ -25,8 +24,9 @@ vcom -work work ../src/aurora_ch_bond.vhd
 vcom -work work ../src/rr_arbiter.vhd
 
 
+
 # YARR_rx sim Modules
-vcom -work work sim_aurora_channel.vhd
+vcom -work work ../src/sim_aurora_channel.vhd
 
 vsim -t 1fs -novopt sim_aurora_channel -L unisim -L secureip -L unifast -L unimacro
 

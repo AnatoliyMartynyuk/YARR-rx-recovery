@@ -21,8 +21,6 @@ module scrambler #
     reg [0:(TX_DATA_WIDTH-1)] tempData = {TX_DATA_WIDTH{1'b0}};
     reg xorBit;
 
-    // MODIFIED BY ANAOTLIY TO SKIP SCRAMBLER
-    /*
     always @(scrambler,data_in)
     begin
         poly = scrambler;
@@ -31,17 +29,6 @@ module scrambler #
             xorBit = data_in[i] ^ poly[38] ^ poly[57];
             poly = {poly[((TX_DATA_WIDTH*2)-8):0],xorBit};
             tempData[i] = xorBit;
-        end
-    end
-    */
-    always @(scrambler,data_in)
-    begin
-        poly = scrambler;
-        for (i=0;i<=(TX_DATA_WIDTH-1);i=i+1)
-        begin
-            xorBit = data_in[i] ^ poly[38] ^ poly[57];
-            poly = {poly[((TX_DATA_WIDTH*2)-8):0],xorBit};
-            tempData[i] = data_in[i];
         end
     end
 

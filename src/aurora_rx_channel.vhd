@@ -48,9 +48,9 @@ entity aurora_rx_channel is
         rx_active_lanes_i   : in std_logic_vector(g_NUM_LANES-1 downto 0);
 
         -- Output
-        rx_data_o   : out std_logic_vector(63 downto 0);
-        rx_valid_o  : out std_logic;
-        rx_stat_o   : out std_logic_vector(7 downto 0)
+        rx_data_o  : out std_logic_vector(63 downto 0);
+        rx_valid_o : out std_logic;
+        rx_stat_o  : out std_logic_vector(7 downto 0)
     );
 end aurora_rx_channel;
 
@@ -74,20 +74,20 @@ architecture behavioral of aurora_rx_channel is
     component aurora_rx_lane
         port (
         -- Sys connect
-        rst_n_i : in std_logic;
-        clk_rx_i : in std_logic;
+        rst_n_i      : in std_logic;
+        clk_rx_i     : in std_logic;
         clk_serdes_i : in std_logic;
 
         -- Input
-        rx_data_i_p : in std_logic;
-        rx_data_i_n : in std_logic;
+        rx_data_i_p   : in std_logic;
+        rx_data_i_n   : in std_logic;
         rx_polarity_i : in std_logic;
 
         -- Output
-        rx_data_o : out std_logic_vector(63 downto 0);
+        rx_data_o   : out std_logic_vector(63 downto 0);
         rx_header_o : out std_logic_vector(1 downto 0);
-        rx_valid_o : out std_logic;
-        rx_stat_o : out std_logic_vector(7 downto 0)
+        rx_valid_o  : out std_logic;
+        rx_stat_o   : out std_logic_vector(7 downto 0)
     );
     end component aurora_rx_lane;
     
@@ -108,15 +108,15 @@ architecture behavioral of aurora_rx_channel is
     
     COMPONENT rx_lane_fifo
         PORT (
-            rst : IN STD_LOGIC;
+            rst    : IN STD_LOGIC;
             wr_clk : IN STD_LOGIC;
             rd_clk : IN STD_LOGIC;
-            din : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
-            wr_en : IN STD_LOGIC;
-            rd_en : IN STD_LOGIC;
-            dout : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
-            full : OUT STD_LOGIC;
-            empty : OUT STD_LOGIC
+            din    : IN STD_LOGIC_VECTOR(63 DOWNTO 0);
+            wr_en  : IN STD_LOGIC;
+            rd_en  : IN STD_LOGIC;
+            dout   : OUT STD_LOGIC_VECTOR(63 DOWNTO 0);
+            full   : OUT STD_LOGIC;
+            empty  : OUT STD_LOGIC
         );
     END COMPONENT;
 
@@ -126,63 +126,60 @@ architecture behavioral of aurora_rx_channel is
         );
         port (
             -- Sys connect
-            rst_n_i : in std_logic;
+            rst_n_i  : in std_logic;
             clk_rx_i : in std_logic;
 
             -- Config
             active_lanes_i : in std_logic_vector(g_NUM_LANES-1 downto 0);
 
             -- Input
-            rx_data_i : in rx_data_array(g_NUM_LANES-1 downto 0);
+            rx_data_i   : in rx_data_array(g_NUM_LANES-1 downto 0);
             rx_header_i : in rx_header_array(g_NUM_LANES-1 downto 0);
-            rx_valid_i : in std_logic_vector(g_NUM_LANES-1 downto 0);
+            rx_valid_i  : in std_logic_vector(g_NUM_LANES-1 downto 0);
 
             -- Output
-            rx_data_o : out rx_data_array(g_NUM_LANES-1 downto 0);
+            rx_data_o   : out rx_data_array(g_NUM_LANES-1 downto 0);
             rx_header_o : out rx_header_array(g_NUM_LANES-1 downto 0);
-            rx_valid_o : out std_logic_vector(g_NUM_LANES-1 downto 0);
-            rx_bond_o : out std_logic
+            rx_valid_o  : out std_logic_vector(g_NUM_LANES-1 downto 0);
+            rx_bond_o   : out std_logic
         );
     end component aurora_ch_bond;
     
-    signal rx_data_s : std_logic_vector(63 downto 0);
+    signal rx_data_s  : std_logic_vector(63 downto 0);
     signal rx_valid_s : std_logic;
 
-    signal rx_data              : rx_data_array(g_NUM_LANES-1 downto 0);
-    signal rx_data_unbonded     : rx_data_array(g_NUM_LANES-1 downto 0);
-    signal rx_header            : rx_header_array(g_NUM_LANES-1 downto 0);
-    signal rx_header_unbonded   : rx_header_array(g_NUM_LANES-1 downto 0);
-    signal rx_status            : rx_status_array(g_NUM_LANES-1 downto 0);
-    signal rx_polarity          : std_logic_vector(g_NUM_LANES-1 downto 0);
-    signal rx_data_valid        : std_logic_vector(g_NUM_LANES-1 downto 0);
-    signal rx_data_valid_unbonded : std_logic_vector(g_NUM_LANES-1 downto 0);
-    signal rx_bond_flag         : std_logic;
-    signal rx_lanes_ready       : std_logic;
-    signal rx_stat              : std_logic_vector(7 downto 0);
+    signal rx_data                  : rx_data_array(g_NUM_LANES-1 downto 0);
+    signal rx_data_unbonded         : rx_data_array(g_NUM_LANES-1 downto 0);
+    signal rx_header                : rx_header_array(g_NUM_LANES-1 downto 0);
+    signal rx_header_unbonded       : rx_header_array(g_NUM_LANES-1 downto 0);
+    signal rx_status                : rx_status_array(g_NUM_LANES-1 downto 0);
+    signal rx_polarity              : std_logic_vector(g_NUM_LANES-1 downto 0);
+    signal rx_data_valid            : std_logic_vector(g_NUM_LANES-1 downto 0);
+    signal rx_data_valid_unbonded   : std_logic_vector(g_NUM_LANES-1 downto 0);
+    signal rx_bond_flag             : std_logic;
+    signal rx_lanes_ready           : std_logic;
+    signal rx_stat                  : std_logic_vector(7 downto 0);
     
-    signal rx_fifo_dout         : rx_data_array(g_NUM_LANES-1 downto 0);
-    signal rx_fifo_buf          : rx_data_array(g_NUM_LANES-1 downto 0);
-    signal rx_fifo_din          : rx_data_array(g_NUM_LANES-1 downto 0);
-    signal rx_fifo_full         : std_logic_vector(g_NUM_LANES-1 downto 0);
-    signal rx_fifo_empty        : std_logic_vector(g_NUM_LANES-1 downto 0);
-    signal rx_fifo_buf_empty    : std_logic_vector(g_NUM_LANES-1 downto 0);
-    signal rx_fifo_empty_ungated : std_logic_vector(g_NUM_LANES-1 downto 0);
-    signal rx_fifo_ignore_n     : std_logic_vector(g_NUM_LANES-1 downto 0);
-    signal rx_fifo_autoreg      : std_logic_vector(g_NUM_LANES-1 downto 0);
-    signal rx_fifo_empty_gate   : std_logic;
-    signal rx_fifo_buf_rden     : std_logic_vector(g_NUM_LANES-1 downto 0);
-    signal rx_fifo_rden         : std_logic_vector(g_NUM_LANES-1 downto 0);
-    signal rx_fifo_rden_t       : std_logic_vector(g_NUM_LANES-1 downto 0);
-    signal rx_fifo_wren         : std_logic_vector(g_NUM_LANES-1 downto 0);
-
-    signal rst_i : std_logic;                                   -- ADDED BY ANATOLIY
-    signal req_i : std_logic_vector(g_NUM_LANES-1 downto 0);    -- ADDED BY ANATOLIY
+    signal rx_fifo_dout             : rx_data_array(g_NUM_LANES-1 downto 0);
+    signal rx_fifo_buf              : rx_data_array(g_NUM_LANES-1 downto 0);
+    signal rx_fifo_din              : rx_data_array(g_NUM_LANES-1 downto 0);
+    signal rx_fifo_full             : std_logic_vector(g_NUM_LANES-1 downto 0);
+    signal rx_fifo_empty            : std_logic_vector(g_NUM_LANES-1 downto 0);
+    signal rx_fifo_buf_empty        : std_logic_vector(g_NUM_LANES-1 downto 0);
+    signal rx_fifo_empty_ungated    : std_logic_vector(g_NUM_LANES-1 downto 0);
+    signal rx_fifo_ignore_n         : std_logic_vector(g_NUM_LANES-1 downto 0);
+    signal rx_fifo_autoreg          : std_logic_vector(g_NUM_LANES-1 downto 0);
+    signal rx_fifo_empty_gate       : std_logic;
+    signal rx_fifo_buf_rden         : std_logic_vector(g_NUM_LANES-1 downto 0);
+    signal rx_fifo_rden             : std_logic_vector(g_NUM_LANES-1 downto 0);
+    signal rx_fifo_rden_t           : std_logic_vector(g_NUM_LANES-1 downto 0);
+    signal rx_fifo_wren             : std_logic_vector(g_NUM_LANES-1 downto 0);
     
     signal channel : integer range 0 to g_NUM_LANES-1;
     
     COMPONENT ila_aurora
     PORT (
-        clk : IN STD_LOGIC;
+        clk    : IN STD_LOGIC;
         probe0 : IN STD_LOGIC_VECTOR(3 DOWNTO 0); 
         probe1 : IN STD_LOGIC_VECTOR(3 DOWNTO 0); 
         probe2 : IN STD_LOGIC_VECTOR(3 DOWNTO 0); 
@@ -200,14 +197,12 @@ begin
     rx_valid_o <= rx_valid_s;
 	
 	-- Arbiter
-    rst_i <= not rst_n_i;       -- ADDED BY ANATOLIY
-    req_i <= not rx_fifo_empty; -- ADDED BY ANATOLIY
-	cmp_rr_arbiter : rr_arbiter port map (
-		clk_i => clk_rx_i,
-		rst_i => rst_i,
-		req_i => req_i,
-		gnt_o => rx_fifo_rden
-	);
+	--cmp_rr_arbiter : rr_arbiter port map (
+	--	clk_i => clk_rx_i,
+	--	rst_i => not rst_n_i,
+	--	req_i => not rx_fifo_empty,
+	--	gnt_o => rx_fifo_rden
+	--);
 
     rd_proc : process(clk_rx_i, rst_n_i)
     begin
@@ -221,11 +216,13 @@ begin
             elsif (rx_fifo_empty_ungated /= c_ALL_ONES) then
                 rx_fifo_rden_t(0) <= '1';
             end if;
+
         end if;
     end process rd_proc;
 
     rx_fifo_rden <= rx_fifo_rden_t;
 	
+    -- determines the output to be the data recieved through the system or a default value
 	reg_proc : process(clk_rx_i, rst_n_i)
     begin
         if (rst_n_i = '0') then
@@ -249,16 +246,16 @@ begin
     end process reg_proc;
 
     bond_cmp : aurora_ch_bond port map (
-        rst_n_i => rst_n_i,
-        clk_rx_i => clk_rx_i,
-        active_lanes_i => rx_active_lanes_i(g_NUM_LANES-1 downto 0),
-        rx_data_i => rx_data_unbonded,
-        rx_header_i => rx_header_unbonded,
-        rx_valid_i => rx_data_valid_unbonded,
-        rx_data_o => rx_data,
-        rx_header_o => rx_header,
-        rx_valid_o => rx_data_valid,
-        rx_bond_o => rx_bond_flag
+        rst_n_i         => rst_n_i,
+        clk_rx_i        => clk_rx_i,
+        active_lanes_i  => rx_active_lanes_i(g_NUM_LANES-1 downto 0),
+        rx_data_i       => rx_data_unbonded,
+        rx_header_i     => rx_header_unbonded,
+        rx_valid_i      => rx_data_valid_unbonded,
+        rx_data_o       => rx_data,
+        rx_header_o     => rx_header,
+        rx_valid_o      => rx_data_valid,
+        rx_bond_o       => rx_bond_flag
     );
 	
     bond_proc : process(clk_rx_i, rst_n_i)
@@ -280,18 +277,18 @@ begin
 
     lane_loop: for I in 0 to g_NUM_LANES-1 generate
         lane_cmp : aurora_rx_lane port map (
-            rst_n_i => rst_n_i,
-            clk_rx_i => clk_rx_i,
-            clk_serdes_i => clk_serdes_i,
-            rx_data_i_p => rx_data_i_p(I),
-            rx_data_i_n => rx_data_i_n(I),
+            rst_n_i       => rst_n_i,
+            clk_rx_i      => clk_rx_i,
+            clk_serdes_i  => clk_serdes_i,
+            rx_data_i_p   => rx_data_i_p(I),
+            rx_data_i_n   => rx_data_i_n(I),
             rx_polarity_i => rx_polarity(I),
-            rx_data_o => rx_data_unbonded(I),
-            rx_header_o => rx_header_unbonded(I),
-            rx_valid_o => rx_data_valid_unbonded(I),
-            rx_stat_o => rx_status(I)
+            rx_data_o     => rx_data_unbonded(I),
+            rx_header_o   => rx_header_unbonded(I),
+            rx_valid_o    => rx_data_valid_unbonded(I),
+            rx_stat_o     => rx_status(I)
         );
-        rx_stat(I) <= rx_status(I)(0);
+        rx_stat(I)   <= rx_status(I)(0);
         rx_stat(I+4) <= rx_status(I)(1);
 
         
@@ -326,18 +323,28 @@ begin
                               (rx_data(I)(63 downto 56) = x"D2" or
                               rx_data(I)(63 downto 56) = x"B4")) else '0';
 
+        
+        -- this buffer holds a single data block
+        -- written to when both wren and enable are set
+        -- emptied when rden or when enable is low or when the lanes are no longer ready
         stage1_fifo: process(clk_rx_i, rst_n_i)
         begin
+            -- on a reset empty the buffer
             if (rst_n_i = '0') then
                 rx_fifo_buf(I) <= (others=>'0');
                 rx_fifo_buf_empty(I) <= '1';
+
             elsif rising_edge(clk_rx_i) then
+                -- if wr asserted then write to the buffer
                 if ((rx_fifo_wren(I) = '1') and (enable_i = '1')) then
                     rx_fifo_buf_empty(I) <= '0';
                     rx_fifo_buf(I) <= rx_fifo_din(I);
+
+                -- otherwise if read asserted empty the buffer
                 elsif ((rx_fifo_buf_rden(I) = '1') or (enable_i = '0') or (rx_lanes_ready = '0')) then
                     rx_fifo_buf_empty(I) <= '1';
                 end if;
+
             end if;
         end process stage1_fifo;
         
@@ -347,12 +354,17 @@ begin
                 rx_fifo_dout(I) <= (others=>'0');
                 rx_fifo_empty_ungated(I) <= '1';
                 rx_fifo_buf_rden(I) <= '0';
+
             elsif rising_edge(clk_rx_i) then
                 rx_fifo_buf_rden(I) <= '0';
+
+                -- if buff not emptry, read it
                 if (rx_fifo_buf_empty(I) = '0' and rx_fifo_empty_ungated(I) = '1') then
                     rx_fifo_empty_ungated(I) <= '0';
                     rx_fifo_dout(I) <= rx_fifo_buf(I);
                     rx_fifo_buf_rden(I) <= '1';
+
+                -- reassert fifo_emptry_ungated after read 
                 elsif ((rx_fifo_rden(I) = '1') or (enable_i = '0') or (rx_lanes_ready = '0')) then
                     rx_fifo_empty_ungated(I) <= '1';
                 end if;

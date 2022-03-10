@@ -96,7 +96,158 @@ module sim_aurora_lane();
     // ----------------------------------------------------------------------
 
     // ----------------------------------------------------------------------
-    //                          Input Data Generation
+    //                         Block and SEE Generation  
+
+    // configuration variables
+    // # of blocks out of 1_000_000 we expect will have these issues
+    localparam DROP_1_THRESH = 100;
+    localparam DROP_2_THRESH = 0;
+    localparam DROP_3_THRESH = 0;
+    localparam ADDS_1_THRESH = 100;
+    localparam ADDS_2_THRESH = 0;
+    localparam ADDS_3_THRESH = 0;
+    localparam FLIP_1_THRESH = 0;
+    localparam FLIP_2_THRESH = 0;
+    localparam FLIP_3_THRESH = 0;
+
+    // represents the length of the buffer (ensures that the size is never too small)
+    logic [8:0] length_buffer;
+    logic [6:0] length_block;
+
+    // random variables to determine when bit drops/adds/flips occur
+    integer r_drop, r_adds, r_flip;
+
+    // random variables to determine were a bit drop/add/flip occurs
+    integer r_drop_bit, r_adds_bit, r_flip_bit;
+
+    // helper funciton - add a bit to a block
+    function automatic logic [68:0] addBit(input logic [68:0] unmodified, input integer length);
+                r_adds_bit = $urandom_range(length_block);
+                addBit = unmodified << 1;
+                addBit[r_adds_bit] = addBit[r_adds_bit + 1];
+                for (int i = 0; i < r_adds_bit; i++) begin
+                    addBit[i] = unmodified[i];
+                end
+    endfunction
+
+    // helper funciton - drop a bit from a block
+    function automatic logic [68:0] dropBit(input logic [68:0] unmodified, input integer length);
+                r_drop_bit = $urandom_range(length_block);
+                dropBit = unmodified >> 1;
+                for (int i = 0; i < r_adds_bit; i++) begin
+                    dropBit[i] = unmodified[i];
+                end
+    endfunction
+
+    // helper function - retreive a variable bit slice
+    function automatic logic [65:0] slice(input logic [66*3-1:0] stream_buffer, input logic [7:0] length_buffer);
+        for (int i = 0; i < 66; i++) begin
+            slice[i] = stream_buffer[i + length_buffer - 66];
+        end
+
+    endfunction
+
+    // should be able to fit three full words in here
+    logic [66*3-1:0] stream_buffer;
+    logic [65:0] untampered_block;
+    logic [68:0] tampered_block;
+
+    always_ff @(posedge(clk_ddr_i)) begin
+
+        if (~rst_n_i) begin
+            stream_buffer <= '1;
+            length_buffer <= 66;
+        end
+
+        // whenever transmition is complete shift out the old word
+        else if (tx_counter == 'd64) begin
+            length_buffer <= length_buffer - 66;
+        end
+
+        // whenever the length falls below 1 reserve words add another
+        else if (length_buffer <= 66) begin
+
+            // evaluate random numbers for SEEs
+            r_drop = $urandom_range(1_000_000);
+            r_adds = $urandom_range(1_000_000);
+            r_flip = $urandom_range(1_000_000);
+
+            // come up with an valid data word (TODO: change to random later)
+            untampered_block = (cnt % 64 == '0) ? {2'b01, cnt, cnt} : {2'b01, cnt, cnt};
+            length_block = 'd66;
+            // use seperate logic to evaluate all the changes
+            tampered_block = {3'b0, untampered_block};
+
+            // bit flipping
+            if (r_flip < FLIP_1_THRESH) begin
+                r_flip_bit = $urandom_range(length_block);
+                tampered_block[r_flip_bit] = ~tampered_block[r_flip_bit];
+                $write("F1 : ");
+            end 
+            if (r_flip < FLIP_2_THRESH) begin
+                r_flip_bit = $urandom_range(length_block);
+                tampered_block[r_flip_bit] = ~tampered_block[r_flip_bit];
+                $write("F2 : ");
+            end
+            if (r_flip < FLIP_3_THRESH) begin
+                r_flip_bit = $urandom_range(length_block);
+                tampered_block[r_flip_bit] = ~tampered_block[r_flip_bit];
+                $write("F3 : ");
+            end
+
+
+            // bit dropping
+            if (r_drop < DROP_1_THRESH) begin
+                tampered_block = dropBit(tampered_block, length_block);
+                length_block = length_block - 1;
+                $write("D1 : ");
+            end
+
+            if (r_drop < DROP_2_THRESH) begin
+                tampered_block = dropBit(tampered_block, length_block);
+                length_block = length_block - 1;
+                $write("D2 : ");
+            end
+
+            if (r_drop < DROP_3_THRESH) begin
+                tampered_block = dropBit(tampered_block, length_block);
+                length_block = length_block - 1;
+                $write("D3 : ");
+            end
+
+
+
+            // bit adding - duplicates the bit next to it to sim double sampling
+            if (r_drop < ADDS_1_THRESH) begin
+                tampered_block = addBit(tampered_block, length_block);
+                length_block = length_block + 1;
+                $write("A1 : ");
+            end
+            if (r_drop < ADDS_2_THRESH) begin
+                tampered_block = addBit(tampered_block, length_block);
+                length_block = length_block + 1;
+                $write("A2 : ");
+            end
+            if (r_drop < ADDS_3_THRESH) begin
+               tampered_block = addBit(tampered_block, length_block);
+                length_block = length_block + 1;
+                $write("A3 : ");
+            end
+
+
+            if (untampered_block != tampered_block) $write("%17h : %17h\n", untampered_block, tampered_block);
+
+            // shift tampered_block into stream_buffer
+            for (int i = length_buffer+length_block - 1; i >= 0; i--) begin
+                stream_buffer[i] <= i < length_block ? tampered_block[i] : stream_buffer[i - length_block];
+            end
+
+            length_buffer <= length_buffer + length_block;
+        end
+    end
+ 
+    // ----------------------------------------------------------------------
+    //                          Input Data Feed
 
     always_ff @(posedge(clk_ddr_i), rst2_n_i) begin
         // reset all values (fills SR with all 1s)
@@ -116,9 +267,12 @@ module sim_aurora_lane();
 
             // once most bits are sent set tx_data to the count twice with info on if it is divisible by 64
             if (tx_counter == 'd64) begin
-                if (cnt % 64 == '0) tx_data <= {2'b01, cnt, cnt};
-                else                tx_data <= {2'b10, cnt, cnt};
-                //tx_data <= test;
+                //if (cnt % 64 == '0) tx_data <= {2'b01, cnt, cnt};
+                //else                tx_data <= {2'b10, cnt, cnt};
+
+
+                //tx_data <= stream_buffer[length_buffer-1:length_buffer-66];
+                tx_data <= slice(stream_buffer, length_buffer);
 
                 // set the dv and incrememnt cnt 
                 tx_data_valid <= '1;
@@ -135,6 +289,16 @@ module sim_aurora_lane();
     end
     // ----------------------------------------------------------------------
 
+    initial begin
+        #50us;
+        wait(rx_valid);
+        #50us;
+        wait(rx_valid);
+        $stop();
+    end
+
+
+    /*
     // ----------------------------------------------------------------------
     //                          Testing Sequence
 
@@ -155,6 +319,7 @@ module sim_aurora_lane();
         $stop;
     end
     // ----------------------------------------------------------------------
+    */
 
     // ----------------------------------------------------------------------
     //                          Monitoring

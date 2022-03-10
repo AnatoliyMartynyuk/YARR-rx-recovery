@@ -100,10 +100,10 @@ module sim_aurora_lane();
 
     // configuration variables
     // # of blocks out of 1_000_000 we expect will have these issues
-    localparam DROP_1_THRESH = 100;
+    localparam DROP_1_THRESH = 10;
     localparam DROP_2_THRESH = 0;
     localparam DROP_3_THRESH = 0;
-    localparam ADDS_1_THRESH = 100;
+    localparam ADDS_1_THRESH = 10;
     localparam ADDS_2_THRESH = 0;
     localparam ADDS_3_THRESH = 0;
     localparam FLIP_1_THRESH = 0;
@@ -166,7 +166,7 @@ module sim_aurora_lane();
 
         // whenever the length falls below 1 reserve words add another
         else if (length_buffer <= 66) begin
-
+            $timeformat(-6, 2, "us");
             // evaluate random numbers for SEEs
             r_drop = $urandom_range(1_000_000);
             r_adds = $urandom_range(1_000_000);
@@ -218,24 +218,24 @@ module sim_aurora_lane();
 
 
             // bit adding - duplicates the bit next to it to sim double sampling
-            if (r_drop < ADDS_1_THRESH) begin
+            if (r_adds < ADDS_1_THRESH) begin
                 tampered_block = addBit(tampered_block, length_block);
                 length_block = length_block + 1;
                 $write("A1 : ");
             end
-            if (r_drop < ADDS_2_THRESH) begin
+            if (r_adds < ADDS_2_THRESH) begin
                 tampered_block = addBit(tampered_block, length_block);
                 length_block = length_block + 1;
                 $write("A2 : ");
             end
-            if (r_drop < ADDS_3_THRESH) begin
+            if (r_adds < ADDS_3_THRESH) begin
                tampered_block = addBit(tampered_block, length_block);
                 length_block = length_block + 1;
                 $write("A3 : ");
             end
 
 
-            if (untampered_block != tampered_block) $write("%17h : %17h\n", untampered_block, tampered_block);
+            if (untampered_block != tampered_block) $write("%17h : %17h : time = %t\n", untampered_block, tampered_block, $realtime);
 
             // shift tampered_block into stream_buffer
             for (int i = length_buffer+length_block - 1; i >= 0; i--) begin
@@ -294,7 +294,7 @@ module sim_aurora_lane();
         wait(rx_valid);
         #50us;
         wait(rx_valid);
-        $stop();
+        
     end
 
 
@@ -327,7 +327,7 @@ module sim_aurora_lane();
     realtime time_1 = 0;
     realtime time_2 = 0;
 
-    integer serdes_slip_cntr, gbox_slip_cntr;
+    integer serdes_slip_cntr, gbox_slip_cntr, block_cntr;
     logic serdes_slip_d1, gbox_slip_d1; 
 
 
@@ -342,7 +342,7 @@ module sim_aurora_lane();
             //if ($realtime - time_1 > 45ns) $display("large rx_valid delay detected at %t. Duration: %t", $realtime, $realtime - time_1); 
             if ($realtime - time_1 > 96ns) begin
                 $display("rx_valid low at time: %t. Duration: %t", time_1, $realtime - time_1); 
-                $display("Serdes slips: %3d Gearbox slip: %2d", serdes_slip_cntr, gbox_slip_cntr);
+                $display("Serdes slips: %3d Gearbox slip: %2d Total Blocks: %5d", serdes_slip_cntr, gbox_slip_cntr, block_cntr);
             end
         end
     end
@@ -352,14 +352,18 @@ module sim_aurora_lane();
         if (~rst_n_i | rx_valid) begin
             serdes_slip_cntr <= 0;
             gbox_slip_cntr   <= 0;
+            block_cntr       <= 0;
         end
 
         else begin
             serdes_slip_d1 <= u_aurora_rx_lane.serdes_slip;
-            gbox_slip_d1 <= u_aurora_rx_lane.gearbox_slip;
+            gbox_slip_d1   <= u_aurora_rx_lane.gearbox_slip;
 
             if (~serdes_slip_d1 & u_aurora_rx_lane.serdes_slip) serdes_slip_cntr <= serdes_slip_cntr + 1;
             if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip) gbox_slip_cntr <= gbox_slip_cntr + 1;
+            if (tx_counter == 'd64) block_cntr <= block_cntr + 1;
+            if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip && gbox_slip_cntr == 32) $display("33 GEARBOX SLIPS HAVE BEEN SEEN!!!");
+            if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip && gbox_slip_cntr == 65) $display("66 GEARBOX SLIPS HAVE BEEN SEEN!!!");
         end
     end
     

@@ -3,13 +3,13 @@ module sim_gearbox();
     logic clk_i, rst_i;
 
     // inputs
-    logic [31:0] data_32_i;
+    logic [31:0] data32_i;
     logic        data32_valid_i;
     logic        slip_i;
 
     // output
     logic [65:0] data66_o;
-    logic        data66_valid_o
+    logic        data66_valid_o;
 
     // additional logic
     integer one_position;
@@ -19,7 +19,7 @@ module sim_gearbox();
     // clock generation
     initial begin
         clk_i = '1;
-        forever #(RX_CLK_PERIOD/2) clk_i = ~ck_i;
+        forever #(RX_CLK_PERIOD/2) clk_i = ~clk_i;
     end
 
     // reset generation
@@ -40,14 +40,55 @@ module sim_gearbox();
         .data66_valid_o  (data66_valid_o)
     );
 
-    always_ff @(posedge(clk_i)) begin
-        if (reset) begin
-            one_position <= 0;
-            data32_i
+    // sends 66 bit words with a single bit set high in the same spot in each word
+    initial begin
+        one_position = 0;
+        slip_i = 0;
+
+        data32_i = '0;
+        data32_valid_i = '1;
+        wait(data66_valid_o == '1);
+
+
+        while(1) begin
+
+            // initialize data
+            data32_valid_i = '1;
+            data32_i = '0;
+
+            
+            // update the word if it has a one in it
+            if (one_position < 0) begin  
+                data32_i[-one_position] = '1;
+                one_position = one_position + 66;
+            end
+            
+            one_position = one_position - 32;
+            
+
+            @(posedge clk_i);
+            data32_valid_i = '0;
+            repeat(7) @(posedge clk_i);
+
+        end
+    end
+
+    initial begin
+        repeat(32) begin 
+            wait(data66_valid_o);
+            @(posedge clk_i);
         end
 
+        slip_i = '1;
+        wait(data66_o == 66'h10000000000000000);
+        slip_i = '0;
 
-        
+        repeat(32) begin 
+            wait(data66_valid_o);
+            @(posedge clk_i);
+        end
+
+        $stop();
     end
 
 endmodule

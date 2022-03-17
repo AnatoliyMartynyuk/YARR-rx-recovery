@@ -14,7 +14,8 @@ vcom -work work ../src/board_pkg.vhd
 vcom -work work ../src/gearbox32to66.vhd
 
 # YARR_rx sim Modules
-vcom -work work sim_gearbox.vhd
+#vcom -work work sim_gearbox.vhd
+vlog -work work sim_gearbox.sv
 
 vsim -t 1fs -novopt sim_gearbox -L unisim -L secureip -L unifast -L unimacro
 

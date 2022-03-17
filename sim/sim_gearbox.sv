@@ -47,7 +47,6 @@ module sim_gearbox();
 
         data32_i = '0;
         data32_valid_i = '1;
-        wait(data66_valid_o == '1);
 
 
         while(1) begin
@@ -80,7 +79,7 @@ module sim_gearbox();
         end
 
         slip_i = '1;
-        wait(data66_o == 66'h10000000000000000);
+        wait(u_gearbox32to66.data66_t == 66'h10000000000000000 && u_gearbox32to66.data66_t_valid);
         slip_i = '0;
 
         repeat(32) begin 

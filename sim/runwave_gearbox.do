@@ -11,7 +11,7 @@ vcom -work work ../src/tef1001_R2_type.vhd
 vcom -work work ../src/board_pkg.vhd
 
 #YARR_rx Modules
-vcom -work work ../src/gearbox32to66.vhd
+vcom -work work ../src/gearbox32to66_wip.vhd
 
 # YARR_rx sim Modules
 #vcom -work work sim_gearbox.vhd

@@ -93,6 +93,8 @@ module sim_aurora_lane();
         .rx_valid_o    (rx_valid     ),
         .rx_stat_o     (rx_status    ) 
     );
+
+
     // ----------------------------------------------------------------------
 
     // ----------------------------------------------------------------------
@@ -245,7 +247,7 @@ module sim_aurora_lane();
             length_buffer <= length_buffer + length_block;
         end
     end
- 
+
     // ----------------------------------------------------------------------
     //                          Input Data Feed
 
@@ -267,12 +269,12 @@ module sim_aurora_lane();
 
             // once most bits are sent set tx_data to the count twice with info on if it is divisible by 64
             if (tx_counter == 'd64) begin
-                //if (cnt % 64 == '0) tx_data <= {2'b01, cnt, cnt};
-                //else                tx_data <= {2'b10, cnt, cnt};
+                if (cnt % 64 == '0) tx_data <= {2'b01, cnt, cnt};
+                else                tx_data <= {2'b10, cnt, cnt};
 
 
                 //tx_data <= stream_buffer[length_buffer-1:length_buffer-66];
-                tx_data <= slice(stream_buffer, length_buffer);
+                //tx_data <= slice(stream_buffer, length_buffer);
 
                 // set the dv and incrememnt cnt 
                 tx_data_valid <= '1;
@@ -288,38 +290,7 @@ module sim_aurora_lane();
         end
     end
     // ----------------------------------------------------------------------
-
-    initial begin
-        #50us;
-        wait(rx_valid);
-        #50us;
-        wait(rx_valid);
-        
-    end
-
-
-    /*
-    // ----------------------------------------------------------------------
-    //                          Testing Sequence
-
-    integer i;
-    initial begin
-        repeat(32) wait(rx_valid);
-
-        for (i = 60; i < 65; i++) begin
-            $display("Normalizing with offset 0 at time %t", $realtime);
-            wait(tx_counter == 0);
-
-            $display("Offset by %2d at time %t", i, $realtime);
-            force tx_counter = i; @(posedge clk_ddr_i);
-            release tx_counter; 
-            repeat(64) begin wait(rx_valid); wait(~rx_valid); end
-        end
-
-        $stop;
-    end
-    // ----------------------------------------------------------------------
-    */
+    
 
     // ----------------------------------------------------------------------
     //                          Monitoring

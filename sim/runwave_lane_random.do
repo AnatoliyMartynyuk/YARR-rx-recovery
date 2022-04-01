@@ -26,13 +26,13 @@ vcom -work work ../src/rr_arbiter.vhd
 
 
 # YARR_rx sim Modules
-vlog -work work ./sim_aurora_lane.sv
+vlog -work work ./sim_aurora_lane_random.sv
 
 vsim -t 1fs -novopt sim_aurora_lane -L unisim -L secureip -L unifast -L unimacro
 
 view signals
 view wave
 
-do wave_lane.do
+do wave_lane_random.do
 
 run -all

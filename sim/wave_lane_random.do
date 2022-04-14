@@ -17,6 +17,7 @@ add wave -noupdate -expand -group top /sim_aurora_lane/tx_data_t
 add wave -noupdate -expand -group top /sim_aurora_lane/tx_counter
 add wave -noupdate -expand -group top /sim_aurora_lane/cnt
 add wave -noupdate -expand -group top /sim_aurora_lane/tx_data_valid
+add wave -noupdate -radix unsigned /sim_aurora_lane/u_aurora_rx_lane/sync_cnt
 add wave -noupdate -expand -group SEEs -radix unsigned /sim_aurora_lane/length_buffer
 add wave -noupdate -expand -group SEEs -radix unsigned /sim_aurora_lane/length_block
 add wave -noupdate -expand -group SEEs -radix unsigned /sim_aurora_lane/r_drop
@@ -75,7 +76,7 @@ add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/sync_cnt
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/slip_cnt
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/valid_cnt
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {1386400000 fs} 0}
+WaveRestoreCursors {{Cursor 1} {1525542400000 fs} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 100
@@ -91,4 +92,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {2041444300 ps} {2051944300 ps}
+WaveRestoreZoom {1524685400 ps} {1535185400 ps}

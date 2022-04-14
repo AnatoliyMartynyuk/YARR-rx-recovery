@@ -151,7 +151,7 @@ module sim_aurora_lane();
     initial begin
         repeat(32) wait(rx_valid);
 
-        for (i = 60; i < 65; i++) begin
+        for (i = 0; i < 15; i++) begin
             $display("Normalizing with offset 0 at time %t", $realtime);
             wait(tx_counter == 0);
 

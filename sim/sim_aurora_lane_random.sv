@@ -102,15 +102,15 @@ module sim_aurora_lane();
 
     // configuration variables
     // # of blocks out of 1_000_000 we expect will have these issues
-    localparam DROP_1_THRESH = 10;
-    localparam DROP_2_THRESH = 0;
-    localparam DROP_3_THRESH = 0;
-    localparam ADDS_1_THRESH = 10;
-    localparam ADDS_2_THRESH = 0;
-    localparam ADDS_3_THRESH = 0;
-    localparam FLIP_1_THRESH = 0;
-    localparam FLIP_2_THRESH = 0;
-    localparam FLIP_3_THRESH = 0;
+    localparam DROP_1_THRESH = 500;
+    localparam DROP_2_THRESH = 50;
+    localparam DROP_3_THRESH = 5;
+    localparam ADDS_1_THRESH = 500;
+    localparam ADDS_2_THRESH = 50;
+    localparam ADDS_3_THRESH = 5;
+    localparam FLIP_1_THRESH = 5000;
+    localparam FLIP_2_THRESH = 500;
+    localparam FLIP_3_THRESH = 50;
 
     // represents the length of the buffer (ensures that the size is never too small)
     logic [8:0] length_buffer;
@@ -157,8 +157,8 @@ module sim_aurora_lane();
     always_ff @(posedge(clk_ddr_i)) begin
 
         if (~rst_n_i) begin
-            stream_buffer <= '1;
-            length_buffer <= 66;
+            stream_buffer <= {2{2'b01, cnt, cnt}};
+            length_buffer <= 132;
         end
 
         // whenever transmition is complete shift out the old word
@@ -167,7 +167,7 @@ module sim_aurora_lane();
         end
 
         // whenever the length falls below 1 reserve words add another
-        else if (length_buffer <= 66) begin
+        else if (tx_counter == 'd65) begin
             $timeformat(-6, 2, "us");
             // evaluate random numbers for SEEs
             r_drop = $urandom_range(1_000_000);
@@ -175,7 +175,7 @@ module sim_aurora_lane();
             r_flip = $urandom_range(1_000_000);
 
             // come up with an valid data word (TODO: change to random later)
-            untampered_block = (cnt % 64 == '0) ? {2'b01, cnt, cnt} : {2'b01, cnt, cnt};
+            untampered_block = tx_data_s;
             length_block = 'd66;
             // use seperate logic to evaluate all the changes
             tampered_block = {3'b0, untampered_block};
@@ -244,7 +244,7 @@ module sim_aurora_lane();
                 stream_buffer[i] <= i < length_block ? tampered_block[i] : stream_buffer[i - length_block];
             end
 
-            length_buffer <= length_buffer + length_block;
+            length_buffer = length_buffer + length_block;
         end
     end
 
@@ -269,11 +269,8 @@ module sim_aurora_lane();
 
             // once most bits are sent set tx_data to the count twice with info on if it is divisible by 64
             if (tx_counter == 'd64) begin
-                if (cnt % 64 == '0) tx_data <= {2'b01, cnt, cnt};
-                else                tx_data <= {2'b10, cnt, cnt};
-
-
-                //tx_data <= stream_buffer[length_buffer-1:length_buffer-66];
+                
+                tx_data <= (cnt % 64 == '0) ? {2'b01, cnt, cnt} : {2'b01, cnt, cnt};
                 //tx_data <= slice(stream_buffer, length_buffer);
 
                 // set the dv and incrememnt cnt 
@@ -284,7 +281,7 @@ module sim_aurora_lane();
             // if all bits are sent set dv low, set the tx_data SR to a new value and reset the counter
             else if (tx_counter == 'd65) begin
                 tx_data_valid <= '0;
-                tx_data_t     <= tx_data_s;
+                tx_data_t     <= slice(stream_buffer, length_buffer);
                 tx_counter    <= '0;
             end
         end
@@ -312,8 +309,8 @@ module sim_aurora_lane();
             wait(rx_valid == 1);
             //if ($realtime - time_1 > 45ns) $display("large rx_valid delay detected at %t. Duration: %t", $realtime, $realtime - time_1); 
             if ($realtime - time_1 > 96ns) begin
-                $display("rx_valid low at time: %t. Duration: %t", time_1, $realtime - time_1); 
-                $display("Serdes slips: %3d Gearbox slip: %2d Total Blocks: %5d", serdes_slip_cntr, gbox_slip_cntr, block_cntr);
+                $display("desyc : %5t - resync: %5t - duration: %5t", time_1, $realtime, $realtime - time_1); 
+                $display("serdes: %7d - gbox  : %7d - blocks  : %7d", serdes_slip_cntr, gbox_slip_cntr, block_cntr);
             end
         end
     end
@@ -333,8 +330,8 @@ module sim_aurora_lane();
             if (~serdes_slip_d1 & u_aurora_rx_lane.serdes_slip) serdes_slip_cntr <= serdes_slip_cntr + 1;
             if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip) gbox_slip_cntr <= gbox_slip_cntr + 1;
             if (tx_counter == 'd64) block_cntr <= block_cntr + 1;
-            if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip && gbox_slip_cntr == 32) $display("33 GEARBOX SLIPS HAVE BEEN SEEN!!!");
-            if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip && gbox_slip_cntr == 65) $display("66 GEARBOX SLIPS HAVE BEEN SEEN!!!");
+            if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip && gbox_slip_cntr == 32) $warning("33 GEARBOX SLIPS HAVE BEEN SEEN!!!");
+            if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip && gbox_slip_cntr == 65) $error("66 GEARBOX SLIPS HAVE BEEN SEEN!!!");
         end
     end
     

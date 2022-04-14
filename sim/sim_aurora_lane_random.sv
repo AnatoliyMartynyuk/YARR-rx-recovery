@@ -296,7 +296,7 @@ module sim_aurora_lane();
     realtime time_2 = 0;
 
     integer serdes_slip_cntr, gbox_slip_cntr, block_cntr;
-    logic serdes_slip_d1, gbox_slip_d1; 
+    logic gbox_slip_d1; 
 
 
 
@@ -310,7 +310,7 @@ module sim_aurora_lane();
             //if ($realtime - time_1 > 45ns) $display("large rx_valid delay detected at %t. Duration: %t", $realtime, $realtime - time_1); 
             if ($realtime - time_1 > 96ns) begin
                 $display("desyc : %5t - resync: %5t - duration: %5t", time_1, $realtime, $realtime - time_1); 
-                $display("serdes: %7d - gbox  : %7d - blocks  : %7d", serdes_slip_cntr, gbox_slip_cntr, block_cntr);
+                $display(" gbox  : %7d - blocks  : %7d", gbox_slip_cntr, block_cntr);
             end
         end
     end
@@ -318,16 +318,13 @@ module sim_aurora_lane();
     // counts slips for gearbox and serdes
     always_ff @(posedge clk_ddr_i) begin
         if (~rst_n_i | rx_valid) begin
-            serdes_slip_cntr <= 0;
             gbox_slip_cntr   <= 0;
             block_cntr       <= 0;
         end
 
         else begin
-            serdes_slip_d1 <= u_aurora_rx_lane.serdes_slip;
             gbox_slip_d1   <= u_aurora_rx_lane.gearbox_slip;
 
-            if (~serdes_slip_d1 & u_aurora_rx_lane.serdes_slip) serdes_slip_cntr <= serdes_slip_cntr + 1;
             if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip) gbox_slip_cntr <= gbox_slip_cntr + 1;
             if (tx_counter == 'd64) block_cntr <= block_cntr + 1;
             if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip && gbox_slip_cntr == 32) $warning("33 GEARBOX SLIPS HAVE BEEN SEEN!!!");

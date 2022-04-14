@@ -133,7 +133,6 @@ architecture behavioral of aurora_rx_lane is
 
     -- Serdes
     signal serdes_phase_adj_en  : std_logic;
-    signal serdes_slip          : std_logic;
     signal serdes_idelay_rdy    : std_logic;
     signal serdes_data8         : std_logic_vector(7 downto 0);
     signal serdes_data8_s       : std_logic_vector(7 downto 0);
@@ -172,7 +171,6 @@ architecture behavioral of aurora_rx_lane is
     
     -- Block Sync
     signal sync_cnt     : unsigned(7 downto 0);
-    signal slip_cnt     : unsigned(3 downto 0);
     signal valid_cnt    : unsigned(7 downto 0);
     
     -- SERDES debug
@@ -226,7 +224,7 @@ begin
             enable_monitor      => '1'              ,
             reset               => rst              ,
             --bitslip             => '0'              ,
-            bitslip             => serdes_slip      ,
+            bitslip             => '0'              ,
             idelay_rdy          => serdes_idelay_rdy,
             rxclk               => clk_serdes_i     ,
             system_clk          => clk_rx_i         ,
@@ -302,7 +300,7 @@ begin
             enable_monitor              => '1'              ,
             reset                       => rst              ,
             --bitslip                     => '0'              ,
-            bitslip                     => serdes_slip      ,
+            bitslip                     => '0'              ,
             idelay_rdy                  => serdes_idelay_rdy,
             rxclk                       => clk_serdes_i     ,
             system_clk                  => clk_rx_i         ,
@@ -430,10 +428,6 @@ begin
                         serdes_cnt <= to_unsigned(1, 6);
                     end if;
                 end if;
-                
-                if (serdes_slip = '1') then
-                    serdes_cnt <= serdes_cnt;
-                end if;
             end if;
         end process serdes_2to32_proc;
 
@@ -453,20 +447,17 @@ begin
     begin
         if (rst_n_i = '0') then
             sync_cnt                <= (others => '0');
-            slip_cnt                <= (others => '0');
-            serdes_slip             <= '0';
             valid_cnt               <= (others => '0');
             scrambled_data66        <= (others => '0');
             scrambled_data_valid    <= '0';
             gearbox_slip            <= '0';
-            serdes_phase_adj_en     <= '1';
 
         elsif rising_edge(clk_rx_i) then
-            serdes_slip             <= '0';
             scrambled_data_valid    <= '0';
 
             if (gearbox_data66_valid = '1') then
                 gearbox_slip <= '0'; -- Keep high until next valid so gearbox sees it
+                
                 if (valid_cnt < c_VALID_WAIT) then
                     valid_cnt <= valid_cnt + 1;
                 end if;
@@ -479,26 +470,15 @@ begin
                     end if;
 
                 elsif (valid_cnt = c_VALID_WAIT) then
-
-                    sync_cnt <= (others => '0');       
-                    if (slip_cnt = c_SLIP_SERDES_MAX) then
-                        gearbox_slip    <= '1';
-                        serdes_slip     <= '0';
-                        slip_cnt        <= (others => '0');
-                    else
-                        serdes_slip <= '1';
-                        slip_cnt    <= slip_cnt + 1;
-                    end if;
-
-                    valid_cnt <= (others => '0');
+                    sync_cnt        <= (others => '0');       
+                    gearbox_slip    <= '1';
+                    valid_cnt       <= (others => '0');
                 end if;
                 
                 -- Output proc
-                serdes_phase_adj_en <= '1'; 
                 if (sync_cnt = c_SYNC_MAX) then
                     scrambled_data66        <= gearbox_data66(65 downto 0);
                     scrambled_data_valid    <= '1';
-                    serdes_phase_adj_en     <= '0'; -- Disable phase adjustment once locked
                 end if;
             end if;
         end if;

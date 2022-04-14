@@ -26,21 +26,21 @@ entity gearbox32to66 is
 end gearbox32to66;
 
 architecture rtl of gearbox32to66 is
-    signal gearbox_cnt : unsigned(7 downto 0);
-    signal data66_cnt : unsigned(7 downto 0);
-    signal shift_cnt : std_logic;
-    signal buffer128 : std_logic_vector(127 downto 0);
-    signal slip_cnt : std_logic;
-    signal data66_t : std_logic_vector(65 downto 0);
-    signal data66_t_valid : std_logic;
+    signal gearbox_cnt      : unsigned(7 downto 0);
+    signal data66_cnt       : unsigned(7 downto 0);
+    signal shift_cnt        : std_logic;
+    signal buffer129        : std_logic_vector(128 downto 0);
+    signal slip_cnt         : std_logic;
+    signal data66_t         : std_logic_vector(65 downto 0);
+    signal data66_t_valid   : std_logic;
     
     -- Data 2-stage fifo
-    signal data66_buf : std_logic_vector(65 downto 0);
-    signal data66_buf_empty : std_logic;
-    signal data66_buf_read : std_logic;
-    signal data66_buf2 : std_logic_vector(65 downto 0);
+    signal data66_buf        : std_logic_vector(65 downto 0);
+    signal data66_buf_empty  : std_logic;
+    signal data66_buf_read   : std_logic;
+    signal data66_buf2       : std_logic_vector(65 downto 0);
     signal data66_buf2_empty : std_logic;
-    signal data66_buf2_read : std_logic;
+    signal data66_buf2_read  : std_logic;
 begin
     
     shift_proc: process(clk_i, rst_i)
@@ -48,7 +48,7 @@ begin
         if (rst_i = '1') then
 
             -- shift operation
-            buffer128           <= (others => '0');
+            buffer129           <= (others => '0');
             gearbox_cnt         <= (others => '0');
             data66_t            <= (others => '0');
             data66_t_valid      <= '0';
@@ -75,25 +75,25 @@ begin
                 
                 -- evaluate shifting and whether this is an output valid cycle
                 shift_cnt <= not shift_cnt;                                                                                                 -- alternate so that we
-                buffer128(127 downto 0) <= buffer128(95 downto 0) & data32_i;                                                               -- shift in new data
-                data66_t <= buffer128(128-(to_integer(gearbox_cnt(4 downto 0))*2)-1 downto 62-(to_integer(gearbox_cnt(4 downto 0))*2));     -- evaluate new 66b block to output
+                buffer129(128 downto 0) <= buffer129(96 downto 0) & data32_i;                                                               -- shift in new data
+                data66_t <= buffer129(129-(to_integer(gearbox_cnt(5 downto 0)))-1 downto 63-(to_integer(gearbox_cnt(5 downto 0))));     -- evaluate new 66b block to output
                 
                 -- evaluated every other cycle, determines whether to move the gearbox output window or not
                 if (shift_cnt = '1') then
 
-                    -- on a slip, dont't move window - equivilent to a shift of 2 bits to the right. Still outputs a data_v
+                    -- on a slip, move window only 1 over - equivilent to a shift of 1 bits to the right. Still outputs a data_v
                     if (slip_i = '1') then
-                        gearbox_cnt    <= gearbox_cnt;
+                        gearbox_cnt    <= gearbox_cnt + 1;
                         data66_t_valid <= '1';
                     
                     -- every 33rd word should not have data_v enabled, reset output window
-                    elsif (gearbox_cnt = 32) then
-                        gearbox_cnt    <= (others => '0');
+                    elsif (gearbox_cnt = 64 or gearbox_cnt = 65) then
+                        gearbox_cnt    <= gearbox_cnt - 64;
                         data66_t_valid <= '0';
                     
                     -- continuously shift output window to compensate for 32b66b block translation, output data_v
                     else
-                        gearbox_cnt    <= gearbox_cnt + 1;
+                        gearbox_cnt    <= gearbox_cnt + 2;
                         data66_t_valid <= '1';
                     end if;
                 

@@ -254,25 +254,27 @@ begin
         serdes_8to32_proc : process(clk_rx_i, rst_n_i)
         begin
             if (rst_n_i = '0') then
-                serdes_data32 <= (others => '0');
+                serdes_data32       <= (others => '0');
                 serdes_data32_shift <= (others => '0');
                 serdes_data32_valid <= '0';
-                serdes_cnt <= (others => '0');
-                serdes8_cnt <= (others => '0');
-                serdes_data8_d <= (others => '0');
+                serdes_cnt          <= (others => '0');
+                serdes8_cnt         <= (others => '0');
+                serdes_data8_d      <= (others => '0');
             elsif rising_edge(clk_rx_i) then
-                serdes8_cnt <= serdes8_cnt + 1;
+                serdes8_cnt         <= serdes8_cnt + 1;
                 serdes_data32_valid <= '0';
+
                 if (serdes8_cnt = c_SERDES8_CYCLE) then
-                    serdes_cnt <= serdes_cnt + 1;
-                    --serdes_data8_d <= serdes_data8_s;
+                    serdes_cnt                       <= serdes_cnt + 1;
                     serdes_data32_shift(31 downto 8) <= serdes_data32_shift(23 downto 0);
-                    serdes_data32_shift(7 downto 0) <= serdes_data8_s;
+                    serdes_data32_shift(7 downto 0)  <= serdes_data8_s;
+
                     if (serdes_cnt = to_unsigned(3, 6)) then
-                        serdes_data32 <= serdes_data32_shift(31 downto 0);
+                        serdes_data32       <= serdes_data32_shift(31 downto 0);
                         serdes_data32_valid <= '1';
-                        serdes_cnt <= (others => '0');
+                        serdes_cnt          <= (others => '0');
                     end if;
+
                     serdes8_cnt <= (others => '0');
                 end if;
             end if;
@@ -330,25 +332,28 @@ begin
         serdes_8to32_proc : process(clk_rx_i, rst_n_i)
         begin
             if (rst_n_i = '0') then
-                serdes_data32 <= (others => '0');
+                serdes_data32       <= (others => '0');
                 serdes_data32_shift <= (others => '0');
                 serdes_data32_valid <= '0';
-                serdes_cnt <= (others => '0');
-                serdes8_cnt <= (others => '0');
-                serdes_data8_d <= (others => '0');
+                serdes_cnt          <= (others => '0');
+                serdes8_cnt         <= (others => '0');
+                serdes_data8_d      <= (others => '0');
+
             elsif rising_edge(clk_rx_i) then
-                serdes8_cnt <= serdes8_cnt + 1;
+                serdes8_cnt         <= serdes8_cnt + 1;
                 serdes_data32_valid <= '0';
+
                 if (serdes8_cnt = c_SERDES8_CYCLE) then
-                    serdes_cnt <= serdes_cnt + 1;
-                    --serdes_data8_d <= serdes_data8_s;
+                    serdes_cnt                       <= serdes_cnt + 1;
                     serdes_data32_shift(31 downto 8) <= serdes_data32_shift(23 downto 0);
-                    serdes_data32_shift(7 downto 0) <= serdes_data8_s;
+                    serdes_data32_shift(7 downto 0)  <= serdes_data8_s;
+
                     if (serdes_cnt = to_unsigned(3, 6)) then
-                        serdes_data32 <= serdes_data32_shift(31 downto 0);
+                        serdes_data32       <= serdes_data32_shift(31 downto 0);
                         serdes_data32_valid <= '1';
-                        serdes_cnt <= (others => '0');
+                        serdes_cnt          <= (others => '0');
                     end if;
+
                     serdes8_cnt <= (others => '0');
                 end if;
             end if;
@@ -392,38 +397,42 @@ begin
         serdes_2to32_proc : process(clk_rx_i, rst_n_i)
         begin
             if (rst_n_i = '0') then
-                serdes_data32 <= (others => '0');
+                serdes_data32       <= (others => '0');
                 serdes_data32_shift <= (others => '0');
                 serdes_data32_valid <= '0';
-                serdes_cnt <= (others => '0');
+                serdes_cnt          <= (others => '0');
+
             elsif rising_edge(clk_rx_i) then
                 serdes_data32_valid <= '0';
                 
                 if (serdes_data2_valid = "01") then
                     serdes_data32_shift <= serdes_data32_shift(31 downto 0) & serdes_data2(0);
-                    serdes_cnt <= serdes_cnt + 1;
-                --elsif (serdes_data2_valid = "10") then
-                --    serdes_data32_shift <= serdes_data32_shift(31 downto 0) & serdes_data2(1);
-                --    serdes_cnt <= serdes_cnt + 1;
+                    serdes_cnt          <= serdes_cnt + 1;
+
                 elsif (serdes_data2_valid = "11") then
                     serdes_data32_shift <= serdes_data32_shift(30 downto 0) & serdes_data2(0) & serdes_data2(1);
-                    serdes_cnt <= serdes_cnt + 2;
+                    serdes_cnt          <= serdes_cnt + 2;
                 end if;
 
                 if (serdes_cnt = to_unsigned(31, 6)) then
-                    serdes_data32 <= serdes_data32_shift(31 downto 0);
+                    serdes_data32       <= serdes_data32_shift(31 downto 0);
                     serdes_data32_valid <= '1';
-                    serdes_cnt <= (others => '0');
+                    serdes_cnt          <= (others => '0');
+                    
                     if (serdes_data2_valid = "11") then
                         serdes_cnt <= to_unsigned(1, 6);
+
                     else
                         serdes_cnt <= to_unsigned(0, 6);
                     end if;
+
                 elsif (serdes_cnt = to_unsigned(32, 6)) then
-                    serdes_data32 <= serdes_data32_shift(32 downto 1);
+                    serdes_data32       <= serdes_data32_shift(32 downto 1);
                     serdes_data32_valid <= '1';
+
                     if (serdes_data2_valid = "11") then
                         serdes_cnt <= to_unsigned(2, 6);
+                        
                     else
                         serdes_cnt <= to_unsigned(1, 6);
                     end if;

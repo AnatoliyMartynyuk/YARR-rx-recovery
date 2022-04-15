@@ -180,21 +180,23 @@ module sim_aurora_lane();
             // use seperate logic to evaluate all the changes
             tampered_block = {3'b0, untampered_block};
 
+
+
             // bit flipping
             if (r_flip < FLIP_1_THRESH) begin
                 r_flip_bit = $urandom_range(length_block);
                 tampered_block[r_flip_bit] = ~tampered_block[r_flip_bit];
-                $write("F1 : ");
+                //$write("F1 : ");
             end 
             if (r_flip < FLIP_2_THRESH) begin
                 r_flip_bit = $urandom_range(length_block);
                 tampered_block[r_flip_bit] = ~tampered_block[r_flip_bit];
-                $write("F2 : ");
+                //$write("F2 : ");
             end
             if (r_flip < FLIP_3_THRESH) begin
                 r_flip_bit = $urandom_range(length_block);
                 tampered_block[r_flip_bit] = ~tampered_block[r_flip_bit];
-                $write("F3 : ");
+                //$write("F3 : ");
             end
 
 
@@ -202,19 +204,19 @@ module sim_aurora_lane();
             if (r_drop < DROP_1_THRESH) begin
                 tampered_block = dropBit(tampered_block, length_block);
                 length_block = length_block - 1;
-                $write("D1 : ");
+                //$write("D1 : ");
             end
 
             if (r_drop < DROP_2_THRESH) begin
                 tampered_block = dropBit(tampered_block, length_block);
                 length_block = length_block - 1;
-                $write("D2 : ");
+                //$write("D2 : ");
             end
 
             if (r_drop < DROP_3_THRESH) begin
                 tampered_block = dropBit(tampered_block, length_block);
                 length_block = length_block - 1;
-                $write("D3 : ");
+                //$write("D3 : ");
             end
 
 
@@ -223,21 +225,21 @@ module sim_aurora_lane();
             if (r_adds < ADDS_1_THRESH) begin
                 tampered_block = addBit(tampered_block, length_block);
                 length_block = length_block + 1;
-                $write("A1 : ");
+                //$write("A1 : ");
             end
             if (r_adds < ADDS_2_THRESH) begin
                 tampered_block = addBit(tampered_block, length_block);
                 length_block = length_block + 1;
-                $write("A2 : ");
+                //$write("A2 : ");
             end
             if (r_adds < ADDS_3_THRESH) begin
                tampered_block = addBit(tampered_block, length_block);
                 length_block = length_block + 1;
-                $write("A3 : ");
+                //$write("A3 : ");
             end
 
 
-            if (untampered_block != tampered_block) $write("%17h : %17h : time = %t\n", untampered_block, tampered_block, $realtime);
+            //if (untampered_block != tampered_block) $write("%17h : %17h : time = %t\n", untampered_block, tampered_block, $realtime);
 
             // shift tampered_block into stream_buffer
             for (int i = length_buffer+length_block - 1; i >= 0; i--) begin
@@ -303,14 +305,13 @@ module sim_aurora_lane();
     // monitors disruptions in lane output data
     initial begin
         $timeformat(-9, 2, "ns");
+        $display(" desync     : resync     : duration   : slips      : blocks      ");
         forever begin
             wait(rx_valid == 0);
             time_1 = $realtime;
             wait(rx_valid == 1);
-            //if ($realtime - time_1 > 45ns) $display("large rx_valid delay detected at %t. Duration: %t", $realtime, $realtime - time_1); 
             if ($realtime - time_1 > 96ns) begin
-                $display("desyc : %5t - resync: %5t - duration: %5t", time_1, $realtime, $realtime - time_1); 
-                $display(" gbox  : %7d - blocks  : %7d", gbox_slip_cntr, block_cntr);
+                $display("%10t %10t %10t %12d %12d", time_1, $realtime, $realtime - time_1, gbox_slip_cntr, block_cntr);
             end
         end
     end
@@ -327,8 +328,8 @@ module sim_aurora_lane();
 
             if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip) gbox_slip_cntr <= gbox_slip_cntr + 1;
             if (tx_counter == 'd64) block_cntr <= block_cntr + 1;
-            if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip && gbox_slip_cntr == 32) $warning("33 GEARBOX SLIPS HAVE BEEN SEEN!!!");
-            if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip && gbox_slip_cntr == 65) $error("66 GEARBOX SLIPS HAVE BEEN SEEN!!!");
+            if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip && gbox_slip_cntr == 65) $warning("65 GEARBOX SLIPS HAVE BEEN SEEN!!!");
+            if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip && gbox_slip_cntr == 131) $error("131 GEARBOX SLIPS HAVE BEEN SEEN!!!");
         end
     end
     

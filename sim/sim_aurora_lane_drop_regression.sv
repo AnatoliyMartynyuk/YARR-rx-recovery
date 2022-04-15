@@ -152,10 +152,9 @@ module sim_aurora_lane();
         repeat(32) wait(rx_valid);
 
         for (i = 0; i < 65; i++) begin
-            $display("Normalizing with offset 0 at time %t", $realtime);
+            wait(tx_counter == 0);
             wait(tx_counter == 0);
 
-            $display("Offset by %2d at time %t", i, $realtime);
             force tx_counter = i; @(posedge clk_ddr_i);
             release tx_counter; 
             repeat(64) begin wait(rx_valid); wait(~rx_valid); end
@@ -180,14 +179,14 @@ module sim_aurora_lane();
     // monitors disruptions in lane output data
     initial begin
         $timeformat(-9, 2, "ns");
+        $display(" offset     : desync     : resync     : duration   : slips      : blocks      ");
         forever begin
             wait(rx_valid == 0);
             time_1 = $realtime;
             wait(rx_valid == 1);
-            //if ($realtime - time_1 > 45ns) $display("large rx_valid delay detected at %t. Duration: %t", $realtime, $realtime - time_1); 
             if ($realtime - time_1 > 96ns) begin
-                $display("desyc : %10t - resync : %10t - duration: %10t", time_1, $realtime, $realtime - time_1); 
-                $display("gbox  : %12d - blocks : %12d", gbox_slip_cntr, block_cntr);
+                $display("%12d %10t %10t %10t %12d %12d", i, time_1, $realtime, $realtime - time_1, gbox_slip_cntr, block_cntr);
+
             end
         end
     end

@@ -26,14 +26,34 @@ entity gearbox32to66 is
 end gearbox32to66;
 
 architecture rtl of gearbox32to66 is
+
+    component block_sync
+        port (
+            -- Sys connect
+            rst_i           : in std_logic;
+            clk_i           : in std_logic;
+
+            -- input
+            gbox_buffer     : in std_logic_vector(192 downto 0);
+            gbox_cnt        : in unsigned(5 downto 0);
+
+            -- Output
+            block_offset    : out unsigned(7 downto 0)
+        );
+    end component block_sync;
+
     signal gearbox_cnt      : unsigned(7 downto 0);
     signal data66_cnt       : unsigned(7 downto 0);
     signal shift_cnt        : std_logic;
-    signal buffer129        : std_logic_vector(128 downto 0);
+    signal buffer193        : std_logic_vector(192 downto 0);
     signal slip_cnt         : std_logic;
     signal data66_t         : std_logic_vector(65 downto 0);
     signal data66_t_valid   : std_logic;
-    
+
+    signal blk_idx_offset   : unsigned(7 downto 0);
+    signal block_msb_idx    : integer;
+    signal block_lsb_idx    : integer;
+
     -- Data 2-stage fifo
     signal data66_buf        : std_logic_vector(65 downto 0);
     signal data66_buf_empty  : std_logic;
@@ -41,14 +61,33 @@ architecture rtl of gearbox32to66 is
     signal data66_buf2       : std_logic_vector(65 downto 0);
     signal data66_buf2_empty : std_logic;
     signal data66_buf2_read  : std_logic;
+
+
 begin
+
+    u_block_sync : block_sync port map (
+        -- Sys connect
+        rst_i           => rst_i,
+        clk_i           => clk_i,
+        -- input
+        gbox_buffer     => buffer193,
+        gbox_cnt        => gearbox_cnt(5 downto 0),
+        -- Output
+        block_offset    => blk_idx_offset
+    );
+
+
+    --block_msb_idx <= 128-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(5 downto 0));
+    --block_lsb_idx <= 63-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(5 downto 0));
+    block_msb_idx <= 128-to_integer(gearbox_cnt(5 downto 0));
+block_lsb_idx <= 63-to_integer(gearbox_cnt(5 downto 0));
     
     shift_proc: process(clk_i, rst_i)
     begin
         if (rst_i = '1') then
 
             -- shift operation
-            buffer129           <= (others => '0');
+            buffer193           <= (others => '0');
             gearbox_cnt         <= (others => '0');
             data66_t            <= (others => '0');
             data66_t_valid      <= '0';
@@ -74,9 +113,9 @@ begin
             if (data32_valid_i = '1') then
                 
                 -- evaluate shifting and whether this is an output valid cycle
-                shift_cnt <= not shift_cnt;                                                                                                 -- alternate so that we
-                buffer129(128 downto 0) <= buffer129(96 downto 0) & data32_i;                                                               -- shift in new data
-                data66_t <= buffer129(129-(to_integer(gearbox_cnt(5 downto 0)))-1 downto 63-(to_integer(gearbox_cnt(5 downto 0))));     -- evaluate new 66b block to output
+                shift_cnt <= not shift_cnt;                                      -- alternate so that we
+                buffer193(192 downto 0) <= buffer193(160 downto 0) & data32_i;   -- shift in new data
+                data66_t <= buffer193(block_msb_idx downto block_lsb_idx);       -- evaluate new 66b block to output
                 
                 -- evaluated every other cycle, determines whether to move the gearbox output window or not
                 if (shift_cnt = '1') then

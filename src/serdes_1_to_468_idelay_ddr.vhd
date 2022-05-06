@@ -317,7 +317,10 @@ if system_clk_int'event and system_clk_int = '1' then
 end if ;
 end process ;
 	
-loop3 : for i in 0 to D-1 generate
+loop3 : for i in 0 to D-1 generate 
+    attribute IODELAY_GROUP of dc_inst : label is "aurora"; begin
+
+
 
 dc_inst : delay_controller_wrap generic map (
 	S 			=> S)

@@ -1,23 +1,23 @@
 onerror {resume}
 quietly WaveActivateNextPane {} 0
-add wave -noupdate -expand -group top /sim_aurora_lane/rst_n_i
-add wave -noupdate -expand -group top /sim_aurora_lane/rst2_n_i
-add wave -noupdate -expand -group top /sim_aurora_lane/clk_rx_i
-add wave -noupdate -expand -group top /sim_aurora_lane/clk_serdes_i
-add wave -noupdate -expand -group top /sim_aurora_lane/clk_ddr_i
-add wave -noupdate -expand -group top /sim_aurora_lane/rx_data_i_p
-add wave -noupdate -expand -group top /sim_aurora_lane/rx_polarity
-add wave -noupdate -expand -group top /sim_aurora_lane/rx_data_out
-add wave -noupdate -expand -group top /sim_aurora_lane/rx_header_out
-add wave -noupdate -expand -group top /sim_aurora_lane/rx_status
-add wave -noupdate -expand -group top /sim_aurora_lane/rx_valid
-add wave -noupdate -expand -group top /sim_aurora_lane/tx_data
-add wave -noupdate -expand -group top /sim_aurora_lane/tx_data_s
-add wave -noupdate -expand -group top /sim_aurora_lane/tx_data_t
-add wave -noupdate -expand -group top /sim_aurora_lane/tx_counter
-add wave -noupdate -expand -group top /sim_aurora_lane/cnt
-add wave -noupdate -expand -group top /sim_aurora_lane/tx_data_valid
-add wave -noupdate -expand -group top -radix unsigned /sim_aurora_lane/u_aurora_rx_lane/sync_cnt
+add wave -noupdate -group top /sim_aurora_lane/rst_n_i
+add wave -noupdate -group top /sim_aurora_lane/rst2_n_i
+add wave -noupdate -group top /sim_aurora_lane/clk_rx_i
+add wave -noupdate -group top /sim_aurora_lane/clk_serdes_i
+add wave -noupdate -group top /sim_aurora_lane/clk_ddr_i
+add wave -noupdate -group top /sim_aurora_lane/rx_data_i_p
+add wave -noupdate -group top /sim_aurora_lane/rx_polarity
+add wave -noupdate -group top /sim_aurora_lane/rx_data_out
+add wave -noupdate -group top /sim_aurora_lane/rx_header_out
+add wave -noupdate -group top /sim_aurora_lane/rx_status
+add wave -noupdate -group top /sim_aurora_lane/rx_valid
+add wave -noupdate -group top /sim_aurora_lane/tx_data
+add wave -noupdate -group top /sim_aurora_lane/tx_data_s
+add wave -noupdate -group top /sim_aurora_lane/tx_data_t
+add wave -noupdate -group top /sim_aurora_lane/tx_counter
+add wave -noupdate -group top /sim_aurora_lane/cnt
+add wave -noupdate -group top /sim_aurora_lane/tx_data_valid
+add wave -noupdate -group top -radix unsigned /sim_aurora_lane/u_aurora_rx_lane/sync_cnt
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/rst_n_i
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/clk_rx_i
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/clk_serdes_i
@@ -32,7 +32,6 @@ add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/c_SLIP_SERD
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/c_SERDES8_CYCLE
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/rst
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/serdes_phase_adj_en
-add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/serdes_slip
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/serdes_idelay_rdy
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/serdes_data8
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/serdes_data8_s
@@ -62,10 +61,19 @@ add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/descrambled
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/descrambled_header
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/descrambled_data_valid
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/sync_cnt
-add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/slip_cnt
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/valid_cnt
+add wave -noupdate /sim_aurora_lane/i
+add wave -noupdate /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_cmp/u_block_sync/rst_i
+add wave -noupdate /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_cmp/u_block_sync/clk_i
+add wave -noupdate /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_cmp/u_block_sync/gbox_buffer
+add wave -noupdate -radix unsigned /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_cmp/u_block_sync/gbox_cnt
+add wave -noupdate -radix unsigned /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_cmp/u_block_sync/block_offset
+add wave -noupdate /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_cmp/u_block_sync/headers
+add wave -noupdate /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt
+add wave -noupdate /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg
+add wave -noupdate /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_cmp/u_block_sync/max_cnt
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {842005600000 fs} 0}
+WaveRestoreCursors {{Cursor 1} {5187169576 fs} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 100
@@ -81,4 +89,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {840245800 ps} {850745800 ps}
+WaveRestoreZoom {5167968750 fs} {5332031250 fs}

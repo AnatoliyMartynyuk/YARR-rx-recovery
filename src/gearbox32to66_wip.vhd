@@ -77,10 +77,10 @@ begin
     );
 
 
-    --block_msb_idx <= 128-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(5 downto 0));
-    --block_lsb_idx <= 63-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(5 downto 0));
-    block_msb_idx <= 128-to_integer(gearbox_cnt(5 downto 0));
-block_lsb_idx <= 63-to_integer(gearbox_cnt(5 downto 0));
+    block_msb_idx <= 128-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(5 downto 0));
+    block_lsb_idx <= 63-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(5 downto 0));
+    --block_msb_idx <= 128-to_integer(gearbox_cnt(5 downto 0));
+    --block_lsb_idx <= 63-to_integer(gearbox_cnt(5 downto 0));
     
     shift_proc: process(clk_i, rst_i)
     begin
@@ -115,7 +115,8 @@ block_lsb_idx <= 63-to_integer(gearbox_cnt(5 downto 0));
                 -- evaluate shifting and whether this is an output valid cycle
                 shift_cnt <= not shift_cnt;                                      -- alternate so that we
                 buffer193(192 downto 0) <= buffer193(160 downto 0) & data32_i;   -- shift in new data
-                data66_t <= buffer193(block_msb_idx downto block_lsb_idx);       -- evaluate new 66b block to output
+                data66_t <= buffer193(128-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(5 downto 0))
+                         downto 63-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(5 downto 0)));       -- evaluate new 66b block to output
                 
                 -- evaluated every other cycle, determines whether to move the gearbox output window or not
                 if (shift_cnt = '1') then

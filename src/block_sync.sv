@@ -17,11 +17,14 @@ module block_sync (
     logic [65:0] [1:0] headers;                             // individual headers (wires)
     logic [65:0] [5:0] valid_hdr_cnt, valid_hdr_cnt_reg;    // only needs to count up to 32 (registers/wires)
 
-    logic [7:0][5:0] max_cnt_stg1, max_cnt_stg1_reg;
-    logic [7:0][6:0] offset_stg1, offset_stg1_reg;
+    logic [15:0][5:0] max_cnt_stg1, max_cnt_stg1_reg;
+    logic [15:0][6:0] offset_stg1, offset_stg1_reg;
 
-    logic [5:0] max_cnt_stg2;
-    logic [6:0] offset_stg2;
+    logic [4:0][5:0] max_cnt_stg2, max_cnt_stg2_reg;
+    logic [4:0][6:0] offset_stg2, offset_stg2_reg;
+
+    logic [5:0] max_cnt_stg3;
+    logic [6:0] offset_stg3;
 
     // register the relevant buffer bits when buffer data is valid
     always_ff @(posedge clk_i) begin
@@ -29,6 +32,11 @@ module block_sync (
             buffer <= gbox_buffer[193 - gbox_cnt -: 67];
         end
     end
+
+    // -----------------------------------------------------------------------------------
+    //                              First Layer
+    //  Determine whether or not to clear or incrememnt the count of a header position
+    // -----------------------------------------------------------------------------------
 
 
     // splits each header into a distinct logic
@@ -55,24 +63,43 @@ module block_sync (
     always_ff @(posedge clk_i) begin
         if      (rst_i)     valid_hdr_cnt_reg <= '0;
         else if (buffer_dv) begin
-            for (int i = 0; i < 65; i++) begin
+            for (int i = 0; i < 66; i++) begin
                 valid_hdr_cnt_reg[i] <= valid_hdr_cnt[i]; 
             end
         end
     end
 
+    // -----------------------------------------------------------------------------------
+    //                                Pipeline Tree
+    //  Narrow down to find the largest counter value as well as its index
+    // -----------------------------------------------------------------------------------
+
+    // ------------------------------------
     // pipeline stage 1
+    // ------------------------------------
     always_comb begin
         max_cnt_stg1 = '0;
         offset_stg1  = '0;
-        for (int k = 0; k < 8; k++) begin
-            for (int l = 0; l < 8; l++) begin
-                if (valid_hdr_cnt_reg[k*8+l] > max_cnt_stg1[k]) begin
-                    max_cnt_stg1[k] = valid_hdr_cnt_reg[k*8+l];
-                    offset_stg1[k] = k*8+l;
+        for (int k = 0; k < 16; k++) begin
+            for (int l = 0; l < 4; l++) begin
+                if (valid_hdr_cnt_reg[k*4+l] > max_cnt_stg1[k]) begin
+                    max_cnt_stg1[k] = valid_hdr_cnt_reg[k*4+l];
+                    offset_stg1[k] = k*4+l;
                 end
             end
         end
+
+        // account for extra 2 values (counters 64 and 65)
+        if (valid_hdr_cnt_reg[64] > max_cnt_stg1[14]) begin
+            max_cnt_stg1[14] = valid_hdr_cnt_reg[64];
+            offset_stg1[14] = 64;
+        end
+
+        if (valid_hdr_cnt_reg[65] > max_cnt_stg1[15]) begin
+            max_cnt_stg1[15] = valid_hdr_cnt_reg[65];
+            offset_stg1[15] = 65;
+        end
+
     end
 
     always_ff @(posedge clk_i) begin
@@ -80,80 +107,43 @@ module block_sync (
         max_cnt_stg1_reg <= max_cnt_stg1;
     end
 
+    // ------------------------------------
     // pipeline stage 2
+    // ------------------------------------
     always_comb begin
         max_cnt_stg2 = '0;
         offset_stg2  = '0;
-        for (int m = 0; m < 8; m++) begin
-            if (max_cnt_stg1_reg[m] > max_cnt_stg2) begin
-                max_cnt_stg2 = max_cnt_stg1_reg[m];
-                offset_stg2 = offset_stg1[m];
+        for (int m = 0; m < 4; m++) begin
+            for (int n = 0; n < 4; n++) begin
+                if (max_cnt_stg1_reg[m*4+n] > max_cnt_stg2[m]) begin
+                    max_cnt_stg2[m] = max_cnt_stg1_reg[m*4+n];
+                    offset_stg2[m] = offset_stg1_reg[m*4+n];
+                end
             end
         end
     end
 
     always_ff @(posedge clk_i) begin
-        block_offset  <= offset_stg2;
+        offset_stg2_reg  <= offset_stg2;
+        max_cnt_stg2_reg <= max_cnt_stg2;
     end
 
-endmodule
-
-/*
-module block_sync (
-    input  logic         rst_i, clk_i, // system inputs
-    input  logic [192:0] gbox_buffer,
-    input  logic [  5:0] gbox_cnt,
-    input  logic         buffer_dv, 
-
-    output logic [6:0] block_offset
-);
-
-    localparam c_DATA_HEADER = 2'b01;
-    localparam c_CMD_HEADER  = 2'b10;
-
-    logic [64:0] [1:0] headers;
-    logic [64:0] [7:0] valid_hdr_cnt, valid_hdr_cnt_reg;    // TODO: fix bit width
-    logic [7:0] max_cnt;                                    // TODO: fix bit width
-
-    always_comb begin 
-        // sets the headers by reading the 2 bits at a time of every possible header location
-        for (int i = 0; i < 65; i++) begin
-            headers[i] = gbox_buffer[129 - gbox_cnt - 1 + i -: 2]; // part select to guarantee 2 bits
-        end
-
-        // evaluates the number of conseutive valid headers each potential block has had. If invalid set to 0
-        for (int j = 0; j < 65; j++) begin
-            valid_hdr_cnt[j] = (headers[j] == c_DATA_HEADER || headers[j] == c_CMD_HEADER) ? 
-                valid_hdr_cnt_reg[j] + 1'b1 : '0;
-        end
-
-        // returns whichever index header has the highest consecutive valid header count at the current moment
-        // a little worried about how much resources this will use
-        max_cnt = 0;
-        block_offset = 0;
-
-        for (int k = 0; k < 65; k++) begin
-            if (valid_hdr_cnt[k] > max_cnt) begin
-                max_cnt = valid_hdr_cnt[k];
-                block_offset = k;
+    // ------------------------------------
+    // pipeline stage 3
+    // ------------------------------------
+    always_comb begin
+        max_cnt_stg3 = '0;
+        offset_stg3  = '0;
+        for (int p = 0; p < 4; p++) begin
+            if (max_cnt_stg2_reg[p] > max_cnt_stg3) begin
+                max_cnt_stg3 = max_cnt_stg2_reg[p];
+                offset_stg3 = offset_stg2_reg[p];
             end
         end
     end
 
     always_ff @(posedge clk_i) begin
-
-        // on a reset, set all counts to 0
-        if (rst_i) begin
-            valid_hdr_cnt_reg <= '0;
-        end
-
-        // otherwise set 
-        else begin
-            for (int l = 0; l < 65; l++) begin
-                valid_hdr_cnt_reg[l] <= valid_hdr_cnt[l];
-            end
-        end
+        block_offset  <= offset_stg3;
     end
 
 endmodule
-*/

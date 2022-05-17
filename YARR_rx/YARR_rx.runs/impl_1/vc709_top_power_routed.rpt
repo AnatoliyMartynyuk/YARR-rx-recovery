@@ -1,13 +1,13 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version     : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-| Date             : Mon May 16 22:58:06 2022
+| Date             : Mon May 16 23:26:55 2022
 | Host             : DESKTOP-HC8675R running 64-bit major release  (build 9200)
 | Command          : report_power -file vc709_top_power_routed.rpt -pb vc709_top_power_summary_routed.pb -rpx vc709_top_power_routed.rpx
 | Design           : vc709_top
-| Device           : xc7vx690tffg1761-2
+| Device           : xc7k160tfbg484-3
 | Design State     : routed
-| Grade            : commercial
+| Grade            : extended
 | Process          : typical
 | Characterization : Production
 -------------------------------------------------------------------------------------------------------------------------------------------------
@@ -30,14 +30,14 @@ Table of Contents
 ----------
 
 +--------------------------+--------------+
-| Total On-Chip Power (W)  | 0.487        |
+| Total On-Chip Power (W)  | 0.268        |
 | Design Power Budget (W)  | Unspecified* |
 | Power Budget Margin (W)  | NA           |
-| Dynamic (W)              | 0.160        |
-| Device Static (W)        | 0.327        |
-| Effective TJA (C/W)      | 1.1          |
-| Max Ambient (C)          | 84.4         |
-| Junction Temperature (C) | 25.6         |
+| Dynamic (W)              | 0.155        |
+| Device Static (W)        | 0.112        |
+| Effective TJA (C/W)      | 2.5          |
+| Max Ambient (C)          | 99.3         |
+| Junction Temperature (C) | 25.7         |
 | Confidence Level         | Medium       |
 | Setting File             | ---          |
 | Simulation Activity File | ---          |
@@ -52,17 +52,18 @@ Table of Contents
 +----------------+-----------+----------+-----------+-----------------+
 | On-Chip        | Power (W) | Used     | Available | Utilization (%) |
 +----------------+-----------+----------+-----------+-----------------+
-| Clocks         |     0.023 |        6 |       --- |             --- |
-| Slice Logic    |     0.005 |      618 |       --- |             --- |
-|   Others       |     0.004 |       12 |       --- |             --- |
-|   LUT as Logic |    <0.001 |      192 |    433200 |            0.04 |
-|   Register     |    <0.001 |      353 |    866400 |            0.04 |
-|   F7/F8 Muxes  |    <0.001 |        8 |    433200 |           <0.01 |
-| Signals        |    <0.001 |      463 |       --- |             --- |
-| MMCM           |     0.124 |        1 |        20 |            5.00 |
-| I/O            |     0.008 |       13 |       850 |            1.53 |
-| Static Power   |     0.327 |          |           |                 |
-| Total          |     0.487 |          |           |                 |
+| Clocks         |     0.017 |        6 |       --- |             --- |
+| Slice Logic    |     0.005 |     2929 |       --- |             --- |
+|   Others       |     0.004 |       15 |       --- |             --- |
+|   LUT as Logic |     0.001 |     1381 |    101400 |            1.36 |
+|   Register     |    <0.001 |     1067 |    202800 |            0.53 |
+|   CARRY4       |    <0.001 |        4 |     25350 |            0.02 |
+|   F7/F8 Muxes  |    <0.001 |       20 |    101400 |            0.02 |
+| Signals        |     0.001 |     2142 |       --- |             --- |
+| MMCM           |     0.124 |        1 |         8 |           12.50 |
+| I/O            |     0.008 |       13 |       285 |            4.56 |
+| Static Power   |     0.112 |          |           |                 |
+| Total          |     0.268 |          |           |                 |
 +----------------+-----------+----------+-----------+-----------------+
 
 
@@ -72,8 +73,8 @@ Table of Contents
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 | Source    | Voltage (V) | Total (A) | Dynamic (A) | Static (A) | Powerup (A) | Budget (A)  | Margin (A) |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
-| Vccint    |       1.000 |     0.217 |       0.028 |      0.190 |       NA    | Unspecified | NA         |
-| Vccaux    |       1.800 |     0.126 |       0.073 |      0.053 |       NA    | Unspecified | NA         |
+| Vccint    |       1.000 |     0.064 |       0.023 |      0.041 |       NA    | Unspecified | NA         |
+| Vccaux    |       1.800 |     0.092 |       0.073 |      0.018 |       NA    | Unspecified | NA         |
 | Vcco33    |       3.300 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco25    |       2.500 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco18    |       1.800 |     0.001 |       0.000 |      0.001 |       NA    | Unspecified | NA         |
@@ -81,13 +82,10 @@ Table of Contents
 | Vcco135   |       1.350 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vcco12    |       1.200 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vccaux_io |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
-| Vccbram   |       1.000 |     0.004 |       0.000 |      0.004 |       NA    | Unspecified | NA         |
+| Vccbram   |       1.000 |     0.001 |       0.000 |      0.001 |       NA    | Unspecified | NA         |
 | MGTAVcc   |       1.000 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | MGTAVtt   |       1.200 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | MGTVccaux |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
-| MGTZVccl  |       1.075 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
-| MGTZAVcc  |       1.075 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
-| MGTZVcch  |       1.800 |     0.000 |       0.000 |      0.000 |       NA    | Unspecified | NA         |
 | Vccadc    |       1.800 |     0.020 |       0.000 |      0.020 |       NA    | Unspecified | NA         |
 +-----------+-------------+-----------+-------------+------------+-------------+-------------+------------+
 
@@ -116,10 +114,10 @@ Table of Contents
 
 +-----------------------+--------------------------+
 | Ambient Temp (C)      | 25.0                     |
-| ThetaJA (C/W)         | 1.1                      |
+| ThetaJA (C/W)         | 2.5                      |
 | Airflow (LFM)         | 250                      |
 | Heat Sink             | medium (Medium Profile)  |
-| ThetaSA (C/W)         | 2.2                      |
+| ThetaSA (C/W)         | 4.2                      |
 | Board Selection       | medium (10"x10")         |
 | # of Board Layers     | 12to15 (12 to 15 Layers) |
 | Board Temperature (C) | 25.0                     |
@@ -148,13 +146,14 @@ Table of Contents
 +-------------------------------------+-----------+
 | Name                                | Power (W) |
 +-------------------------------------+-----------+
-| vc709_top                           |     0.160 |
-|   u_lane_original                   |     0.024 |
-|     gearbox32to66_cmp               |     0.003 |
-|     xapp1017_serdes_1280.serdes_cmp |     0.018 |
-|       loop3[0].dc_inst              |     0.003 |
-|   u_pll                             |     0.129 |
-|     inst                            |     0.129 |
+| vc709_top                           |     0.155 |
+|   u_lane_original                   |     0.022 |
+|     gearbox32to66_cmp               |     0.008 |
+|       u_block_sync                  |     0.006 |
+|     xapp1017_serdes_1280.serdes_cmp |     0.013 |
+|       loop3[0].dc_inst              |     0.002 |
+|   u_pll                             |     0.130 |
+|     inst                            |     0.130 |
 +-------------------------------------+-----------+
 
 

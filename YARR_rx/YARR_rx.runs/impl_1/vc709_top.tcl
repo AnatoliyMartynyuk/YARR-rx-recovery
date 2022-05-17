@@ -123,8 +123,7 @@ set rc [catch {
   create_msg_db init_design.pb
   set_param chipscope.maxJobs 1
 OPTRACE "create in-memory project" START { }
-  create_project -in_memory -part xc7vx690tffg1761-2
-  set_property board_part xilinx.com:vc709:part0:1.8 [current_project]
+  create_project -in_memory -part xc7k160tfbg484-3
   set_property design_mode GateLvl [current_fileset]
   set_param project.singleFileAddWarning.threshold 0
 OPTRACE "create in-memory project" END { }
@@ -143,7 +142,7 @@ OPTRACE "read constraints: implementation" START { }
 OPTRACE "read constraints: implementation" END { }
 OPTRACE "add files" END { }
 OPTRACE "link_design" START { }
-  link_design -top vc709_top -part xc7vx690tffg1761-2
+  link_design -top vc709_top -part xc7k160tfbg484-3
 OPTRACE "link_design" END { }
 OPTRACE "gray box cells" START { }
 OPTRACE "gray box cells" END { }

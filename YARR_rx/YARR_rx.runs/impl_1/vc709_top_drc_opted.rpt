@@ -1,12 +1,12 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-| Date         : Mon May 16 22:55:36 2022
+| Date         : Mon May 16 23:26:17 2022
 | Host         : DESKTOP-HC8675R running 64-bit major release  (build 9200)
 | Command      : report_drc -file vc709_top_drc_opted.rpt -pb vc709_top_drc_opted.pb -rpx vc709_top_drc_opted.rpx
 | Design       : vc709_top
-| Device       : xc7vx690tffg1761-2
-| Speed File   : -2
+| Device       : xc7k160tfbg484-3
+| Speed File   : -3
 | Design State : Synthesized
 ------------------------------------------------------------------------------------------------------------------
 
@@ -24,19 +24,25 @@ Table of Contents
       Design limits: <entire design considered>
            Ruledeck: default
              Max violations: <unlimited>
-             Violations found: 2
-+----------+----------+-----------------------------------------------------+------------+
-| Rule     | Severity | Description                                         | Violations |
-+----------+----------+-----------------------------------------------------+------------+
-| REQP-83  | Error    | IDATAIN_connected                                   | 1          |
-| CFGBVS-1 | Warning  | Missing CFGBVS and CONFIG_VOLTAGE Design Properties | 1          |
-+----------+----------+-----------------------------------------------------+------------+
+             Violations found: 3
++----------+------------------+-----------------------------------------------------+------------+
+| Rule     | Severity         | Description                                         | Violations |
++----------+------------------+-----------------------------------------------------+------------+
+| REQP-83  | Error            | IDATAIN_connected                                   | 1          |
+| UCIO-1   | Critical Warning | Unconstrained Logical Port                          | 1          |
+| CFGBVS-1 | Warning          | Missing CFGBVS and CONFIG_VOLTAGE Design Properties | 1          |
++----------+------------------+-----------------------------------------------------+------------+
 
 2. REPORT DETAILS
 -----------------
 REQP-83#1 Error
 IDATAIN_connected  
 u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop0[0].idelay_s: For DELAY_SRC IDATAIN programming the IDATAIN input pin of IDELAYE2 must be connected.
+Related violations: <none>
+
+UCIO-1#1 Critical Warning
+Unconstrained Logical Port  
+13 out of 13 logical ports have no user assigned specific location constraint (LOC). This may cause I/O contention or incompatibility with the board power or connectivity affecting performance, signal integrity or in extreme cases cause damage to the device or the components to which it is connected. To correct this violation, specify all pin locations. This design will fail to generate a bitstream unless all logical ports have a user specified site LOC constraint defined.  To allow bitstream creation with unspecified pin locations (not recommended), use this command: set_property SEVERITY {Warning} [get_drc_checks UCIO-1].  NOTE: When using the Vivado Runs infrastructure (e.g. launch_runs Tcl command), add this command to a .tcl file and add that file as a pre-hook for write_bitstream step for the implementation run.  Problem ports: gpio_switch[7], gpio_switch[6], gpio_switch[0], led[7:0], clk_n, clk_p.
 Related violations: <none>
 
 CFGBVS-1#1 Warning

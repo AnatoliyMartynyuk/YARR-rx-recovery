@@ -72,7 +72,7 @@ proc create_report { reportName command } {
 OPTRACE "synth_1" START { ROLLUP_AUTO }
 set_param chipscope.maxJobs 1
 OPTRACE "Creating in-memory project" START { }
-create_project -in_memory -part xc7vx690tffg1761-2
+create_project -in_memory -part xc7k160tfbg484-3
 
 set_param project.singleFileAddWarning.threshold 0
 set_param project.compositeFile.enableAutoGeneration 0
@@ -83,20 +83,22 @@ set_property parent.project_path C:/Users/User/Documents/YARR-rx-recovery/YARR_r
 set_property XPM_LIBRARIES XPM_CDC [current_project]
 set_property default_lib xil_defaultlib [current_project]
 set_property target_language Verilog [current_project]
-set_property board_part xilinx.com:vc709:part0:1.8 [current_project]
 set_property ip_output_repo c:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.cache/ip [current_project]
 set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
-read_verilog -library xil_defaultlib -sv C:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.srcs/sources_1/new/vc709_top.sv
+read_verilog -library xil_defaultlib -sv {
+  C:/Users/User/Documents/YARR-rx-recovery/src/block_sync.sv
+  C:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.srcs/sources_1/new/vc709_top.sv
+}
 read_verilog -library xil_defaultlib C:/Users/User/Documents/YARR-rx-recovery/src/descrambler.v
 read_vhdl -library xil_defaultlib {
   C:/Users/User/Documents/YARR-rx-recovery/src/tef1001_R2_type.vhd
   C:/Users/User/Documents/YARR-rx-recovery/src/board_pkg.vhd
-  C:/Users/User/Documents/YARR-rx-recovery/src/aurora_rx_lane.vhd
+  C:/Users/User/Documents/YARR-rx-recovery/src/aurora_rx_lane_wip.vhd
   C:/Users/User/Documents/YARR-rx-recovery/src/cdr_serdes.vhd
   C:/Users/User/Documents/YARR-rx-recovery/src/delay_controller_wrap.vhd
-  C:/Users/User/Documents/YARR-rx-recovery/src/gearbox32to66.vhd
+  C:/Users/User/Documents/YARR-rx-recovery/src/gearbox32to66_wip.vhd
   C:/Users/User/Documents/YARR-rx-recovery/src/serdes_1_to_468_idelay_ddr.vhd
 }
 read_ip -quiet C:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0.xci
@@ -120,7 +122,7 @@ set_param ips.enableIPCacheLiteLoad 1
 close [open __synthesis_is_running__ w]
 
 OPTRACE "synth_design" START { }
-synth_design -top vc709_top -part xc7vx690tffg1761-2
+synth_design -top vc709_top -part xc7k160tfbg484-3
 OPTRACE "synth_design" END { }
 
 

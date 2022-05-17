@@ -447,7 +447,8 @@ begin
         clk_i           => clk_rx_i,
         data32_i        => serdes_data32,
         data32_valid_i  => serdes_data32_valid,
-        slip_i          => gearbox_slip,
+        --slip_i          => gearbox_slip,
+        slip_i          => '0',
         data66_o        => gearbox_data66,
         data66_valid_o  => gearbox_data66_valid
     );

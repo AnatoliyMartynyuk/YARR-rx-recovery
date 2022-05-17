@@ -3,5 +3,7 @@
 **/work
 sim/transcript
 **.wlf
+**/wlf*
 **.vstf
 sim/wlf*
+YARR_rx/

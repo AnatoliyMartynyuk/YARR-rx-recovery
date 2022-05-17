@@ -1,4 +1,41 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+--------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
+| Date         : Mon May 16 23:02:19 2022
+| Host         : DESKTOP-HC8675R running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file ../docs/original_sys_rsc2.rpt
+| Design       : vc709_top
+| Device       : 7vx690tffg1761-2
+| Design State : Routed
+--------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++-----------------------------------------+-----------------------------+------------+------------+---------+------+-----+--------+--------+------------+
+|                 Instance                |            Module           | Total LUTs | Logic LUTs | LUTRAMs | SRLs | FFs | RAMB36 | RAMB18 | DSP Blocks |
++-----------------------------------------+-----------------------------+------------+------------+---------+------+-----+--------+--------+------------+
+| vc709_top                               |                       (top) |        192 |        192 |       0 |    0 | 353 |      0 |      0 |          0 |
+|   (vc709_top)                           |                       (top) |          1 |          1 |       0 |    0 |   0 |      0 |      0 |          0 |
+|   u_lane_original                       |              aurora_rx_lane |        191 |        191 |       0 |    0 | 353 |      0 |      0 |          0 |
+|     (u_lane_original)                   |              aurora_rx_lane |         23 |         23 |       0 |    0 |  90 |      0 |      0 |          0 |
+|     gearbox32to66_cmp                   |               gearbox32to66 |         49 |         49 |       0 |    0 | 156 |      0 |      0 |          0 |
+|     xapp1017_serdes_1280.serdes_cmp     |  serdes_1_to_468_idelay_ddr |        119 |        119 |       0 |    0 | 107 |      0 |      0 |          0 |
+|       (xapp1017_serdes_1280.serdes_cmp) |  serdes_1_to_468_idelay_ddr |          7 |          7 |       0 |    0 |   7 |      0 |      0 |          0 |
+|       loop3[0].dc_inst                  |       delay_controller_wrap |        112 |        112 |       0 |    0 | 100 |      0 |      0 |          0 |
+|   u_pll                                 |                   clk_wiz_0 |          0 |          0 |       0 |    0 |   0 |      0 |      0 |          0 |
+|     inst                                | clk_wiz_0_clk_wiz_0_clk_wiz |          0 |          0 |       0 |    0 |   0 |      0 |      0 |          0 |
++-----------------------------------------+-----------------------------+------------+------------+---------+------+-----+--------+--------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
 | Date         : Mon May 16 22:56:04 2022

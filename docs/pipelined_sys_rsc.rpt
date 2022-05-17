@@ -1,7 +1,46 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
+----------------------------------------------------------------------------------------------------------------------
+| Tool Version : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
+| Date         : Mon May 16 22:47:18 2022
+| Host         : DESKTOP-HC8675R running 64-bit major release  (build 9200)
+| Command      : report_utilization -hierarchical -file C:UsersUserDocumentsYARR-rx-recoverydocspipelined_sys_rsc.rpt
+| Design       : vc709_top
+| Device       : 7vx690tffg1761-2
+| Design State : Routed
+----------------------------------------------------------------------------------------------------------------------
+
+Utilization Design Information
+
+Table of Contents
+-----------------
+1. Utilization by Hierarchy
+
+1. Utilization by Hierarchy
+---------------------------
+
++-----------------------------------------+-----------------------------+------------+------------+---------+------+------+--------+--------+------------+
+|                 Instance                |            Module           | Total LUTs | Logic LUTs | LUTRAMs | SRLs |  FFs | RAMB36 | RAMB18 | DSP Blocks |
++-----------------------------------------+-----------------------------+------------+------------+---------+------+------+--------+--------+------------+
+| vc709_top                               |                       (top) |       1380 |       1380 |       0 |    0 | 1067 |      0 |      0 |          0 |
+|   (vc709_top)                           |                       (top) |          1 |          1 |       0 |    0 |    0 |      0 |      0 |          0 |
+|   u_lane_original                       |              aurora_rx_lane |       1379 |       1379 |       0 |    0 | 1067 |      0 |      0 |          0 |
+|     (u_lane_original)                   |              aurora_rx_lane |         16 |         16 |       0 |    0 |   84 |      0 |      0 |          0 |
+|     gearbox32to66_cmp                   |               gearbox32to66 |       1244 |       1244 |       0 |    0 |  876 |      0 |      0 |          0 |
+|       (gearbox32to66_cmp)               |               gearbox32to66 |         67 |         67 |       0 |    0 |  221 |      0 |      0 |          0 |
+|       u_block_sync                      |                  block_sync |       1178 |       1178 |       0 |    0 |  655 |      0 |      0 |          0 |
+|     xapp1017_serdes_1280.serdes_cmp     |  serdes_1_to_468_idelay_ddr |        119 |        119 |       0 |    0 |  107 |      0 |      0 |          0 |
+|       (xapp1017_serdes_1280.serdes_cmp) |  serdes_1_to_468_idelay_ddr |          7 |          7 |       0 |    0 |    7 |      0 |      0 |          0 |
+|       loop3[0].dc_inst                  |       delay_controller_wrap |        112 |        112 |       0 |    0 |  100 |      0 |      0 |          0 |
+|   u_pll                                 |                   clk_wiz_0 |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
+|     inst                                | clk_wiz_0_clk_wiz_0_clk_wiz |          0 |          0 |       0 |    0 |    0 |      0 |      0 |          0 |
++-----------------------------------------+-----------------------------+------------+------------+---------+------+------+--------+--------+------------+
+* Note: The sum of lower-level cells may be larger than their parent cells total, due to cross-hierarchy LUT combining
+
+
+Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 ---------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-| Date         : Mon May 16 22:56:04 2022
+| Date         : Mon May 16 22:20:40 2022
 | Host         : DESKTOP-HC8675R running 64-bit major release  (build 9200)
 | Command      : report_utilization -file vc709_top_utilization_placed.rpt -pb vc709_top_utilization_placed.pb
 | Design       : vc709_top
@@ -31,14 +70,14 @@ Table of Contents
 +-------------------------+------+-------+-----------+-------+
 |        Site Type        | Used | Fixed | Available | Util% |
 +-------------------------+------+-------+-----------+-------+
-| Slice LUTs              |  192 |     0 |    433200 |  0.04 |
-|   LUT as Logic          |  192 |     0 |    433200 |  0.04 |
+| Slice LUTs              | 1380 |     0 |    433200 |  0.32 |
+|   LUT as Logic          | 1380 |     0 |    433200 |  0.32 |
 |   LUT as Memory         |    0 |     0 |    174200 |  0.00 |
-| Slice Registers         |  353 |     0 |    866400 |  0.04 |
-|   Register as Flip Flop |  353 |     0 |    866400 |  0.04 |
+| Slice Registers         | 1067 |     0 |    866400 |  0.12 |
+|   Register as Flip Flop | 1067 |     0 |    866400 |  0.12 |
 |   Register as Latch     |    0 |     0 |    866400 |  0.00 |
-| F7 Muxes                |    8 |     0 |    216600 | <0.01 |
-| F8 Muxes                |    0 |     0 |    108300 |  0.00 |
+| F7 Muxes                |   15 |     0 |    216600 | <0.01 |
+| F8 Muxes                |    5 |     0 |    108300 | <0.01 |
 +-------------------------+------+-------+-----------+-------+
 
 
@@ -55,9 +94,9 @@ Table of Contents
 | 0     |            _ |       Reset |            - |
 | 0     |          Yes |           - |            - |
 | 3     |          Yes |           - |          Set |
-| 250   |          Yes |           - |        Reset |
+| 309   |          Yes |           - |        Reset |
 | 3     |          Yes |         Set |            - |
-| 97    |          Yes |       Reset |            - |
+| 752   |          Yes |       Reset |            - |
 +-------+--------------+-------------+--------------+
 
 
@@ -67,22 +106,22 @@ Table of Contents
 +--------------------------------------------+------+-------+-----------+-------+
 |                  Site Type                 | Used | Fixed | Available | Util% |
 +--------------------------------------------+------+-------+-----------+-------+
-| Slice                                      |  112 |     0 |    108300 |  0.10 |
-|   SLICEL                                   |   62 |     0 |           |       |
-|   SLICEM                                   |   50 |     0 |           |       |
-| LUT as Logic                               |  192 |     0 |    433200 |  0.04 |
+| Slice                                      |  451 |     0 |    108300 |  0.42 |
+|   SLICEL                                   |  276 |     0 |           |       |
+|   SLICEM                                   |  175 |     0 |           |       |
+| LUT as Logic                               | 1380 |     0 |    433200 |  0.32 |
 |   using O5 output only                     |    0 |       |           |       |
-|   using O6 output only                     |  139 |       |           |       |
-|   using O5 and O6                          |   53 |       |           |       |
+|   using O6 output only                     |  937 |       |           |       |
+|   using O5 and O6                          |  443 |       |           |       |
 | LUT as Memory                              |    0 |     0 |    174200 |  0.00 |
 |   LUT as Distributed RAM                   |    0 |     0 |           |       |
 |   LUT as Shift Register                    |    0 |     0 |           |       |
-| Slice Registers                            |  353 |     0 |    866400 |  0.04 |
-|   Register driven from within the Slice    |  159 |       |           |       |
-|   Register driven from outside the Slice   |  194 |       |           |       |
-|     LUT in front of the register is unused |  174 |       |           |       |
-|     LUT in front of the register is used   |   20 |       |           |       |
-| Unique Control Sets                        |   16 |       |    108300 |  0.01 |
+| Slice Registers                            | 1067 |     0 |    866400 |  0.12 |
+|   Register driven from within the Slice    |  802 |       |           |       |
+|   Register driven from outside the Slice   |  265 |       |           |       |
+|     LUT in front of the register is unused |  133 |       |           |       |
+|     LUT in front of the register is used   |  132 |       |           |       |
+| Unique Control Sets                        |   87 |       |    108300 |  0.08 |
 +--------------------------------------------+------+-------+-----------+-------+
 * * Note: Available Control Sets calculated as Slice * 1, Review the Control Sets Report for more information regarding control sets.
 
@@ -180,17 +219,19 @@ Table of Contents
 +------------+------+---------------------+
 |  Ref Name  | Used | Functional Category |
 +------------+------+---------------------+
-| FDCE       |  250 |        Flop & Latch |
-| FDRE       |   97 |        Flop & Latch |
-| LUT6       |   81 |                 LUT |
-| LUT5       |   59 |                 LUT |
-| LUT4       |   32 |                 LUT |
-| LUT3       |   32 |                 LUT |
-| LUT2       |   28 |                 LUT |
-| LUT1       |   13 |                 LUT |
-| MUXF7      |    8 |               MuxFx |
+| FDRE       |  752 |        Flop & Latch |
+| LUT6       |  657 |                 LUT |
+| LUT4       |  342 |                 LUT |
+| LUT3       |  336 |                 LUT |
+| FDCE       |  309 |        Flop & Latch |
+| LUT5       |  259 |                 LUT |
+| LUT2       |  149 |                 LUT |
+| LUT1       |   80 |                 LUT |
+| MUXF7      |   15 |               MuxFx |
+| MUXF8      |    5 |               MuxFx |
 | OBUFT      |    4 |                  IO |
 | OBUF       |    4 |                  IO |
+| CARRY4     |    4 |          CarryLogic |
 | IBUF       |    3 |                  IO |
 | FDSE       |    3 |        Flop & Latch |
 | FDPE       |    3 |        Flop & Latch |

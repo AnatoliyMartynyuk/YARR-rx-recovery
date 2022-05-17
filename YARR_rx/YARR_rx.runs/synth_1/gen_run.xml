@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<GenRun Id="synth_1" LaunchPart="xc7vx690tffg1761-2" LaunchTime="1652760026">
+<GenRun Id="synth_1" LaunchPart="xc7vx690tffg1761-2" LaunchTime="1652766704">
   <File Type="PA-TCL" Name="vc709_top.tcl"/>
   <File Type="RDS-PROPCONSTRS" Name="vc709_top_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="vc709_top_reports.tcl"/>
@@ -18,13 +18,6 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../src/block_sync.sv">
-      <FileInfo>
-        <Attr Name="UsedIn" Val="synthesis"/>
-        <Attr Name="UsedIn" Val="implementation"/>
-        <Attr Name="UsedIn" Val="simulation"/>
-      </FileInfo>
-    </File>
     <File Path="$PPRDIR/../src/tef1001_R2_type.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
@@ -37,7 +30,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../src/aurora_rx_lane_wip.vhd">
+    <File Path="$PPRDIR/../src/aurora_rx_lane.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -55,7 +48,7 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../src/gearbox32to66_wip.vhd">
+    <File Path="$PPRDIR/../src/gearbox32to66.vhd">
       <FileInfo>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
@@ -74,16 +67,24 @@
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../src/aurora_rx_lane.vhd">
+    <File Path="$PPRDIR/../src/block_sync.sv">
       <FileInfo>
         <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="implementation"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PPRDIR/../src/gearbox32to66_wip.vhd">
+      <FileInfo>
+        <Attr Name="UserDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>
     </File>
-    <File Path="$PPRDIR/../src/gearbox32to66.vhd">
+    <File Path="$PPRDIR/../src/aurora_rx_lane_wip.vhd">
       <FileInfo>
-        <Attr Name="AutoDisabled" Val="1"/>
+        <Attr Name="UserDisabled" Val="1"/>
         <Attr Name="UsedIn" Val="synthesis"/>
         <Attr Name="UsedIn" Val="simulation"/>
       </FileInfo>

@@ -36,7 +36,7 @@ module block_sync (
     always_comb begin 
 
         // "give" each pair of bits a name 
-        for (int i = 0; i < 67; i++) begin
+        for (int i = 0; i < 66; i++) begin
             headers[i] = buffer[1 + i -: 2]; // part select to guarantee 2 bits
         end
 

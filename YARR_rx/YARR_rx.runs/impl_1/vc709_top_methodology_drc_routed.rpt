@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 -----------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-| Date         : Fri May  6 11:58:07 2022
+| Date         : Mon May 16 21:10:57 2022
 | Host         : DESKTOP-HC8675R running 64-bit major release  (build 9200)
 | Command      : report_methodology -file vc709_top_methodology_drc_routed.rpt -pb vc709_top_methodology_drc_routed.pb -rpx vc709_top_methodology_drc_routed.rpx
 | Design       : vc709_top
@@ -23,27 +23,16 @@ Table of Contents
           Floorplan: design_1
       Design limits: <entire design considered>
              Max violations: <unlimited>
-             Violations found: 19
+             Violations found: 17
 +-----------+----------+--------------------------------------------------------+------------+
 | Rule      | Severity | Description                                            | Violations |
 +-----------+----------+--------------------------------------------------------+------------+
-| TIMING-16 | Warning  | Large setup violation                                  | 2          |
 | TIMING-18 | Warning  | Missing input or output delay                          | 16         |
 | XDCC-7    | Warning  | Scoped Clock constraint overwritten on the same source | 1          |
 +-----------+----------+--------------------------------------------------------+------------+
 
 2. REPORT DETAILS
 -----------------
-TIMING-16#1 Warning
-Large setup violation  
-There is a large setup violation of -46.195 ns between u_lane_original/gearbox32to66_cmp/buffer193_reg[105]/C (clocked by clk_out1_clk_wiz_0_1) and u_lane_original/gearbox32to66_cmp/data66_t_reg[65]/D (clocked by clk_out1_clk_wiz_0_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
-Related violations: <none>
-
-TIMING-16#2 Warning
-Large setup violation  
-There is a large setup violation of -46.299 ns between u_lane_original/gearbox32to66_cmp/buffer193_reg[105]/C (clocked by clk_out1_clk_wiz_0_1) and u_lane_original/gearbox32to66_cmp/data66_t_reg[64]/D (clocked by clk_out1_clk_wiz_0_1). Large setup violations at the end of those stages might be difficult to fix during the post-placement implementation flow and could be the result of non-optimal XDC constraints or non-optimal design architecture
-Related violations: <none>
-
 TIMING-18#1 Warning
 Missing input or output delay  
 An input delay is missing on gpio_switch[0] relative to clock(s) clk

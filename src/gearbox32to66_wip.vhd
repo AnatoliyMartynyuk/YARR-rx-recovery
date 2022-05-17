@@ -50,6 +50,7 @@ architecture rtl of gearbox32to66 is
     signal slip_cnt         : std_logic;
     signal data66_t         : std_logic_vector(65 downto 0);
     signal data66_t_valid   : std_logic;
+    signal data66_valid_i   : std_logic;
 
     signal blk_idx_offset   : unsigned(6 downto 0);
     signal block_msb_idx    : integer;
@@ -73,12 +74,12 @@ begin
         -- input
         gbox_buffer     => buffer194,
         gbox_cnt        => gearbox_cnt(5 downto 0),
-        buffer_dv       => data66_valid_o,
+        buffer_dv       => data66_valid_i,
         -- Output
         block_offset    => blk_idx_offset
     );
 
-
+    data66_valid_o <= data66_valid_i;
     block_msb_idx <= 128-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(5 downto 0));
     block_lsb_idx <= 63-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(5 downto 0));
     --block_msb_idx <= 128-to_integer(gearbox_cnt(5 downto 0));
@@ -97,7 +98,7 @@ begin
 
             -- double buffering
             data66_cnt          <= (others => '0');
-            data66_valid_o      <= '0';
+            data66_valid_i      <= '0';
             data66_o            <= (others => '0');
             data66_buf          <= (others => '0');
             data66_buf_empty    <= '1';
@@ -117,9 +118,9 @@ begin
                 -- evaluate shifting and whether this is an output valid cycle
                 shift_cnt <= not shift_cnt;                                      -- alternate so that we
                 buffer194(193 downto 0) <= buffer194(161 downto 0) & data32_i;   -- shift in new data
-                --data66_t <= buffer194(128-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(5 downto 0))
-                --         downto 63-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(5 downto 0)));       -- evaluate new 66b block to output
-                data66_t <= buffer194(block_msb_idx downto block_lsb_idx);
+                data66_t <= buffer194(128-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(5 downto 0))
+                         downto 63-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(5 downto 0)));       -- evaluate new 66b block to output
+                --data66_t <= buffer194(block_msb_idx downto block_lsb_idx);
                 
                 -- evaluated every other cycle, determines whether to move the gearbox output window or not
                 if (shift_cnt = '1') then
@@ -167,29 +168,29 @@ begin
             end if;
 
             -- Buffer stage two
-            data66_valid_o <= '0'; -- default
+            data66_valid_i <= '0'; -- default
 
             if    (data66_buf_empty = '0' and data66_buf2_empty = '0' and data66_buf2_read = '1') then
                 data66_buf2_empty   <= '0';
-                data66_valid_o      <= '1';
+                data66_valid_i      <= '1';
                 data66_buf2         <= data66_buf;
                 data66_o            <= data66_buf2;
 
             elsif (data66_buf_empty = '1' and data66_buf2_empty = '0' and data66_buf2_read = '1') then
                 data66_buf2_empty   <= '1';
-                data66_valid_o      <= '1';
+                data66_valid_i      <= '1';
                 data66_buf2         <= data66_buf2;
                 data66_o            <= data66_buf2;
 
             elsif (data66_buf_empty = '0' and data66_buf2_empty = '1' and data66_buf2_read = '0') then
                 data66_buf2_empty   <= '0';
-                --data66_valid_o      <= '0';
+                --data66_valid_i      <= '0';
                 data66_buf2         <= data66_buf;
                 --data66_o            <= data66_o;
 
             elsif (data66_buf_empty = '0' and data66_buf2_empty = '1' and data66_buf2_read = '1') then
                 data66_buf2_empty   <= '1';
-                data66_valid_o      <= '1';
+                data66_valid_i      <= '1';
                 --data66_buf2         <= data66_buf2;
                 data66_o            <= data66_buf;
             end if;

@@ -18,8 +18,10 @@ vcom -work work ../src/board_pkg.vhd
 vcom -work work ../src/cdr_serdes.vhd
 vlog -work work ../src/descrambler.v
 vlog -work work ../src/scrambler.v
-vcom -work work ../src/gearbox32to66_wip.vhd
-vcom -work work ../src/aurora_rx_lane_wip.vhd
+#vcom -work work ../src/gearbox32to66_wip.vhd
+#vcom -work work ../src/aurora_rx_lane_wip.vhd
+vcom -work work ../src/gearbox32to66.vhd
+vcom -work work ../src/aurora_rx_lane.vhd
 #vcom -work work ../src/aurora_ch_bond.vhd
 vcom -work work ../src/rr_arbiter.vhd
 vlog -work work ../src/block_sync.sv

@@ -2,7 +2,7 @@ vlib work
 
 # src files
 vlog -work work ../src/block_sync.sv
-
+vlog -work work ../src/header_seeker.sv
 
 # sim files
 vlog -work work sim_block_sync.sv

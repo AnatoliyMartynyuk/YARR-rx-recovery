@@ -5,7 +5,8 @@ module sim_block_sync();
     logic [  5:0] gbox_cnt;
     logic [  6:0] block_offset;
 
-    block_sync dut (.*);
+    //block_sync dut (.*);
+    header_seeker dut (.*);
 
     // set up clock
     initial begin
@@ -20,7 +21,7 @@ module sim_block_sync();
         rst_i = 1; repeat(2) @(posedge clk_i);
         rst_i <= 0; @(posedge clk_i);
 
-        for (i = 126; i < 194; i++) begin
+        for (i = 127; i < 194; i++) begin
             gbox_buffer = '0; gbox_buffer[i] <= 1;  buffer_dv <= '1; @(posedge clk_i);
                                                     buffer_dv <= '0; @(posedge clk_i);
             repeat(7) @(posedge clk_i);

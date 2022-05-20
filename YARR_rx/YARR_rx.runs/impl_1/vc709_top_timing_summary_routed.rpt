@@ -1,7 +1,7 @@
 Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 | Tool Version : Vivado v.2020.1 (win64) Build 2902540 Wed May 27 19:54:49 MDT 2020
-| Date         : Mon May 16 23:26:56 2022
+| Date         : Fri May 20 13:33:30 2022
 | Host         : DESKTOP-HC8675R running 64-bit major release  (build 9200)
 | Command      : report_timing_summary -max_paths 10 -file vc709_top_timing_summary_routed.rpt -pb vc709_top_timing_summary_routed.pb -rpx vc709_top_timing_summary_routed.rpx -warn_on_violation
 | Design       : vc709_top
@@ -128,7 +128,7 @@ Table of Contents
 
     WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
     -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
-      1.422        0.000                      0                 2255        0.083        0.000                      0                 2255       -0.876       -1.751                       2                  1085  
+      1.983        0.000                      0                  949        0.095        0.000                      0                  949       -0.876       -1.751                       2                   530  
 
 
 Timing constraints are not met.
@@ -155,7 +155,7 @@ clk                     {0.000 3.125}        6.250           160.000
 Clock                       WNS(ns)      TNS(ns)  TNS Failing Endpoints  TNS Total Endpoints      WHS(ns)      THS(ns)  THS Failing Endpoints  THS Total Endpoints     WPWS(ns)     TPWS(ns)  TPWS Failing Endpoints  TPWS Total Endpoints  
 -----                       -------      -------  ---------------------  -------------------      -------      -------  ---------------------  -------------------     --------     --------  ----------------------  --------------------  
 clk                                                                                                                                                                       1.625        0.000                       0                     1  
-  clk_out1_clk_wiz_0_1        1.422        0.000                      0                 2255        0.083        0.000                      0                 2255        2.725        0.000                       0                  1073  
+  clk_out1_clk_wiz_0_1        1.983        0.000                      0                  949        0.095        0.000                      0                  949        2.725        0.000                       0                   518  
   clk_out2_clk_wiz_0_1                                                                                                                                                   -0.876       -1.751                       2                     8  
   clkfbout_clk_wiz_0_1                                                                                                                                                    4.901        0.000                       0                     3  
 
@@ -215,28 +215,28 @@ High Pulse Width  Fast    MMCME2_ADV/CLKIN1  n/a            1.500         3.125 
 From Clock:  clk_out1_clk_wiz_0_1
   To Clock:  clk_out1_clk_wiz_0_1
 
-Setup :            0  Failing Endpoints,  Worst Slack        1.422ns,  Total Violation        0.000ns
-Hold  :            0  Failing Endpoints,  Worst Slack        0.083ns,  Total Violation        0.000ns
+Setup :            0  Failing Endpoints,  Worst Slack        1.983ns,  Total Violation        0.000ns
+Hold  :            0  Failing Endpoints,  Worst Slack        0.095ns,  Total Violation        0.000ns
 PW    :            0  Failing Endpoints,  Worst Slack        2.725ns,  Total Violation        0.000ns
 ---------------------------------------------------------------------------------------------------
 
 
 Max Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             1.422ns  (required time - arrival time)
-  Source:                 u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/C
+Slack (MET) :             1.983ns  (required time - arrival time)
+  Source:                 u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][3]/R
+  Destination:            u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][0]/R
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            6.250ns  (clk_out1_clk_wiz_0_1 rise@6.250ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        4.378ns  (logic 0.753ns (17.199%)  route 3.625ns (82.801%))
-  Logic Levels:           8  (LUT4=2 LUT5=1 LUT6=5)
-  Clock Path Skew:        -0.095ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    -1.263ns = ( 4.987 - 6.250 ) 
-    Source Clock Delay      (SCD):    -1.813ns
-    Clock Pessimism Removal (CPR):    -0.645ns
+  Data Path Delay:        3.886ns  (logic 0.905ns (23.288%)  route 2.981ns (76.712%))
+  Logic Levels:           7  (LUT3=1 LUT4=1 LUT5=1 LUT6=2 MUXF7=1 MUXF8=1)
+  Clock Path Skew:        -0.026ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.258ns = ( 4.992 - 6.250 ) 
+    Source Clock Delay      (SCD):    -1.801ns
+    Clock Pessimism Removal (CPR):    -0.569ns
   Clock Uncertainty:      0.060ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Discrete Jitter          (DJ):    0.096ns
@@ -254,28 +254,26 @@ Slack (MET) :             1.422ns  (required time - arrival time)
                                                      -6.572    -4.789 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.652    -3.137    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.080    -3.057 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.244    -1.813    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X56Y71         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/C
+                         net (fo=516, routed)         1.256    -1.801    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X56Y71         FDRE (Prop_fdre_C_Q)         0.216    -1.597 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/Q
-                         net (fo=4, routed)           0.485    -1.112    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13]_45[4]
-    SLICE_X56Y75         LUT4 (Prop_lut4_I3_O)        0.051    -1.061 f  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_6/O
-                         net (fo=1, routed)           0.418    -0.643    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_6_n_0
-    SLICE_X56Y74         LUT6 (Prop_lut6_I2_O)        0.129    -0.514 r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_4/O
-                         net (fo=15, routed)          0.404    -0.110    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_4_n_0
-    SLICE_X55Y74         LUT4 (Prop_lut4_I2_O)        0.054    -0.056 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_19/O
-                         net (fo=1, routed)           0.418     0.362    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_19_n_0
-    SLICE_X55Y74         LUT6 (Prop_lut6_I2_O)        0.131     0.493 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_11/O
-                         net (fo=3, routed)           0.344     0.837    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_11_n_0
-    SLICE_X55Y75         LUT6 (Prop_lut6_I2_O)        0.043     0.880 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_3/O
-                         net (fo=16, routed)          0.373     1.253    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_3_n_0
-    SLICE_X53Y74         LUT6 (Prop_lut6_I3_O)        0.043     1.296 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_6/O
-                         net (fo=1, routed)           0.428     1.723    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_6_n_0
-    SLICE_X53Y74         LUT6 (Prop_lut6_I1_O)        0.043     1.766 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_2/O
-                         net (fo=11, routed)          0.377     2.143    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_2_n_0
-    SLICE_X56Y75         LUT5 (Prop_lut5_I0_O)        0.043     2.186 r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_1/O
-                         net (fo=5, routed)           0.378     2.565    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2
-    SLICE_X55Y76         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][3]/R
+    SLICE_X48Y82         FDRE (Prop_fdre_C_Q)         0.216    -1.585 f  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/Q
+                         net (fo=12, routed)          0.558    -1.027    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0]_6[1]
+    SLICE_X48Y83         LUT5 (Prop_lut5_I1_O)        0.048    -0.979 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1/O
+                         net (fo=8, routed)           0.528    -0.451    u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1_n_0
+    SLICE_X50Y83         LUT4 (Prop_lut4_I2_O)        0.134    -0.317 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2/O
+                         net (fo=10, routed)          0.373     0.056    u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2_n_0
+    SLICE_X50Y89         MUXF7 (Prop_muxf7_S_O)       0.257     0.313 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32/O
+                         net (fo=1, routed)           0.000     0.313    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32_n_0
+    SLICE_X50Y89         MUXF8 (Prop_muxf8_I0_O)      0.044     0.357 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18/O
+                         net (fo=1, routed)           0.476     0.833    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18_n_0
+    SLICE_X50Y84         LUT6 (Prop_lut6_I5_O)        0.120     0.953 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9/O
+                         net (fo=1, routed)           0.223     1.176    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9_n_0
+    SLICE_X50Y83         LUT6 (Prop_lut6_I5_O)        0.043     1.219 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4/O
+                         net (fo=3, routed)           0.317     1.536    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4_n_0
+    SLICE_X48Y82         LUT3 (Prop_lut3_I1_O)        0.043     1.579 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_1/O
+                         net (fo=6, routed)           0.506     2.085    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_1_n_0
+    SLICE_X48Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][0]/R
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -288,31 +286,31 @@ Slack (MET) :             1.422ns  (required time - arrival time)
                                                      -5.645     2.212 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.572     3.784    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.072     3.856 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.131     4.987    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X55Y76         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][3]/C
-                         clock pessimism             -0.645     4.342    
-                         clock uncertainty           -0.060     4.282    
-    SLICE_X55Y76         FDRE (Setup_fdre_C_R)       -0.295     3.987    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][3]
+                         net (fo=516, routed)         1.136     4.992    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][0]/C
+                         clock pessimism             -0.569     4.423    
+                         clock uncertainty           -0.060     4.363    
+    SLICE_X48Y77         FDRE (Setup_fdre_C_R)       -0.295     4.068    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][0]
   -------------------------------------------------------------------
-                         required time                          3.987    
-                         arrival time                          -2.565    
+                         required time                          4.068    
+                         arrival time                          -2.085    
   -------------------------------------------------------------------
-                         slack                                  1.422    
+                         slack                                  1.983    
 
-Slack (MET) :             1.422ns  (required time - arrival time)
-  Source:                 u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/C
+Slack (MET) :             1.983ns  (required time - arrival time)
+  Source:                 u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][4]/R
+  Destination:            u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][1]/R
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            6.250ns  (clk_out1_clk_wiz_0_1 rise@6.250ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        4.378ns  (logic 0.753ns (17.199%)  route 3.625ns (82.801%))
-  Logic Levels:           8  (LUT4=2 LUT5=1 LUT6=5)
-  Clock Path Skew:        -0.095ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    -1.263ns = ( 4.987 - 6.250 ) 
-    Source Clock Delay      (SCD):    -1.813ns
-    Clock Pessimism Removal (CPR):    -0.645ns
+  Data Path Delay:        3.886ns  (logic 0.905ns (23.288%)  route 2.981ns (76.712%))
+  Logic Levels:           7  (LUT3=1 LUT4=1 LUT5=1 LUT6=2 MUXF7=1 MUXF8=1)
+  Clock Path Skew:        -0.026ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.258ns = ( 4.992 - 6.250 ) 
+    Source Clock Delay      (SCD):    -1.801ns
+    Clock Pessimism Removal (CPR):    -0.569ns
   Clock Uncertainty:      0.060ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Discrete Jitter          (DJ):    0.096ns
@@ -330,28 +328,26 @@ Slack (MET) :             1.422ns  (required time - arrival time)
                                                      -6.572    -4.789 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.652    -3.137    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.080    -3.057 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.244    -1.813    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X56Y71         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/C
+                         net (fo=516, routed)         1.256    -1.801    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X56Y71         FDRE (Prop_fdre_C_Q)         0.216    -1.597 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/Q
-                         net (fo=4, routed)           0.485    -1.112    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13]_45[4]
-    SLICE_X56Y75         LUT4 (Prop_lut4_I3_O)        0.051    -1.061 f  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_6/O
-                         net (fo=1, routed)           0.418    -0.643    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_6_n_0
-    SLICE_X56Y74         LUT6 (Prop_lut6_I2_O)        0.129    -0.514 r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_4/O
-                         net (fo=15, routed)          0.404    -0.110    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_4_n_0
-    SLICE_X55Y74         LUT4 (Prop_lut4_I2_O)        0.054    -0.056 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_19/O
-                         net (fo=1, routed)           0.418     0.362    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_19_n_0
-    SLICE_X55Y74         LUT6 (Prop_lut6_I2_O)        0.131     0.493 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_11/O
-                         net (fo=3, routed)           0.344     0.837    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_11_n_0
-    SLICE_X55Y75         LUT6 (Prop_lut6_I2_O)        0.043     0.880 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_3/O
-                         net (fo=16, routed)          0.373     1.253    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_3_n_0
-    SLICE_X53Y74         LUT6 (Prop_lut6_I3_O)        0.043     1.296 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_6/O
-                         net (fo=1, routed)           0.428     1.723    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_6_n_0
-    SLICE_X53Y74         LUT6 (Prop_lut6_I1_O)        0.043     1.766 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_2/O
-                         net (fo=11, routed)          0.377     2.143    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_2_n_0
-    SLICE_X56Y75         LUT5 (Prop_lut5_I0_O)        0.043     2.186 r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_1/O
-                         net (fo=5, routed)           0.378     2.565    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2
-    SLICE_X55Y76         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][4]/R
+    SLICE_X48Y82         FDRE (Prop_fdre_C_Q)         0.216    -1.585 f  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/Q
+                         net (fo=12, routed)          0.558    -1.027    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0]_6[1]
+    SLICE_X48Y83         LUT5 (Prop_lut5_I1_O)        0.048    -0.979 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1/O
+                         net (fo=8, routed)           0.528    -0.451    u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1_n_0
+    SLICE_X50Y83         LUT4 (Prop_lut4_I2_O)        0.134    -0.317 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2/O
+                         net (fo=10, routed)          0.373     0.056    u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2_n_0
+    SLICE_X50Y89         MUXF7 (Prop_muxf7_S_O)       0.257     0.313 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32/O
+                         net (fo=1, routed)           0.000     0.313    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32_n_0
+    SLICE_X50Y89         MUXF8 (Prop_muxf8_I0_O)      0.044     0.357 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18/O
+                         net (fo=1, routed)           0.476     0.833    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18_n_0
+    SLICE_X50Y84         LUT6 (Prop_lut6_I5_O)        0.120     0.953 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9/O
+                         net (fo=1, routed)           0.223     1.176    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9_n_0
+    SLICE_X50Y83         LUT6 (Prop_lut6_I5_O)        0.043     1.219 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4/O
+                         net (fo=3, routed)           0.317     1.536    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4_n_0
+    SLICE_X48Y82         LUT3 (Prop_lut3_I1_O)        0.043     1.579 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_1/O
+                         net (fo=6, routed)           0.506     2.085    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_1_n_0
+    SLICE_X48Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][1]/R
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -364,31 +360,31 @@ Slack (MET) :             1.422ns  (required time - arrival time)
                                                      -5.645     2.212 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.572     3.784    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.072     3.856 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.131     4.987    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X55Y76         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][4]/C
-                         clock pessimism             -0.645     4.342    
-                         clock uncertainty           -0.060     4.282    
-    SLICE_X55Y76         FDRE (Setup_fdre_C_R)       -0.295     3.987    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][4]
+                         net (fo=516, routed)         1.136     4.992    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][1]/C
+                         clock pessimism             -0.569     4.423    
+                         clock uncertainty           -0.060     4.363    
+    SLICE_X48Y77         FDRE (Setup_fdre_C_R)       -0.295     4.068    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][1]
   -------------------------------------------------------------------
-                         required time                          3.987    
-                         arrival time                          -2.565    
+                         required time                          4.068    
+                         arrival time                          -2.085    
   -------------------------------------------------------------------
-                         slack                                  1.422    
+                         slack                                  1.983    
 
-Slack (MET) :             1.438ns  (required time - arrival time)
-  Source:                 u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/C
+Slack (MET) :             1.983ns  (required time - arrival time)
+  Source:                 u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][2]/R
+  Destination:            u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][2]/R
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            6.250ns  (clk_out1_clk_wiz_0_1 rise@6.250ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        4.362ns  (logic 0.753ns (17.264%)  route 3.609ns (82.736%))
-  Logic Levels:           8  (LUT4=2 LUT5=1 LUT6=5)
-  Clock Path Skew:        -0.096ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    -1.264ns = ( 4.986 - 6.250 ) 
-    Source Clock Delay      (SCD):    -1.813ns
-    Clock Pessimism Removal (CPR):    -0.645ns
+  Data Path Delay:        3.886ns  (logic 0.905ns (23.288%)  route 2.981ns (76.712%))
+  Logic Levels:           7  (LUT3=1 LUT4=1 LUT5=1 LUT6=2 MUXF7=1 MUXF8=1)
+  Clock Path Skew:        -0.026ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.258ns = ( 4.992 - 6.250 ) 
+    Source Clock Delay      (SCD):    -1.801ns
+    Clock Pessimism Removal (CPR):    -0.569ns
   Clock Uncertainty:      0.060ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Discrete Jitter          (DJ):    0.096ns
@@ -406,28 +402,26 @@ Slack (MET) :             1.438ns  (required time - arrival time)
                                                      -6.572    -4.789 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.652    -3.137    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.080    -3.057 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.244    -1.813    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X56Y71         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/C
+                         net (fo=516, routed)         1.256    -1.801    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X56Y71         FDRE (Prop_fdre_C_Q)         0.216    -1.597 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/Q
-                         net (fo=4, routed)           0.485    -1.112    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13]_45[4]
-    SLICE_X56Y75         LUT4 (Prop_lut4_I3_O)        0.051    -1.061 f  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_6/O
-                         net (fo=1, routed)           0.418    -0.643    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_6_n_0
-    SLICE_X56Y74         LUT6 (Prop_lut6_I2_O)        0.129    -0.514 r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_4/O
-                         net (fo=15, routed)          0.404    -0.110    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_4_n_0
-    SLICE_X55Y74         LUT4 (Prop_lut4_I2_O)        0.054    -0.056 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_19/O
-                         net (fo=1, routed)           0.418     0.362    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_19_n_0
-    SLICE_X55Y74         LUT6 (Prop_lut6_I2_O)        0.131     0.493 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_11/O
-                         net (fo=3, routed)           0.344     0.837    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_11_n_0
-    SLICE_X55Y75         LUT6 (Prop_lut6_I2_O)        0.043     0.880 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_3/O
-                         net (fo=16, routed)          0.373     1.253    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_3_n_0
-    SLICE_X53Y74         LUT6 (Prop_lut6_I3_O)        0.043     1.296 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_6/O
-                         net (fo=1, routed)           0.428     1.723    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_6_n_0
-    SLICE_X53Y74         LUT6 (Prop_lut6_I1_O)        0.043     1.766 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_2/O
-                         net (fo=11, routed)          0.377     2.143    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_2_n_0
-    SLICE_X56Y75         LUT5 (Prop_lut5_I0_O)        0.043     2.186 r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_1/O
-                         net (fo=5, routed)           0.362     2.549    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2
-    SLICE_X55Y75         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][2]/R
+    SLICE_X48Y82         FDRE (Prop_fdre_C_Q)         0.216    -1.585 f  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/Q
+                         net (fo=12, routed)          0.558    -1.027    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0]_6[1]
+    SLICE_X48Y83         LUT5 (Prop_lut5_I1_O)        0.048    -0.979 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1/O
+                         net (fo=8, routed)           0.528    -0.451    u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1_n_0
+    SLICE_X50Y83         LUT4 (Prop_lut4_I2_O)        0.134    -0.317 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2/O
+                         net (fo=10, routed)          0.373     0.056    u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2_n_0
+    SLICE_X50Y89         MUXF7 (Prop_muxf7_S_O)       0.257     0.313 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32/O
+                         net (fo=1, routed)           0.000     0.313    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32_n_0
+    SLICE_X50Y89         MUXF8 (Prop_muxf8_I0_O)      0.044     0.357 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18/O
+                         net (fo=1, routed)           0.476     0.833    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18_n_0
+    SLICE_X50Y84         LUT6 (Prop_lut6_I5_O)        0.120     0.953 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9/O
+                         net (fo=1, routed)           0.223     1.176    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9_n_0
+    SLICE_X50Y83         LUT6 (Prop_lut6_I5_O)        0.043     1.219 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4/O
+                         net (fo=3, routed)           0.317     1.536    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4_n_0
+    SLICE_X48Y82         LUT3 (Prop_lut3_I1_O)        0.043     1.579 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_1/O
+                         net (fo=6, routed)           0.506     2.085    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_1_n_0
+    SLICE_X48Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][2]/R
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -440,31 +434,31 @@ Slack (MET) :             1.438ns  (required time - arrival time)
                                                      -5.645     2.212 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.572     3.784    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.072     3.856 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.130     4.986    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X55Y75         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][2]/C
-                         clock pessimism             -0.645     4.341    
-                         clock uncertainty           -0.060     4.281    
-    SLICE_X55Y75         FDRE (Setup_fdre_C_R)       -0.295     3.986    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][2]
+                         net (fo=516, routed)         1.136     4.992    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][2]/C
+                         clock pessimism             -0.569     4.423    
+                         clock uncertainty           -0.060     4.363    
+    SLICE_X48Y77         FDRE (Setup_fdre_C_R)       -0.295     4.068    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][2]
   -------------------------------------------------------------------
-                         required time                          3.986    
-                         arrival time                          -2.549    
+                         required time                          4.068    
+                         arrival time                          -2.085    
   -------------------------------------------------------------------
-                         slack                                  1.438    
+                         slack                                  1.983    
 
-Slack (MET) :             1.543ns  (required time - arrival time)
-  Source:                 u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/C
+Slack (MET) :             2.058ns  (required time - arrival time)
+  Source:                 u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][0]/R
+  Destination:            u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][3]/R
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            6.250ns  (clk_out1_clk_wiz_0_1 rise@6.250ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        4.310ns  (logic 0.753ns (17.473%)  route 3.557ns (82.527%))
-  Logic Levels:           8  (LUT4=2 LUT5=1 LUT6=5)
-  Clock Path Skew:        -0.043ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    -1.266ns = ( 4.984 - 6.250 ) 
-    Source Clock Delay      (SCD):    -1.813ns
-    Clock Pessimism Removal (CPR):    -0.590ns
+  Data Path Delay:        3.812ns  (logic 0.905ns (23.742%)  route 2.907ns (76.258%))
+  Logic Levels:           7  (LUT3=1 LUT4=1 LUT5=1 LUT6=2 MUXF7=1 MUXF8=1)
+  Clock Path Skew:        -0.025ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.257ns = ( 4.993 - 6.250 ) 
+    Source Clock Delay      (SCD):    -1.801ns
+    Clock Pessimism Removal (CPR):    -0.569ns
   Clock Uncertainty:      0.060ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Discrete Jitter          (DJ):    0.096ns
@@ -482,28 +476,26 @@ Slack (MET) :             1.543ns  (required time - arrival time)
                                                      -6.572    -4.789 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.652    -3.137    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.080    -3.057 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.244    -1.813    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X56Y71         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/C
+                         net (fo=516, routed)         1.256    -1.801    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X56Y71         FDRE (Prop_fdre_C_Q)         0.216    -1.597 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/Q
-                         net (fo=4, routed)           0.485    -1.112    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13]_45[4]
-    SLICE_X56Y75         LUT4 (Prop_lut4_I3_O)        0.051    -1.061 f  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_6/O
-                         net (fo=1, routed)           0.418    -0.643    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_6_n_0
-    SLICE_X56Y74         LUT6 (Prop_lut6_I2_O)        0.129    -0.514 r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_4/O
-                         net (fo=15, routed)          0.404    -0.110    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_4_n_0
-    SLICE_X55Y74         LUT4 (Prop_lut4_I2_O)        0.054    -0.056 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_19/O
-                         net (fo=1, routed)           0.418     0.362    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_19_n_0
-    SLICE_X55Y74         LUT6 (Prop_lut6_I2_O)        0.131     0.493 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_11/O
-                         net (fo=3, routed)           0.344     0.837    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_11_n_0
-    SLICE_X55Y75         LUT6 (Prop_lut6_I2_O)        0.043     0.880 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_3/O
-                         net (fo=16, routed)          0.373     1.253    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_3_n_0
-    SLICE_X53Y74         LUT6 (Prop_lut6_I3_O)        0.043     1.296 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_6/O
-                         net (fo=1, routed)           0.428     1.723    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_6_n_0
-    SLICE_X53Y74         LUT6 (Prop_lut6_I1_O)        0.043     1.766 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_2/O
-                         net (fo=11, routed)          0.377     2.143    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_2_n_0
-    SLICE_X56Y75         LUT5 (Prop_lut5_I0_O)        0.043     2.186 r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_1/O
-                         net (fo=5, routed)           0.310     2.496    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2
-    SLICE_X56Y75         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][0]/R
+    SLICE_X48Y82         FDRE (Prop_fdre_C_Q)         0.216    -1.585 f  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/Q
+                         net (fo=12, routed)          0.558    -1.027    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0]_6[1]
+    SLICE_X48Y83         LUT5 (Prop_lut5_I1_O)        0.048    -0.979 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1/O
+                         net (fo=8, routed)           0.528    -0.451    u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1_n_0
+    SLICE_X50Y83         LUT4 (Prop_lut4_I2_O)        0.134    -0.317 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2/O
+                         net (fo=10, routed)          0.373     0.056    u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2_n_0
+    SLICE_X50Y89         MUXF7 (Prop_muxf7_S_O)       0.257     0.313 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32/O
+                         net (fo=1, routed)           0.000     0.313    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32_n_0
+    SLICE_X50Y89         MUXF8 (Prop_muxf8_I0_O)      0.044     0.357 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18/O
+                         net (fo=1, routed)           0.476     0.833    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18_n_0
+    SLICE_X50Y84         LUT6 (Prop_lut6_I5_O)        0.120     0.953 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9/O
+                         net (fo=1, routed)           0.223     1.176    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9_n_0
+    SLICE_X50Y83         LUT6 (Prop_lut6_I5_O)        0.043     1.219 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4/O
+                         net (fo=3, routed)           0.317     1.536    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4_n_0
+    SLICE_X48Y82         LUT3 (Prop_lut3_I1_O)        0.043     1.579 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_1/O
+                         net (fo=6, routed)           0.432     2.011    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_1_n_0
+    SLICE_X48Y78         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][3]/R
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -516,31 +508,31 @@ Slack (MET) :             1.543ns  (required time - arrival time)
                                                      -5.645     2.212 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.572     3.784    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.072     3.856 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.128     4.984    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X56Y75         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][0]/C
-                         clock pessimism             -0.590     4.394    
-                         clock uncertainty           -0.060     4.334    
-    SLICE_X56Y75         FDRE (Setup_fdre_C_R)       -0.295     4.039    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][0]
+                         net (fo=516, routed)         1.137     4.993    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y78         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][3]/C
+                         clock pessimism             -0.569     4.424    
+                         clock uncertainty           -0.060     4.364    
+    SLICE_X48Y78         FDRE (Setup_fdre_C_R)       -0.295     4.069    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][3]
   -------------------------------------------------------------------
-                         required time                          4.039    
-                         arrival time                          -2.496    
+                         required time                          4.069    
+                         arrival time                          -2.011    
   -------------------------------------------------------------------
-                         slack                                  1.543    
+                         slack                                  2.058    
 
-Slack (MET) :             1.543ns  (required time - arrival time)
-  Source:                 u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/C
+Slack (MET) :             2.058ns  (required time - arrival time)
+  Source:                 u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][1]/R
+  Destination:            u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][4]/R
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            6.250ns  (clk_out1_clk_wiz_0_1 rise@6.250ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        4.310ns  (logic 0.753ns (17.473%)  route 3.557ns (82.527%))
-  Logic Levels:           8  (LUT4=2 LUT5=1 LUT6=5)
-  Clock Path Skew:        -0.043ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    -1.266ns = ( 4.984 - 6.250 ) 
-    Source Clock Delay      (SCD):    -1.813ns
-    Clock Pessimism Removal (CPR):    -0.590ns
+  Data Path Delay:        3.812ns  (logic 0.905ns (23.742%)  route 2.907ns (76.258%))
+  Logic Levels:           7  (LUT3=1 LUT4=1 LUT5=1 LUT6=2 MUXF7=1 MUXF8=1)
+  Clock Path Skew:        -0.025ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.257ns = ( 4.993 - 6.250 ) 
+    Source Clock Delay      (SCD):    -1.801ns
+    Clock Pessimism Removal (CPR):    -0.569ns
   Clock Uncertainty:      0.060ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Discrete Jitter          (DJ):    0.096ns
@@ -558,28 +550,26 @@ Slack (MET) :             1.543ns  (required time - arrival time)
                                                      -6.572    -4.789 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.652    -3.137    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.080    -3.057 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.244    -1.813    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X56Y71         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/C
+                         net (fo=516, routed)         1.256    -1.801    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X56Y71         FDRE (Prop_fdre_C_Q)         0.216    -1.597 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13][4]/Q
-                         net (fo=4, routed)           0.485    -1.112    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg1_reg_reg[13]_45[4]
-    SLICE_X56Y75         LUT4 (Prop_lut4_I3_O)        0.051    -1.061 f  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_6/O
-                         net (fo=1, routed)           0.418    -0.643    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_6_n_0
-    SLICE_X56Y74         LUT6 (Prop_lut6_I2_O)        0.129    -0.514 r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_4/O
-                         net (fo=15, routed)          0.404    -0.110    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_4_n_0
-    SLICE_X55Y74         LUT4 (Prop_lut4_I2_O)        0.054    -0.056 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_19/O
-                         net (fo=1, routed)           0.418     0.362    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_19_n_0
-    SLICE_X55Y74         LUT6 (Prop_lut6_I2_O)        0.131     0.493 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_11/O
-                         net (fo=3, routed)           0.344     0.837    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_11_n_0
-    SLICE_X55Y75         LUT6 (Prop_lut6_I2_O)        0.043     0.880 r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_3/O
-                         net (fo=16, routed)          0.373     1.253    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_3_n_0
-    SLICE_X53Y74         LUT6 (Prop_lut6_I3_O)        0.043     1.296 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_6/O
-                         net (fo=1, routed)           0.428     1.723    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_6_n_0
-    SLICE_X53Y74         LUT6 (Prop_lut6_I1_O)        0.043     1.766 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_2/O
-                         net (fo=11, routed)          0.377     2.143    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg[3][4]_i_2_n_0
-    SLICE_X56Y75         LUT5 (Prop_lut5_I0_O)        0.043     2.186 r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][4]_i_1/O
-                         net (fo=5, routed)           0.310     2.496    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2
-    SLICE_X56Y75         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][1]/R
+    SLICE_X48Y82         FDRE (Prop_fdre_C_Q)         0.216    -1.585 f  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/Q
+                         net (fo=12, routed)          0.558    -1.027    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0]_6[1]
+    SLICE_X48Y83         LUT5 (Prop_lut5_I1_O)        0.048    -0.979 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1/O
+                         net (fo=8, routed)           0.528    -0.451    u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1_n_0
+    SLICE_X50Y83         LUT4 (Prop_lut4_I2_O)        0.134    -0.317 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2/O
+                         net (fo=10, routed)          0.373     0.056    u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2_n_0
+    SLICE_X50Y89         MUXF7 (Prop_muxf7_S_O)       0.257     0.313 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32/O
+                         net (fo=1, routed)           0.000     0.313    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32_n_0
+    SLICE_X50Y89         MUXF8 (Prop_muxf8_I0_O)      0.044     0.357 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18/O
+                         net (fo=1, routed)           0.476     0.833    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18_n_0
+    SLICE_X50Y84         LUT6 (Prop_lut6_I5_O)        0.120     0.953 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9/O
+                         net (fo=1, routed)           0.223     1.176    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9_n_0
+    SLICE_X50Y83         LUT6 (Prop_lut6_I5_O)        0.043     1.219 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4/O
+                         net (fo=3, routed)           0.317     1.536    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4_n_0
+    SLICE_X48Y82         LUT3 (Prop_lut3_I1_O)        0.043     1.579 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_1/O
+                         net (fo=6, routed)           0.432     2.011    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_1_n_0
+    SLICE_X48Y78         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][4]/R
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -592,31 +582,31 @@ Slack (MET) :             1.543ns  (required time - arrival time)
                                                      -5.645     2.212 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.572     3.784    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.072     3.856 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.128     4.984    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X56Y75         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][1]/C
-                         clock pessimism             -0.590     4.394    
-                         clock uncertainty           -0.060     4.334    
-    SLICE_X56Y75         FDRE (Setup_fdre_C_R)       -0.295     4.039    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][1]
+                         net (fo=516, routed)         1.137     4.993    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y78         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][4]/C
+                         clock pessimism             -0.569     4.424    
+                         clock uncertainty           -0.060     4.364    
+    SLICE_X48Y78         FDRE (Setup_fdre_C_R)       -0.295     4.069    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][4]
   -------------------------------------------------------------------
-                         required time                          4.039    
-                         arrival time                          -2.496    
+                         required time                          4.069    
+                         arrival time                          -2.011    
   -------------------------------------------------------------------
-                         slack                                  1.543    
+                         slack                                  2.058    
 
-Slack (MET) :             1.853ns  (required time - arrival time)
-  Source:                 u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/C
+Slack (MET) :             2.058ns  (required time - arrival time)
+  Source:                 u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[4]/R
+  Destination:            u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]/R
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            6.250ns  (clk_out1_clk_wiz_0_1 rise@6.250ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        3.995ns  (logic 0.780ns (19.525%)  route 3.215ns (80.475%))
-  Logic Levels:           8  (LUT4=2 LUT5=1 LUT6=5)
-  Clock Path Skew:        -0.047ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    -1.264ns = ( 4.986 - 6.250 ) 
-    Source Clock Delay      (SCD):    -1.807ns
-    Clock Pessimism Removal (CPR):    -0.590ns
+  Data Path Delay:        3.812ns  (logic 0.905ns (23.742%)  route 2.907ns (76.258%))
+  Logic Levels:           7  (LUT3=1 LUT4=1 LUT5=1 LUT6=2 MUXF7=1 MUXF8=1)
+  Clock Path Skew:        -0.025ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.257ns = ( 4.993 - 6.250 ) 
+    Source Clock Delay      (SCD):    -1.801ns
+    Clock Pessimism Removal (CPR):    -0.569ns
   Clock Uncertainty:      0.060ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Discrete Jitter          (DJ):    0.096ns
@@ -634,28 +624,26 @@ Slack (MET) :             1.853ns  (required time - arrival time)
                                                      -6.572    -4.789 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.652    -3.137    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.080    -3.057 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.250    -1.807    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X66Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/C
+                         net (fo=516, routed)         1.256    -1.801    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X66Y77         FDRE (Prop_fdre_C_Q)         0.254    -1.553 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/Q
-                         net (fo=5, routed)           0.658    -0.895    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1]_40[3]
-    SLICE_X57Y78         LUT4 (Prop_lut4_I1_O)        0.050    -0.845 f  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_18/O
-                         net (fo=1, routed)           0.399    -0.446    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_18_n_0
-    SLICE_X56Y78         LUT6 (Prop_lut6_I3_O)        0.126    -0.320 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_6/O
-                         net (fo=16, routed)          0.336     0.015    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_6_n_0
-    SLICE_X56Y77         LUT4 (Prop_lut4_I2_O)        0.049     0.064 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_29/O
-                         net (fo=1, routed)           0.408     0.472    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_29_n_0
-    SLICE_X55Y78         LUT6 (Prop_lut6_I2_O)        0.129     0.601 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_14/O
-                         net (fo=3, routed)           0.236     0.837    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_14_n_0
-    SLICE_X54Y78         LUT6 (Prop_lut6_I2_O)        0.043     0.880 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_4/O
-                         net (fo=12, routed)          0.343     1.222    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_4_n_0
-    SLICE_X55Y77         LUT6 (Prop_lut6_I3_O)        0.043     1.265 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_10/O
-                         net (fo=1, routed)           0.290     1.555    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_10_n_0
-    SLICE_X55Y77         LUT6 (Prop_lut6_I3_O)        0.043     1.598 f  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_3/O
-                         net (fo=7, routed)           0.259     1.857    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_3_n_0
-    SLICE_X56Y77         LUT5 (Prop_lut5_I0_O)        0.043     1.900 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_1/O
-                         net (fo=6, routed)           0.288     2.188    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_1_n_0
-    SLICE_X56Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[4]/R
+    SLICE_X48Y82         FDRE (Prop_fdre_C_Q)         0.216    -1.585 f  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/Q
+                         net (fo=12, routed)          0.558    -1.027    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0]_6[1]
+    SLICE_X48Y83         LUT5 (Prop_lut5_I1_O)        0.048    -0.979 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1/O
+                         net (fo=8, routed)           0.528    -0.451    u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1_n_0
+    SLICE_X50Y83         LUT4 (Prop_lut4_I2_O)        0.134    -0.317 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2/O
+                         net (fo=10, routed)          0.373     0.056    u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2_n_0
+    SLICE_X50Y89         MUXF7 (Prop_muxf7_S_O)       0.257     0.313 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32/O
+                         net (fo=1, routed)           0.000     0.313    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32_n_0
+    SLICE_X50Y89         MUXF8 (Prop_muxf8_I0_O)      0.044     0.357 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18/O
+                         net (fo=1, routed)           0.476     0.833    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18_n_0
+    SLICE_X50Y84         LUT6 (Prop_lut6_I5_O)        0.120     0.953 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9/O
+                         net (fo=1, routed)           0.223     1.176    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9_n_0
+    SLICE_X50Y83         LUT6 (Prop_lut6_I5_O)        0.043     1.219 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4/O
+                         net (fo=3, routed)           0.317     1.536    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4_n_0
+    SLICE_X48Y82         LUT3 (Prop_lut3_I1_O)        0.043     1.579 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_1/O
+                         net (fo=6, routed)           0.432     2.011    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_1_n_0
+    SLICE_X48Y78         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]/R
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -668,31 +656,31 @@ Slack (MET) :             1.853ns  (required time - arrival time)
                                                      -5.645     2.212 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.572     3.784    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.072     3.856 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.130     4.986    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X56Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[4]/C
-                         clock pessimism             -0.590     4.396    
-                         clock uncertainty           -0.060     4.336    
-    SLICE_X56Y77         FDRE (Setup_fdre_C_R)       -0.295     4.041    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[4]
+                         net (fo=516, routed)         1.137     4.993    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y78         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]/C
+                         clock pessimism             -0.569     4.424    
+                         clock uncertainty           -0.060     4.364    
+    SLICE_X48Y78         FDRE (Setup_fdre_C_R)       -0.295     4.069    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]
   -------------------------------------------------------------------
-                         required time                          4.041    
-                         arrival time                          -2.188    
+                         required time                          4.069    
+                         arrival time                          -2.011    
   -------------------------------------------------------------------
-                         slack                                  1.853    
+                         slack                                  2.058    
 
-Slack (MET) :             1.853ns  (required time - arrival time)
-  Source:                 u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/C
+Slack (MET) :             2.067ns  (required time - arrival time)
+  Source:                 u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[5]/R
+  Destination:            u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][0]/R
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            6.250ns  (clk_out1_clk_wiz_0_1 rise@6.250ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        3.995ns  (logic 0.780ns (19.525%)  route 3.215ns (80.475%))
-  Logic Levels:           8  (LUT4=2 LUT5=1 LUT6=5)
-  Clock Path Skew:        -0.047ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    -1.264ns = ( 4.986 - 6.250 ) 
-    Source Clock Delay      (SCD):    -1.807ns
-    Clock Pessimism Removal (CPR):    -0.590ns
+  Data Path Delay:        3.742ns  (logic 0.914ns (24.427%)  route 2.828ns (75.573%))
+  Logic Levels:           7  (LUT4=2 LUT5=1 LUT6=2 MUXF7=1 MUXF8=1)
+  Clock Path Skew:        0.000ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.253ns = ( 4.997 - 6.250 ) 
+    Source Clock Delay      (SCD):    -1.801ns
+    Clock Pessimism Removal (CPR):    -0.548ns
   Clock Uncertainty:      0.060ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Discrete Jitter          (DJ):    0.096ns
@@ -710,28 +698,26 @@ Slack (MET) :             1.853ns  (required time - arrival time)
                                                      -6.572    -4.789 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.652    -3.137    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.080    -3.057 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.250    -1.807    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X66Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/C
+                         net (fo=516, routed)         1.256    -1.801    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X66Y77         FDRE (Prop_fdre_C_Q)         0.254    -1.553 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/Q
-                         net (fo=5, routed)           0.658    -0.895    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1]_40[3]
-    SLICE_X57Y78         LUT4 (Prop_lut4_I1_O)        0.050    -0.845 f  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_18/O
-                         net (fo=1, routed)           0.399    -0.446    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_18_n_0
-    SLICE_X56Y78         LUT6 (Prop_lut6_I3_O)        0.126    -0.320 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_6/O
-                         net (fo=16, routed)          0.336     0.015    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_6_n_0
-    SLICE_X56Y77         LUT4 (Prop_lut4_I2_O)        0.049     0.064 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_29/O
-                         net (fo=1, routed)           0.408     0.472    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_29_n_0
-    SLICE_X55Y78         LUT6 (Prop_lut6_I2_O)        0.129     0.601 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_14/O
-                         net (fo=3, routed)           0.236     0.837    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_14_n_0
-    SLICE_X54Y78         LUT6 (Prop_lut6_I2_O)        0.043     0.880 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_4/O
-                         net (fo=12, routed)          0.343     1.222    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_4_n_0
-    SLICE_X55Y77         LUT6 (Prop_lut6_I3_O)        0.043     1.265 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_10/O
-                         net (fo=1, routed)           0.290     1.555    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_10_n_0
-    SLICE_X55Y77         LUT6 (Prop_lut6_I3_O)        0.043     1.598 f  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_3/O
-                         net (fo=7, routed)           0.259     1.857    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_3_n_0
-    SLICE_X56Y77         LUT5 (Prop_lut5_I0_O)        0.043     1.900 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_1/O
-                         net (fo=6, routed)           0.288     2.188    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_1_n_0
-    SLICE_X56Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[5]/R
+    SLICE_X48Y82         FDRE (Prop_fdre_C_Q)         0.216    -1.585 f  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/Q
+                         net (fo=12, routed)          0.558    -1.027    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0]_6[1]
+    SLICE_X48Y83         LUT5 (Prop_lut5_I1_O)        0.048    -0.979 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1/O
+                         net (fo=8, routed)           0.528    -0.451    u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1_n_0
+    SLICE_X50Y83         LUT4 (Prop_lut4_I2_O)        0.134    -0.317 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2/O
+                         net (fo=10, routed)          0.373     0.056    u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2_n_0
+    SLICE_X50Y89         MUXF7 (Prop_muxf7_S_O)       0.257     0.313 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32/O
+                         net (fo=1, routed)           0.000     0.313    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32_n_0
+    SLICE_X50Y89         MUXF8 (Prop_muxf8_I0_O)      0.044     0.357 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18/O
+                         net (fo=1, routed)           0.476     0.833    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18_n_0
+    SLICE_X50Y84         LUT6 (Prop_lut6_I5_O)        0.120     0.953 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9/O
+                         net (fo=1, routed)           0.223     1.176    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9_n_0
+    SLICE_X50Y83         LUT6 (Prop_lut6_I5_O)        0.043     1.219 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4/O
+                         net (fo=3, routed)           0.317     1.536    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4_n_0
+    SLICE_X48Y82         LUT4 (Prop_lut4_I1_O)        0.052     1.588 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg[0][4]_i_1/O
+                         net (fo=5, routed)           0.353     1.941    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg[0][4]_i_1_n_0
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][0]/R
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -744,31 +730,31 @@ Slack (MET) :             1.853ns  (required time - arrival time)
                                                      -5.645     2.212 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.572     3.784    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.072     3.856 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.130     4.986    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X56Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[5]/C
-                         clock pessimism             -0.590     4.396    
-                         clock uncertainty           -0.060     4.336    
-    SLICE_X56Y77         FDRE (Setup_fdre_C_R)       -0.295     4.041    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[5]
+                         net (fo=516, routed)         1.141     4.997    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][0]/C
+                         clock pessimism             -0.548     4.449    
+                         clock uncertainty           -0.060     4.389    
+    SLICE_X48Y82         FDRE (Setup_fdre_C_R)       -0.381     4.008    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][0]
   -------------------------------------------------------------------
-                         required time                          4.041    
-                         arrival time                          -2.188    
+                         required time                          4.008    
+                         arrival time                          -1.941    
   -------------------------------------------------------------------
-                         slack                                  1.853    
+                         slack                                  2.067    
 
-Slack (MET) :             1.855ns  (required time - arrival time)
-  Source:                 u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/C
+Slack (MET) :             2.067ns  (required time - arrival time)
+  Source:                 u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[0]/R
+  Destination:            u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/R
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            6.250ns  (clk_out1_clk_wiz_0_1 rise@6.250ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        3.994ns  (logic 0.780ns (19.529%)  route 3.214ns (80.471%))
-  Logic Levels:           8  (LUT4=2 LUT5=1 LUT6=5)
-  Clock Path Skew:        -0.046ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    -1.263ns = ( 4.987 - 6.250 ) 
-    Source Clock Delay      (SCD):    -1.807ns
-    Clock Pessimism Removal (CPR):    -0.590ns
+  Data Path Delay:        3.742ns  (logic 0.914ns (24.427%)  route 2.828ns (75.573%))
+  Logic Levels:           7  (LUT4=2 LUT5=1 LUT6=2 MUXF7=1 MUXF8=1)
+  Clock Path Skew:        0.000ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.253ns = ( 4.997 - 6.250 ) 
+    Source Clock Delay      (SCD):    -1.801ns
+    Clock Pessimism Removal (CPR):    -0.548ns
   Clock Uncertainty:      0.060ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Discrete Jitter          (DJ):    0.096ns
@@ -786,28 +772,26 @@ Slack (MET) :             1.855ns  (required time - arrival time)
                                                      -6.572    -4.789 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.652    -3.137    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.080    -3.057 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.250    -1.807    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X66Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/C
+                         net (fo=516, routed)         1.256    -1.801    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X66Y77         FDRE (Prop_fdre_C_Q)         0.254    -1.553 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/Q
-                         net (fo=5, routed)           0.658    -0.895    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1]_40[3]
-    SLICE_X57Y78         LUT4 (Prop_lut4_I1_O)        0.050    -0.845 f  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_18/O
-                         net (fo=1, routed)           0.399    -0.446    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_18_n_0
-    SLICE_X56Y78         LUT6 (Prop_lut6_I3_O)        0.126    -0.320 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_6/O
-                         net (fo=16, routed)          0.336     0.015    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_6_n_0
-    SLICE_X56Y77         LUT4 (Prop_lut4_I2_O)        0.049     0.064 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_29/O
-                         net (fo=1, routed)           0.408     0.472    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_29_n_0
-    SLICE_X55Y78         LUT6 (Prop_lut6_I2_O)        0.129     0.601 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_14/O
-                         net (fo=3, routed)           0.236     0.837    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_14_n_0
-    SLICE_X54Y78         LUT6 (Prop_lut6_I2_O)        0.043     0.880 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_4/O
-                         net (fo=12, routed)          0.343     1.222    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_4_n_0
-    SLICE_X55Y77         LUT6 (Prop_lut6_I3_O)        0.043     1.265 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_10/O
-                         net (fo=1, routed)           0.290     1.555    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_10_n_0
-    SLICE_X55Y77         LUT6 (Prop_lut6_I3_O)        0.043     1.598 f  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_3/O
-                         net (fo=7, routed)           0.259     1.857    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_3_n_0
-    SLICE_X56Y77         LUT5 (Prop_lut5_I0_O)        0.043     1.900 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_1/O
-                         net (fo=6, routed)           0.287     2.187    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_1_n_0
-    SLICE_X57Y78         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[0]/R
+    SLICE_X48Y82         FDRE (Prop_fdre_C_Q)         0.216    -1.585 f  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/Q
+                         net (fo=12, routed)          0.558    -1.027    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0]_6[1]
+    SLICE_X48Y83         LUT5 (Prop_lut5_I1_O)        0.048    -0.979 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1/O
+                         net (fo=8, routed)           0.528    -0.451    u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1_n_0
+    SLICE_X50Y83         LUT4 (Prop_lut4_I2_O)        0.134    -0.317 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2/O
+                         net (fo=10, routed)          0.373     0.056    u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2_n_0
+    SLICE_X50Y89         MUXF7 (Prop_muxf7_S_O)       0.257     0.313 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32/O
+                         net (fo=1, routed)           0.000     0.313    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32_n_0
+    SLICE_X50Y89         MUXF8 (Prop_muxf8_I0_O)      0.044     0.357 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18/O
+                         net (fo=1, routed)           0.476     0.833    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18_n_0
+    SLICE_X50Y84         LUT6 (Prop_lut6_I5_O)        0.120     0.953 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9/O
+                         net (fo=1, routed)           0.223     1.176    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9_n_0
+    SLICE_X50Y83         LUT6 (Prop_lut6_I5_O)        0.043     1.219 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4/O
+                         net (fo=3, routed)           0.317     1.536    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4_n_0
+    SLICE_X48Y82         LUT4 (Prop_lut4_I1_O)        0.052     1.588 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg[0][4]_i_1/O
+                         net (fo=5, routed)           0.353     1.941    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg[0][4]_i_1_n_0
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/R
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -820,31 +804,31 @@ Slack (MET) :             1.855ns  (required time - arrival time)
                                                      -5.645     2.212 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.572     3.784    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.072     3.856 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.131     4.987    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X57Y78         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[0]/C
-                         clock pessimism             -0.590     4.397    
-                         clock uncertainty           -0.060     4.337    
-    SLICE_X57Y78         FDRE (Setup_fdre_C_R)       -0.295     4.042    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[0]
+                         net (fo=516, routed)         1.141     4.997    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
+                         clock pessimism             -0.548     4.449    
+                         clock uncertainty           -0.060     4.389    
+    SLICE_X48Y82         FDRE (Setup_fdre_C_R)       -0.381     4.008    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]
   -------------------------------------------------------------------
-                         required time                          4.042    
-                         arrival time                          -2.187    
+                         required time                          4.008    
+                         arrival time                          -1.941    
   -------------------------------------------------------------------
-                         slack                                  1.855    
+                         slack                                  2.067    
 
-Slack (MET) :             1.855ns  (required time - arrival time)
-  Source:                 u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/C
+Slack (MET) :             2.067ns  (required time - arrival time)
+  Source:                 u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[1]/R
+  Destination:            u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][2]/R
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            6.250ns  (clk_out1_clk_wiz_0_1 rise@6.250ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        3.994ns  (logic 0.780ns (19.529%)  route 3.214ns (80.471%))
-  Logic Levels:           8  (LUT4=2 LUT5=1 LUT6=5)
-  Clock Path Skew:        -0.046ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    -1.263ns = ( 4.987 - 6.250 ) 
-    Source Clock Delay      (SCD):    -1.807ns
-    Clock Pessimism Removal (CPR):    -0.590ns
+  Data Path Delay:        3.742ns  (logic 0.914ns (24.427%)  route 2.828ns (75.573%))
+  Logic Levels:           7  (LUT4=2 LUT5=1 LUT6=2 MUXF7=1 MUXF8=1)
+  Clock Path Skew:        0.000ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.253ns = ( 4.997 - 6.250 ) 
+    Source Clock Delay      (SCD):    -1.801ns
+    Clock Pessimism Removal (CPR):    -0.548ns
   Clock Uncertainty:      0.060ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Discrete Jitter          (DJ):    0.096ns
@@ -862,28 +846,26 @@ Slack (MET) :             1.855ns  (required time - arrival time)
                                                      -6.572    -4.789 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.652    -3.137    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.080    -3.057 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.250    -1.807    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X66Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/C
+                         net (fo=516, routed)         1.256    -1.801    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X66Y77         FDRE (Prop_fdre_C_Q)         0.254    -1.553 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/Q
-                         net (fo=5, routed)           0.658    -0.895    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1]_40[3]
-    SLICE_X57Y78         LUT4 (Prop_lut4_I1_O)        0.050    -0.845 f  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_18/O
-                         net (fo=1, routed)           0.399    -0.446    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_18_n_0
-    SLICE_X56Y78         LUT6 (Prop_lut6_I3_O)        0.126    -0.320 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_6/O
-                         net (fo=16, routed)          0.336     0.015    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_6_n_0
-    SLICE_X56Y77         LUT4 (Prop_lut4_I2_O)        0.049     0.064 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_29/O
-                         net (fo=1, routed)           0.408     0.472    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_29_n_0
-    SLICE_X55Y78         LUT6 (Prop_lut6_I2_O)        0.129     0.601 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_14/O
-                         net (fo=3, routed)           0.236     0.837    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_14_n_0
-    SLICE_X54Y78         LUT6 (Prop_lut6_I2_O)        0.043     0.880 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_4/O
-                         net (fo=12, routed)          0.343     1.222    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_4_n_0
-    SLICE_X55Y77         LUT6 (Prop_lut6_I3_O)        0.043     1.265 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_10/O
-                         net (fo=1, routed)           0.290     1.555    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_10_n_0
-    SLICE_X55Y77         LUT6 (Prop_lut6_I3_O)        0.043     1.598 f  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_3/O
-                         net (fo=7, routed)           0.259     1.857    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_3_n_0
-    SLICE_X56Y77         LUT5 (Prop_lut5_I0_O)        0.043     1.900 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_1/O
-                         net (fo=6, routed)           0.287     2.187    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_1_n_0
-    SLICE_X57Y78         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[1]/R
+    SLICE_X48Y82         FDRE (Prop_fdre_C_Q)         0.216    -1.585 f  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/Q
+                         net (fo=12, routed)          0.558    -1.027    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0]_6[1]
+    SLICE_X48Y83         LUT5 (Prop_lut5_I1_O)        0.048    -0.979 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1/O
+                         net (fo=8, routed)           0.528    -0.451    u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1_n_0
+    SLICE_X50Y83         LUT4 (Prop_lut4_I2_O)        0.134    -0.317 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2/O
+                         net (fo=10, routed)          0.373     0.056    u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2_n_0
+    SLICE_X50Y89         MUXF7 (Prop_muxf7_S_O)       0.257     0.313 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32/O
+                         net (fo=1, routed)           0.000     0.313    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32_n_0
+    SLICE_X50Y89         MUXF8 (Prop_muxf8_I0_O)      0.044     0.357 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18/O
+                         net (fo=1, routed)           0.476     0.833    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18_n_0
+    SLICE_X50Y84         LUT6 (Prop_lut6_I5_O)        0.120     0.953 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9/O
+                         net (fo=1, routed)           0.223     1.176    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9_n_0
+    SLICE_X50Y83         LUT6 (Prop_lut6_I5_O)        0.043     1.219 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4/O
+                         net (fo=3, routed)           0.317     1.536    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4_n_0
+    SLICE_X48Y82         LUT4 (Prop_lut4_I1_O)        0.052     1.588 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg[0][4]_i_1/O
+                         net (fo=5, routed)           0.353     1.941    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg[0][4]_i_1_n_0
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][2]/R
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -896,31 +878,31 @@ Slack (MET) :             1.855ns  (required time - arrival time)
                                                      -5.645     2.212 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.572     3.784    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.072     3.856 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.131     4.987    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X57Y78         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[1]/C
-                         clock pessimism             -0.590     4.397    
-                         clock uncertainty           -0.060     4.337    
-    SLICE_X57Y78         FDRE (Setup_fdre_C_R)       -0.295     4.042    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[1]
+                         net (fo=516, routed)         1.141     4.997    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][2]/C
+                         clock pessimism             -0.548     4.449    
+                         clock uncertainty           -0.060     4.389    
+    SLICE_X48Y82         FDRE (Setup_fdre_C_R)       -0.381     4.008    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][2]
   -------------------------------------------------------------------
-                         required time                          4.042    
-                         arrival time                          -2.187    
+                         required time                          4.008    
+                         arrival time                          -1.941    
   -------------------------------------------------------------------
-                         slack                                  1.855    
+                         slack                                  2.067    
 
-Slack (MET) :             1.855ns  (required time - arrival time)
-  Source:                 u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/C
+Slack (MET) :             2.067ns  (required time - arrival time)
+  Source:                 u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[2]/R
+  Destination:            u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][3]/R
                             (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Setup (Max at Slow Process Corner)
   Requirement:            6.250ns  (clk_out1_clk_wiz_0_1 rise@6.250ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        3.994ns  (logic 0.780ns (19.529%)  route 3.214ns (80.471%))
-  Logic Levels:           8  (LUT4=2 LUT5=1 LUT6=5)
-  Clock Path Skew:        -0.046ns (DCD - SCD + CPR)
-    Destination Clock Delay (DCD):    -1.263ns = ( 4.987 - 6.250 ) 
-    Source Clock Delay      (SCD):    -1.807ns
-    Clock Pessimism Removal (CPR):    -0.590ns
+  Data Path Delay:        3.742ns  (logic 0.914ns (24.427%)  route 2.828ns (75.573%))
+  Logic Levels:           7  (LUT4=2 LUT5=1 LUT6=2 MUXF7=1 MUXF8=1)
+  Clock Path Skew:        0.000ns (DCD - SCD + CPR)
+    Destination Clock Delay (DCD):    -1.253ns = ( 4.997 - 6.250 ) 
+    Source Clock Delay      (SCD):    -1.801ns
+    Clock Pessimism Removal (CPR):    -0.548ns
   Clock Uncertainty:      0.060ns  ((TSJ^2 + DJ^2)^1/2) / 2 + PE
     Total System Jitter     (TSJ):    0.071ns
     Discrete Jitter          (DJ):    0.096ns
@@ -938,28 +920,26 @@ Slack (MET) :             1.855ns  (required time - arrival time)
                                                      -6.572    -4.789 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.652    -3.137    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.080    -3.057 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.250    -1.807    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X66Y77         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/C
+                         net (fo=516, routed)         1.256    -1.801    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X66Y77         FDRE (Prop_fdre_C_Q)         0.254    -1.553 f  u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1][3]/Q
-                         net (fo=5, routed)           0.658    -0.895    u_lane_original/gearbox32to66_cmp/u_block_sync/max_cnt_stg2_reg_reg[1]_40[3]
-    SLICE_X57Y78         LUT4 (Prop_lut4_I1_O)        0.050    -0.845 f  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_18/O
-                         net (fo=1, routed)           0.399    -0.446    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_18_n_0
-    SLICE_X56Y78         LUT6 (Prop_lut6_I3_O)        0.126    -0.320 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_6/O
-                         net (fo=16, routed)          0.336     0.015    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_6_n_0
-    SLICE_X56Y77         LUT4 (Prop_lut4_I2_O)        0.049     0.064 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_29/O
-                         net (fo=1, routed)           0.408     0.472    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_29_n_0
-    SLICE_X55Y78         LUT6 (Prop_lut6_I2_O)        0.129     0.601 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_14/O
-                         net (fo=3, routed)           0.236     0.837    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_14_n_0
-    SLICE_X54Y78         LUT6 (Prop_lut6_I2_O)        0.043     0.880 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_4/O
-                         net (fo=12, routed)          0.343     1.222    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_4_n_0
-    SLICE_X55Y77         LUT6 (Prop_lut6_I3_O)        0.043     1.265 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_10/O
-                         net (fo=1, routed)           0.290     1.555    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_10_n_0
-    SLICE_X55Y77         LUT6 (Prop_lut6_I3_O)        0.043     1.598 f  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_3/O
-                         net (fo=7, routed)           0.259     1.857    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_3_n_0
-    SLICE_X56Y77         LUT5 (Prop_lut5_I0_O)        0.043     1.900 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_1/O
-                         net (fo=6, routed)           0.287     2.187    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[5]_i_1_n_0
-    SLICE_X57Y78         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[2]/R
+    SLICE_X48Y82         FDRE (Prop_fdre_C_Q)         0.216    -1.585 f  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/Q
+                         net (fo=12, routed)          0.558    -1.027    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0]_6[1]
+    SLICE_X48Y83         LUT5 (Prop_lut5_I1_O)        0.048    -0.979 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1/O
+                         net (fo=8, routed)           0.528    -0.451    u_lane_original/gearbox32to66_cmp/u_header_seeker/g0_b1__1_n_0
+    SLICE_X50Y83         LUT4 (Prop_lut4_I2_O)        0.134    -0.317 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2/O
+                         net (fo=10, routed)          0.373     0.056    u_lane_original/gearbox32to66_cmp/u_header_seeker/block_offset[3]_i_2_n_0
+    SLICE_X50Y89         MUXF7 (Prop_muxf7_S_O)       0.257     0.313 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32/O
+                         net (fo=1, routed)           0.000     0.313    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_32_n_0
+    SLICE_X50Y89         MUXF8 (Prop_muxf8_I0_O)      0.044     0.357 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18/O
+                         net (fo=1, routed)           0.476     0.833    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg_reg[0][5]_i_18_n_0
+    SLICE_X50Y84         LUT6 (Prop_lut6_I5_O)        0.120     0.953 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9/O
+                         net (fo=1, routed)           0.223     1.176    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_9_n_0
+    SLICE_X50Y83         LUT6 (Prop_lut6_I5_O)        0.043     1.219 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4/O
+                         net (fo=3, routed)           0.317     1.536    u_lane_original/gearbox32to66_cmp/u_header_seeker/valid_hdr_cnt_reg[0][5]_i_4_n_0
+    SLICE_X48Y82         LUT4 (Prop_lut4_I1_O)        0.052     1.588 r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg[0][4]_i_1/O
+                         net (fo=5, routed)           0.353     1.941    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg[0][4]_i_1_n_0
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][3]/R
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -972,16 +952,16 @@ Slack (MET) :             1.855ns  (required time - arrival time)
                                                      -5.645     2.212 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           1.572     3.784    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.072     3.856 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        1.131     4.987    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X57Y78         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[2]/C
-                         clock pessimism             -0.590     4.397    
-                         clock uncertainty           -0.060     4.337    
-    SLICE_X57Y78         FDRE (Setup_fdre_C_R)       -0.295     4.042    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[2]
+                         net (fo=516, routed)         1.141     4.997    u_lane_original/gearbox32to66_cmp/u_header_seeker/clk_out1
+    SLICE_X48Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][3]/C
+                         clock pessimism             -0.548     4.449    
+                         clock uncertainty           -0.060     4.389    
+    SLICE_X48Y82         FDRE (Setup_fdre_C_R)       -0.381     4.008    u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][3]
   -------------------------------------------------------------------
-                         required time                          4.042    
-                         arrival time                          -2.187    
+                         required time                          4.008    
+                         arrival time                          -1.941    
   -------------------------------------------------------------------
-                         slack                                  1.855    
+                         slack                                  2.067    
 
 
 
@@ -989,20 +969,20 @@ Slack (MET) :             1.855ns  (required time - arrival time)
 
 Min Delay Paths
 --------------------------------------------------------------------------------------
-Slack (MET) :             0.083ns  (arrival time - required time)
-  Source:                 u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][3]/C
-                            (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[3]/D
-                            (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
+Slack (MET) :             0.095ns  (arrival time - required time)
+  Source:                 u_lane_original/gearbox32to66_cmp/data66_o_reg[64]/C
+                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            u_lane_original/sync_cnt_reg[3]/D
+                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Hold (Min at Fast Process Corner)
   Requirement:            0.000ns  (clk_out1_clk_wiz_0_1 rise@0.000ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        0.349ns  (logic 0.130ns (37.251%)  route 0.219ns (62.749%))
-  Logic Levels:           1  (LUT3=1)
-  Clock Path Skew:        0.191ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    -0.592ns
-    Source Clock Delay      (SCD):    -0.580ns
-    Clock Pessimism Removal (CPR):    -0.203ns
+  Data Path Delay:        0.193ns  (logic 0.128ns (66.225%)  route 0.065ns (33.775%))
+  Logic Levels:           1  (LUT6=1)
+  Clock Path Skew:        0.011ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.574ns
+    Source Clock Delay      (SCD):    -0.562ns
+    Clock Pessimism Removal (CPR):    -0.023ns
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
@@ -1016,14 +996,14 @@ Slack (MET) :             0.083ns  (arrival time - required time)
                                                      -2.780    -1.931 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           0.744    -1.187    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026    -1.161 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.581    -0.580    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X55Y76         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][3]/C
+                         net (fo=516, routed)         0.599    -0.562    u_lane_original/gearbox32to66_cmp/clk_out1
+    SLICE_X47Y89         FDCE                                         r  u_lane_original/gearbox32to66_cmp/data66_o_reg[64]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X55Y76         FDRE (Prop_fdre_C_Q)         0.100    -0.480 r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][3]/Q
-                         net (fo=1, routed)           0.219    -0.261    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg_n_0_[3][3]
-    SLICE_X57Y78         LUT3 (Prop_lut3_I0_O)        0.030    -0.231 r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset[3]_i_1/O
-                         net (fo=1, routed)           0.000    -0.231    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg3[3]
-    SLICE_X57Y78         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[3]/D
+    SLICE_X47Y89         FDCE (Prop_fdce_C_Q)         0.100    -0.462 r  u_lane_original/gearbox32to66_cmp/data66_o_reg[64]/Q
+                         net (fo=7, routed)           0.065    -0.397    u_lane_original/gearbox32to66_cmp/gearbox_data66[64]
+    SLICE_X46Y89         LUT6 (Prop_lut6_I1_O)        0.028    -0.369 r  u_lane_original/gearbox32to66_cmp/sync_cnt[3]_i_1/O
+                         net (fo=1, routed)           0.000    -0.369    u_lane_original/gearbox32to66_cmp_n_5
+    SLICE_X46Y89         FDCE                                         r  u_lane_original/sync_cnt_reg[3]/D
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -1036,30 +1016,30 @@ Slack (MET) :             0.083ns  (arrival time - required time)
                                                      -3.209    -2.229 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           0.807    -1.422    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.030    -1.392 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.800    -0.592    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X57Y78         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[3]/C
-                         clock pessimism              0.203    -0.389    
-    SLICE_X57Y78         FDRE (Hold_fdre_C_D)         0.075    -0.314    u_lane_original/gearbox32to66_cmp/u_block_sync/block_offset_reg[3]
+                         net (fo=516, routed)         0.818    -0.574    u_lane_original/clk_out1
+    SLICE_X46Y89         FDCE                                         r  u_lane_original/sync_cnt_reg[3]/C
+                         clock pessimism              0.023    -0.551    
+    SLICE_X46Y89         FDCE (Hold_fdce_C_D)         0.087    -0.464    u_lane_original/sync_cnt_reg[3]
   -------------------------------------------------------------------
-                         required time                          0.314    
-                         arrival time                          -0.231    
+                         required time                          0.464    
+                         arrival time                          -0.369    
   -------------------------------------------------------------------
-                         slack                                  0.083    
+                         slack                                  0.095    
 
-Slack (MET) :             0.088ns  (arrival time - required time)
-  Source:                 u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[17]/C
+Slack (MET) :             0.110ns  (arrival time - required time)
+  Source:                 u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[20]/C
                             (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[17]/D
+  Destination:            u_lane_original/gearbox32to66_cmp/buffer194_reg[20]/D
                             (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Hold (Min at Fast Process Corner)
   Requirement:            0.000ns  (clk_out1_clk_wiz_0_1 rise@0.000ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        0.158ns  (logic 0.100ns (63.441%)  route 0.058ns (36.559%))
+  Data Path Delay:        0.153ns  (logic 0.100ns (65.222%)  route 0.053ns (34.778%))
   Logic Levels:           0  
   Clock Path Skew:        0.011ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    -0.577ns
-    Source Clock Delay      (SCD):    -0.564ns
-    Clock Pessimism Removal (CPR):    -0.024ns
+    Destination Clock Delay (DCD):    -0.579ns
+    Source Clock Delay      (SCD):    -0.567ns
+    Clock Pessimism Removal (CPR):    -0.023ns
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
@@ -1073,69 +1053,12 @@ Slack (MET) :             0.088ns  (arrival time - required time)
                                                      -2.780    -1.931 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           0.744    -1.187    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026    -1.161 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.597    -0.564    u_lane_original/clk_out1
-    SLICE_X63Y92         FDCE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[17]/C
+                         net (fo=516, routed)         0.594    -0.567    u_lane_original/clk_out1
+    SLICE_X60Y93         FDCE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[20]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X63Y92         FDCE (Prop_fdce_C_Q)         0.100    -0.464 r  u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[17]/Q
-                         net (fo=2, routed)           0.058    -0.406    u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg_n_0_[17]
-    SLICE_X62Y92         FDCE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[17]/D
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk_out1_clk_wiz_0_1 rise edge)
-                                                      0.000     0.000 r  
-    V7                                                0.000     0.000 r  clk_p (IN)
-                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
-    V7                   IBUFDS (Prop_ibufds_I_O)     0.427     0.427 r  u_pll/inst/clkin1_ibufgds/O
-                         net (fo=1, routed)           0.553     0.980    u_pll/inst/clk_in1_clk_wiz_0
-    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
-                                                     -3.209    -2.229 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
-                         net (fo=1, routed)           0.807    -1.422    u_pll/inst/clk_out1_clk_wiz_0
-    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.030    -1.392 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.815    -0.577    u_lane_original/clk_out1
-    SLICE_X62Y92         FDCE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[17]/C
-                         clock pessimism              0.024    -0.553    
-    SLICE_X62Y92         FDCE (Hold_fdce_C_D)         0.059    -0.494    u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[17]
-  -------------------------------------------------------------------
-                         required time                          0.494    
-                         arrival time                          -0.406    
-  -------------------------------------------------------------------
-                         slack                                  0.088    
-
-Slack (MET) :             0.098ns  (arrival time - required time)
-  Source:                 u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[2][0]/C
-                            (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[2][2]/D
-                            (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Path Group:             clk_out1_clk_wiz_0_1
-  Path Type:              Hold (Min at Fast Process Corner)
-  Requirement:            0.000ns  (clk_out1_clk_wiz_0_1 rise@0.000ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        0.380ns  (logic 0.127ns (33.422%)  route 0.253ns (66.578%))
-  Logic Levels:           1  (LUT3=1)
-  Clock Path Skew:        0.189ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    -0.588ns
-    Source Clock Delay      (SCD):    -0.574ns
-    Clock Pessimism Removal (CPR):    -0.203ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk_out1_clk_wiz_0_1 rise edge)
-                                                      0.000     0.000 r  
-    V7                                                0.000     0.000 r  clk_p (IN)
-                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
-    V7                   IBUFDS (Prop_ibufds_I_O)     0.346     0.346 r  u_pll/inst/clkin1_ibufgds/O
-                         net (fo=1, routed)           0.503     0.849    u_pll/inst/clk_in1_clk_wiz_0
-    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
-                                                     -2.780    -1.931 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
-                         net (fo=1, routed)           0.744    -1.187    u_pll/inst/clk_out1_clk_wiz_0
-    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026    -1.161 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.587    -0.574    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X57Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[2][0]/C
-  -------------------------------------------------------------------    -------------------
-    SLICE_X57Y82         FDRE (Prop_fdre_C_Q)         0.100    -0.474 r  u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[2][0]/Q
-                         net (fo=9, routed)           0.253    -0.221    u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[2]_52[0]
-    SLICE_X54Y82         LUT3 (Prop_lut3_I1_O)        0.027    -0.194 r  u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg[2][2]_i_1/O
-                         net (fo=1, routed)           0.000    -0.194    u_lane_original/gearbox32to66_cmp/u_block_sync/p_0_in__2[2]
-    SLICE_X54Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[2][2]/D
+    SLICE_X60Y93         FDCE (Prop_fdce_C_Q)         0.100    -0.467 r  u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[20]/Q
+                         net (fo=1, routed)           0.053    -0.414    u_lane_original/gearbox32to66_cmp/buffer194_reg[31]_0[20]
+    SLICE_X61Y93         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[20]/D
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -1148,139 +1071,25 @@ Slack (MET) :             0.098ns  (arrival time - required time)
                                                      -3.209    -2.229 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           0.807    -1.422    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.030    -1.392 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.804    -0.588    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X54Y82         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[2][2]/C
-                         clock pessimism              0.203    -0.385    
-    SLICE_X54Y82         FDRE (Hold_fdre_C_D)         0.093    -0.292    u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[2][2]
+                         net (fo=516, routed)         0.813    -0.579    u_lane_original/gearbox32to66_cmp/clk_out1
+    SLICE_X61Y93         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[20]/C
+                         clock pessimism              0.023    -0.556    
+    SLICE_X61Y93         FDCE (Hold_fdce_C_D)         0.032    -0.524    u_lane_original/gearbox32to66_cmp/buffer194_reg[20]
   -------------------------------------------------------------------
-                         required time                          0.292    
-                         arrival time                          -0.194    
+                         required time                          0.524    
+                         arrival time                          -0.414    
   -------------------------------------------------------------------
-                         slack                                  0.098    
+                         slack                                  0.110    
 
-Slack (MET) :             0.100ns  (arrival time - required time)
-  Source:                 u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg1_reg_reg[15][0]/C
-                            (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][0]/D
-                            (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Path Group:             clk_out1_clk_wiz_0_1
-  Path Type:              Hold (Min at Fast Process Corner)
-  Requirement:            0.000ns  (clk_out1_clk_wiz_0_1 rise@0.000ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        0.346ns  (logic 0.128ns (36.996%)  route 0.218ns (63.004%))
-  Logic Levels:           1  (LUT3=1)
-  Clock Path Skew:        0.186ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    -0.596ns
-    Source Clock Delay      (SCD):    -0.579ns
-    Clock Pessimism Removal (CPR):    -0.203ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk_out1_clk_wiz_0_1 rise edge)
-                                                      0.000     0.000 r  
-    V7                                                0.000     0.000 r  clk_p (IN)
-                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
-    V7                   IBUFDS (Prop_ibufds_I_O)     0.346     0.346 r  u_pll/inst/clkin1_ibufgds/O
-                         net (fo=1, routed)           0.503     0.849    u_pll/inst/clk_in1_clk_wiz_0
-    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
-                                                     -2.780    -1.931 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
-                         net (fo=1, routed)           0.744    -1.187    u_pll/inst/clk_out1_clk_wiz_0
-    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026    -1.161 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.582    -0.579    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X51Y75         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg1_reg_reg[15][0]/C
-  -------------------------------------------------------------------    -------------------
-    SLICE_X51Y75         FDRE (Prop_fdre_C_Q)         0.100    -0.479 r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg1_reg_reg[15][0]/Q
-                         net (fo=1, routed)           0.218    -0.261    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg1_reg_reg_n_0_[15][0]
-    SLICE_X56Y75         LUT3 (Prop_lut3_I0_O)        0.028    -0.233 r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg[3][0]_i_1/O
-                         net (fo=1, routed)           0.000    -0.233    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2[3][0]
-    SLICE_X56Y75         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][0]/D
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk_out1_clk_wiz_0_1 rise edge)
-                                                      0.000     0.000 r  
-    V7                                                0.000     0.000 r  clk_p (IN)
-                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
-    V7                   IBUFDS (Prop_ibufds_I_O)     0.427     0.427 r  u_pll/inst/clkin1_ibufgds/O
-                         net (fo=1, routed)           0.553     0.980    u_pll/inst/clk_in1_clk_wiz_0
-    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
-                                                     -3.209    -2.229 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
-                         net (fo=1, routed)           0.807    -1.422    u_pll/inst/clk_out1_clk_wiz_0
-    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.030    -1.392 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.796    -0.596    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X56Y75         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][0]/C
-                         clock pessimism              0.203    -0.393    
-    SLICE_X56Y75         FDRE (Hold_fdre_C_D)         0.060    -0.333    u_lane_original/gearbox32to66_cmp/u_block_sync/offset_stg2_reg_reg[3][0]
-  -------------------------------------------------------------------
-                         required time                          0.333    
-                         arrival time                          -0.233    
-  -------------------------------------------------------------------
-                         slack                                  0.100    
-
-Slack (MET) :             0.103ns  (arrival time - required time)
-  Source:                 u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/pd_hold_reg[6]/C
-                            (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/pd_hold_reg[7]/D
-                            (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Path Group:             clk_out1_clk_wiz_0_1
-  Path Type:              Hold (Min at Fast Process Corner)
-  Requirement:            0.000ns  (clk_out1_clk_wiz_0_1 rise@0.000ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        0.210ns  (logic 0.130ns (61.911%)  route 0.080ns (38.089%))
-  Logic Levels:           1  (LUT5=1)
-  Clock Path Skew:        0.011ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    -0.576ns
-    Source Clock Delay      (SCD):    -0.563ns
-    Clock Pessimism Removal (CPR):    -0.024ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk_out1_clk_wiz_0_1 rise edge)
-                                                      0.000     0.000 r  
-    V7                                                0.000     0.000 r  clk_p (IN)
-                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
-    V7                   IBUFDS (Prop_ibufds_I_O)     0.346     0.346 r  u_pll/inst/clkin1_ibufgds/O
-                         net (fo=1, routed)           0.503     0.849    u_pll/inst/clk_in1_clk_wiz_0
-    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
-                                                     -2.780    -1.931 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
-                         net (fo=1, routed)           0.744    -1.187    u_pll/inst/clk_out1_clk_wiz_0
-    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026    -1.161 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.598    -0.563    u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/clk_out1
-    SLICE_X63Y96         FDRE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/pd_hold_reg[6]/C
-  -------------------------------------------------------------------    -------------------
-    SLICE_X63Y96         FDRE (Prop_fdre_C_Q)         0.100    -0.463 r  u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/pd_hold_reg[6]/Q
-                         net (fo=1, routed)           0.080    -0.383    u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/p_0_in1_in[7]
-    SLICE_X62Y96         LUT5 (Prop_lut5_I0_O)        0.030    -0.353 r  u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/pd_hold[7]_i_2/O
-                         net (fo=1, routed)           0.000    -0.353    u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/pd_hold[7]_i_2_n_0
-    SLICE_X62Y96         FDRE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/pd_hold_reg[7]/D
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk_out1_clk_wiz_0_1 rise edge)
-                                                      0.000     0.000 r  
-    V7                                                0.000     0.000 r  clk_p (IN)
-                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
-    V7                   IBUFDS (Prop_ibufds_I_O)     0.427     0.427 r  u_pll/inst/clkin1_ibufgds/O
-                         net (fo=1, routed)           0.553     0.980    u_pll/inst/clk_in1_clk_wiz_0
-    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
-                                                     -3.209    -2.229 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
-                         net (fo=1, routed)           0.807    -1.422    u_pll/inst/clk_out1_clk_wiz_0
-    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.030    -1.392 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.816    -0.576    u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/clk_out1
-    SLICE_X62Y96         FDRE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/pd_hold_reg[7]/C
-                         clock pessimism              0.024    -0.552    
-    SLICE_X62Y96         FDRE (Hold_fdre_C_D)         0.096    -0.456    u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/pd_hold_reg[7]
-  -------------------------------------------------------------------
-                         required time                          0.456    
-                         arrival time                          -0.353    
-  -------------------------------------------------------------------
-                         slack                                  0.103    
-
-Slack (MET) :             0.108ns  (arrival time - required time)
-  Source:                 u_lane_original/gearbox32to66_cmp/buffer194_reg[38]/C
+Slack (MET) :             0.112ns  (arrival time - required time)
+  Source:                 u_lane_original/gearbox32to66_cmp/buffer194_reg[32]/C
                             (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/buffer194_reg[70]/D
+  Destination:            u_lane_original/gearbox32to66_cmp/buffer194_reg[64]/D
                             (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Hold (Min at Fast Process Corner)
   Requirement:            0.000ns  (clk_out1_clk_wiz_0_1 rise@0.000ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        0.155ns  (logic 0.100ns (64.660%)  route 0.055ns (35.340%))
+  Data Path Delay:        0.156ns  (logic 0.100ns (64.141%)  route 0.056ns (35.859%))
   Logic Levels:           0  
   Clock Path Skew:        0.000ns (DCD - SCD - CPR)
     Destination Clock Delay (DCD):    -0.581ns
@@ -1299,12 +1108,12 @@ Slack (MET) :             0.108ns  (arrival time - required time)
                                                      -2.780    -1.931 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           0.744    -1.187    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026    -1.161 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.592    -0.569    u_lane_original/gearbox32to66_cmp/clk_out1
-    SLICE_X59Y91         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[38]/C
+                         net (fo=516, routed)         0.592    -0.569    u_lane_original/gearbox32to66_cmp/clk_out1
+    SLICE_X56Y92         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[32]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X59Y91         FDCE (Prop_fdce_C_Q)         0.100    -0.469 r  u_lane_original/gearbox32to66_cmp/buffer194_reg[38]/Q
-                         net (fo=1, routed)           0.055    -0.414    u_lane_original/gearbox32to66_cmp/buffer194[38]
-    SLICE_X59Y91         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[70]/D
+    SLICE_X56Y92         FDCE (Prop_fdce_C_Q)         0.100    -0.469 r  u_lane_original/gearbox32to66_cmp/buffer194_reg[32]/Q
+                         net (fo=1, routed)           0.056    -0.413    u_lane_original/gearbox32to66_cmp/buffer194[32]
+    SLICE_X56Y92         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[64]/D
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -1317,29 +1126,194 @@ Slack (MET) :             0.108ns  (arrival time - required time)
                                                      -3.209    -2.229 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           0.807    -1.422    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.030    -1.392 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.811    -0.581    u_lane_original/gearbox32to66_cmp/clk_out1
-    SLICE_X59Y91         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[70]/C
+                         net (fo=516, routed)         0.811    -0.581    u_lane_original/gearbox32to66_cmp/clk_out1
+    SLICE_X56Y92         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[64]/C
                          clock pessimism              0.012    -0.569    
-    SLICE_X59Y91         FDCE (Hold_fdce_C_D)         0.047    -0.522    u_lane_original/gearbox32to66_cmp/buffer194_reg[70]
+    SLICE_X56Y92         FDCE (Hold_fdce_C_D)         0.044    -0.525    u_lane_original/gearbox32to66_cmp/buffer194_reg[64]
   -------------------------------------------------------------------
-                         required time                          0.522    
-                         arrival time                          -0.414    
+                         required time                          0.525    
+                         arrival time                          -0.413    
   -------------------------------------------------------------------
-                         slack                                  0.108    
+                         slack                                  0.112    
 
-Slack (MET) :             0.112ns  (arrival time - required time)
-  Source:                 u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[19][3]/C
-                            (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[19][5]/D
-                            (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
+Slack (MET) :             0.113ns  (arrival time - required time)
+  Source:                 u_lane_original/gearbox32to66_cmp/buffer194_reg[15]/C
+                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            u_lane_original/gearbox32to66_cmp/buffer194_reg[47]/D
+                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Hold (Min at Fast Process Corner)
   Requirement:            0.000ns  (clk_out1_clk_wiz_0_1 rise@0.000ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        0.210ns  (logic 0.128ns (61.072%)  route 0.082ns (38.928%))
-  Logic Levels:           1  (LUT6=1)
-  Clock Path Skew:        0.011ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    -0.589ns
-    Source Clock Delay      (SCD):    -0.574ns
+  Data Path Delay:        0.160ns  (logic 0.100ns (62.633%)  route 0.060ns (37.367%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.000ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.582ns
+    Source Clock Delay      (SCD):    -0.570ns
+    Clock Pessimism Removal (CPR):    -0.012ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_clk_wiz_0_1 rise edge)
+                                                      0.000     0.000 r  
+    V7                                                0.000     0.000 r  clk_p (IN)
+                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
+    V7                   IBUFDS (Prop_ibufds_I_O)     0.346     0.346 r  u_pll/inst/clkin1_ibufgds/O
+                         net (fo=1, routed)           0.503     0.849    u_pll/inst/clk_in1_clk_wiz_0
+    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -2.780    -1.931 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.744    -1.187    u_pll/inst/clk_out1_clk_wiz_0
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026    -1.161 r  u_pll/inst/clkout1_buf/O
+                         net (fo=516, routed)         0.591    -0.570    u_lane_original/gearbox32to66_cmp/clk_out1
+    SLICE_X56Y89         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[15]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X56Y89         FDCE (Prop_fdce_C_Q)         0.100    -0.470 r  u_lane_original/gearbox32to66_cmp/buffer194_reg[15]/Q
+                         net (fo=1, routed)           0.060    -0.410    u_lane_original/gearbox32to66_cmp/buffer194[15]
+    SLICE_X56Y89         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[47]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_clk_wiz_0_1 rise edge)
+                                                      0.000     0.000 r  
+    V7                                                0.000     0.000 r  clk_p (IN)
+                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
+    V7                   IBUFDS (Prop_ibufds_I_O)     0.427     0.427 r  u_pll/inst/clkin1_ibufgds/O
+                         net (fo=1, routed)           0.553     0.980    u_pll/inst/clk_in1_clk_wiz_0
+    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.209    -2.229 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.807    -1.422    u_pll/inst/clk_out1_clk_wiz_0
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.030    -1.392 r  u_pll/inst/clkout1_buf/O
+                         net (fo=516, routed)         0.810    -0.582    u_lane_original/gearbox32to66_cmp/clk_out1
+    SLICE_X56Y89         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[47]/C
+                         clock pessimism              0.012    -0.570    
+    SLICE_X56Y89         FDCE (Hold_fdce_C_D)         0.047    -0.523    u_lane_original/gearbox32to66_cmp/buffer194_reg[47]
+  -------------------------------------------------------------------
+                         required time                          0.523    
+                         arrival time                          -0.410    
+  -------------------------------------------------------------------
+                         slack                                  0.113    
+
+Slack (MET) :             0.113ns  (arrival time - required time)
+  Source:                 u_lane_original/gearbox32to66_cmp/buffer194_reg[142]/C
+                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            u_lane_original/gearbox32to66_cmp/buffer194_reg[174]/D
+                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Path Group:             clk_out1_clk_wiz_0_1
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out1_clk_wiz_0_1 rise@0.000ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
+  Data Path Delay:        0.160ns  (logic 0.100ns (62.453%)  route 0.060ns (37.547%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.000ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.584ns
+    Source Clock Delay      (SCD):    -0.571ns
+    Clock Pessimism Removal (CPR):    -0.013ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_clk_wiz_0_1 rise edge)
+                                                      0.000     0.000 r  
+    V7                                                0.000     0.000 r  clk_p (IN)
+                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
+    V7                   IBUFDS (Prop_ibufds_I_O)     0.346     0.346 r  u_pll/inst/clkin1_ibufgds/O
+                         net (fo=1, routed)           0.503     0.849    u_pll/inst/clk_in1_clk_wiz_0
+    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -2.780    -1.931 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.744    -1.187    u_pll/inst/clk_out1_clk_wiz_0
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026    -1.161 r  u_pll/inst/clkout1_buf/O
+                         net (fo=516, routed)         0.590    -0.571    u_lane_original/gearbox32to66_cmp/clk_out1
+    SLICE_X59Y87         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[142]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X59Y87         FDCE (Prop_fdce_C_Q)         0.100    -0.471 r  u_lane_original/gearbox32to66_cmp/buffer194_reg[142]/Q
+                         net (fo=6, routed)           0.060    -0.411    u_lane_original/gearbox32to66_cmp/buffer194[142]
+    SLICE_X59Y87         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[174]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_clk_wiz_0_1 rise edge)
+                                                      0.000     0.000 r  
+    V7                                                0.000     0.000 r  clk_p (IN)
+                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
+    V7                   IBUFDS (Prop_ibufds_I_O)     0.427     0.427 r  u_pll/inst/clkin1_ibufgds/O
+                         net (fo=1, routed)           0.553     0.980    u_pll/inst/clk_in1_clk_wiz_0
+    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.209    -2.229 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.807    -1.422    u_pll/inst/clk_out1_clk_wiz_0
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.030    -1.392 r  u_pll/inst/clkout1_buf/O
+                         net (fo=516, routed)         0.808    -0.584    u_lane_original/gearbox32to66_cmp/clk_out1
+    SLICE_X59Y87         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[174]/C
+                         clock pessimism              0.013    -0.571    
+    SLICE_X59Y87         FDCE (Hold_fdce_C_D)         0.047    -0.524    u_lane_original/gearbox32to66_cmp/buffer194_reg[174]
+  -------------------------------------------------------------------
+                         required time                          0.524    
+                         arrival time                          -0.411    
+  -------------------------------------------------------------------
+                         slack                                  0.113    
+
+Slack (MET) :             0.119ns  (arrival time - required time)
+  Source:                 u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[5]/C
+                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[5]/D
+                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Path Group:             clk_out1_clk_wiz_0_1
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out1_clk_wiz_0_1 rise@0.000ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
+  Data Path Delay:        0.318ns  (logic 0.107ns (33.632%)  route 0.211ns (66.368%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.191ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.580ns
+    Source Clock Delay      (SCD):    -0.568ns
+    Clock Pessimism Removal (CPR):    -0.203ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_clk_wiz_0_1 rise edge)
+                                                      0.000     0.000 r  
+    V7                                                0.000     0.000 r  clk_p (IN)
+                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
+    V7                   IBUFDS (Prop_ibufds_I_O)     0.346     0.346 r  u_pll/inst/clkin1_ibufgds/O
+                         net (fo=1, routed)           0.503     0.849    u_pll/inst/clk_in1_clk_wiz_0
+    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -2.780    -1.931 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.744    -1.187    u_pll/inst/clk_out1_clk_wiz_0
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026    -1.161 r  u_pll/inst/clkout1_buf/O
+                         net (fo=516, routed)         0.593    -0.568    u_lane_original/clk_out1
+    SLICE_X54Y94         FDCE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[5]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X54Y94         FDCE (Prop_fdce_C_Q)         0.107    -0.461 r  u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[5]/Q
+                         net (fo=2, routed)           0.211    -0.250    u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg_n_0_[5]
+    SLICE_X56Y93         FDCE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[5]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_clk_wiz_0_1 rise edge)
+                                                      0.000     0.000 r  
+    V7                                                0.000     0.000 r  clk_p (IN)
+                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
+    V7                   IBUFDS (Prop_ibufds_I_O)     0.427     0.427 r  u_pll/inst/clkin1_ibufgds/O
+                         net (fo=1, routed)           0.553     0.980    u_pll/inst/clk_in1_clk_wiz_0
+    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.209    -2.229 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.807    -1.422    u_pll/inst/clk_out1_clk_wiz_0
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.030    -1.392 r  u_pll/inst/clkout1_buf/O
+                         net (fo=516, routed)         0.812    -0.580    u_lane_original/clk_out1
+    SLICE_X56Y93         FDCE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[5]/C
+                         clock pessimism              0.203    -0.377    
+    SLICE_X56Y93         FDCE (Hold_fdce_C_D)         0.008    -0.369    u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[5]
+  -------------------------------------------------------------------
+                         required time                          0.369    
+                         arrival time                          -0.250    
+  -------------------------------------------------------------------
+                         slack                                  0.119    
+
+Slack (MET) :             0.119ns  (arrival time - required time)
+  Source:                 u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[10]/C
+                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[10]/D
+                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Path Group:             clk_out1_clk_wiz_0_1
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out1_clk_wiz_0_1 rise@0.000ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
+  Data Path Delay:        0.192ns  (logic 0.100ns (51.989%)  route 0.092ns (48.011%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.014ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.580ns
+    Source Clock Delay      (SCD):    -0.568ns
     Clock Pessimism Removal (CPR):    -0.026ns
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
@@ -1354,14 +1328,12 @@ Slack (MET) :             0.112ns  (arrival time - required time)
                                                      -2.780    -1.931 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           0.744    -1.187    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026    -1.161 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.587    -0.574    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X69Y73         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[19][3]/C
+                         net (fo=516, routed)         0.593    -0.568    u_lane_original/clk_out1
+    SLICE_X56Y94         FDCE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[10]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X69Y73         FDRE (Prop_fdre_C_Q)         0.100    -0.474 r  u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[19][3]/Q
-                         net (fo=7, routed)           0.082    -0.392    u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[19]_67[3]
-    SLICE_X68Y73         LUT6 (Prop_lut6_I4_O)        0.028    -0.364 r  u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg[19][5]_i_2/O
-                         net (fo=1, routed)           0.000    -0.364    u_lane_original/gearbox32to66_cmp/u_block_sync/p_0_in__17[5]
-    SLICE_X68Y73         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[19][5]/D
+    SLICE_X56Y94         FDCE (Prop_fdce_C_Q)         0.100    -0.468 r  u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[10]/Q
+                         net (fo=2, routed)           0.092    -0.376    u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg_n_0_[10]
+    SLICE_X58Y94         FDCE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[10]/D
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -1374,29 +1346,84 @@ Slack (MET) :             0.112ns  (arrival time - required time)
                                                      -3.209    -2.229 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           0.807    -1.422    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.030    -1.392 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.803    -0.589    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X68Y73         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[19][5]/C
-                         clock pessimism              0.026    -0.563    
-    SLICE_X68Y73         FDRE (Hold_fdre_C_D)         0.087    -0.476    u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[19][5]
+                         net (fo=516, routed)         0.812    -0.580    u_lane_original/clk_out1
+    SLICE_X58Y94         FDCE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[10]/C
+                         clock pessimism              0.026    -0.554    
+    SLICE_X58Y94         FDCE (Hold_fdce_C_D)         0.059    -0.495    u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[10]
   -------------------------------------------------------------------
-                         required time                          0.476    
-                         arrival time                          -0.364    
+                         required time                          0.495    
+                         arrival time                          -0.376    
   -------------------------------------------------------------------
-                         slack                                  0.112    
+                         slack                                  0.119    
 
-Slack (MET) :             0.112ns  (arrival time - required time)
-  Source:                 u_lane_original/gearbox32to66_cmp/data66_valid_i_reg/C
+Slack (MET) :             0.121ns  (arrival time - required time)
+  Source:                 u_lane_original/gearbox32to66_cmp/buffer194_reg[158]/C
                             (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/buffer_reg[11]/CE
-                            (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            u_lane_original/gearbox32to66_cmp/buffer194_reg[190]/D
+                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Hold (Min at Fast Process Corner)
   Requirement:            0.000ns  (clk_out1_clk_wiz_0_1 rise@0.000ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        0.274ns  (logic 0.091ns (33.260%)  route 0.183ns (66.740%))
+  Data Path Delay:        0.170ns  (logic 0.100ns (58.961%)  route 0.070ns (41.039%))
   Logic Levels:           0  
-  Clock Path Skew:        0.190ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    -0.582ns
-    Source Clock Delay      (SCD):    -0.569ns
+  Clock Path Skew:        0.000ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.584ns
+    Source Clock Delay      (SCD):    -0.571ns
+    Clock Pessimism Removal (CPR):    -0.013ns
+
+    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
+  -------------------------------------------------------------------    -------------------
+                         (clock clk_out1_clk_wiz_0_1 rise edge)
+                                                      0.000     0.000 r  
+    V7                                                0.000     0.000 r  clk_p (IN)
+                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
+    V7                   IBUFDS (Prop_ibufds_I_O)     0.346     0.346 r  u_pll/inst/clkin1_ibufgds/O
+                         net (fo=1, routed)           0.503     0.849    u_pll/inst/clk_in1_clk_wiz_0
+    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -2.780    -1.931 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.744    -1.187    u_pll/inst/clk_out1_clk_wiz_0
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026    -1.161 r  u_pll/inst/clkout1_buf/O
+                         net (fo=516, routed)         0.590    -0.571    u_lane_original/gearbox32to66_cmp/clk_out1
+    SLICE_X59Y87         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[158]/C
+  -------------------------------------------------------------------    -------------------
+    SLICE_X59Y87         FDCE (Prop_fdce_C_Q)         0.100    -0.471 r  u_lane_original/gearbox32to66_cmp/buffer194_reg[158]/Q
+                         net (fo=6, routed)           0.070    -0.401    u_lane_original/gearbox32to66_cmp/buffer194[158]
+    SLICE_X59Y87         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[190]/D
+  -------------------------------------------------------------------    -------------------
+
+                         (clock clk_out1_clk_wiz_0_1 rise edge)
+                                                      0.000     0.000 r  
+    V7                                                0.000     0.000 r  clk_p (IN)
+                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
+    V7                   IBUFDS (Prop_ibufds_I_O)     0.427     0.427 r  u_pll/inst/clkin1_ibufgds/O
+                         net (fo=1, routed)           0.553     0.980    u_pll/inst/clk_in1_clk_wiz_0
+    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
+                                                     -3.209    -2.229 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
+                         net (fo=1, routed)           0.807    -1.422    u_pll/inst/clk_out1_clk_wiz_0
+    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.030    -1.392 r  u_pll/inst/clkout1_buf/O
+                         net (fo=516, routed)         0.808    -0.584    u_lane_original/gearbox32to66_cmp/clk_out1
+    SLICE_X59Y87         FDCE                                         r  u_lane_original/gearbox32to66_cmp/buffer194_reg[190]/C
+                         clock pessimism              0.013    -0.571    
+    SLICE_X59Y87         FDCE (Hold_fdce_C_D)         0.049    -0.522    u_lane_original/gearbox32to66_cmp/buffer194_reg[190]
+  -------------------------------------------------------------------
+                         required time                          0.522    
+                         arrival time                          -0.401    
+  -------------------------------------------------------------------
+                         slack                                  0.121    
+
+Slack (MET) :             0.124ns  (arrival time - required time)
+  Source:                 u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[3]/C
+                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[11]/D
+                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Path Group:             clk_out1_clk_wiz_0_1
+  Path Type:              Hold (Min at Fast Process Corner)
+  Requirement:            0.000ns  (clk_out1_clk_wiz_0_1 rise@0.000ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
+  Data Path Delay:        0.315ns  (logic 0.107ns (33.971%)  route 0.208ns (66.029%))
+  Logic Levels:           0  
+  Clock Path Skew:        0.191ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.580ns
+    Source Clock Delay      (SCD):    -0.568ns
     Clock Pessimism Removal (CPR):    -0.203ns
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
@@ -1411,12 +1438,12 @@ Slack (MET) :             0.112ns  (arrival time - required time)
                                                      -2.780    -1.931 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           0.744    -1.187    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026    -1.161 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.592    -0.569    u_lane_original/gearbox32to66_cmp/clk_out1
-    SLICE_X55Y92         FDCE                                         r  u_lane_original/gearbox32to66_cmp/data66_valid_i_reg/C
+                         net (fo=516, routed)         0.593    -0.568    u_lane_original/clk_out1
+    SLICE_X54Y94         FDCE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[3]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X55Y92         FDCE (Prop_fdce_C_Q)         0.091    -0.478 r  u_lane_original/gearbox32to66_cmp/data66_valid_i_reg/Q
-                         net (fo=531, routed)         0.183    -0.295    u_lane_original/gearbox32to66_cmp/u_block_sync/gearbox_data66_valid
-    SLICE_X57Y89         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/buffer_reg[11]/CE
+    SLICE_X54Y94         FDCE (Prop_fdce_C_Q)         0.107    -0.461 r  u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[3]/Q
+                         net (fo=2, routed)           0.208    -0.253    u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg_n_0_[3]
+    SLICE_X56Y94         FDCE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[11]/D
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -1429,30 +1456,30 @@ Slack (MET) :             0.112ns  (arrival time - required time)
                                                      -3.209    -2.229 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           0.807    -1.422    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.030    -1.392 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.810    -0.582    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X57Y89         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/buffer_reg[11]/C
-                         clock pessimism              0.203    -0.379    
-    SLICE_X57Y89         FDRE (Hold_fdre_C_CE)       -0.028    -0.407    u_lane_original/gearbox32to66_cmp/u_block_sync/buffer_reg[11]
+                         net (fo=516, routed)         0.812    -0.580    u_lane_original/clk_out1
+    SLICE_X56Y94         FDCE                                         r  u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[11]/C
+                         clock pessimism              0.203    -0.377    
+    SLICE_X56Y94         FDCE (Hold_fdce_C_D)         0.000    -0.377    u_lane_original/xapp1017_serdes_1280.serdes_data32_shift_reg[11]
   -------------------------------------------------------------------
-                         required time                          0.407    
-                         arrival time                          -0.295    
+                         required time                          0.377    
+                         arrival time                          -0.253    
   -------------------------------------------------------------------
-                         slack                                  0.112    
+                         slack                                  0.124    
 
-Slack (MET) :             0.112ns  (arrival time - required time)
-  Source:                 u_lane_original/gearbox32to66_cmp/data66_valid_i_reg/C
+Slack (MET) :             0.126ns  (arrival time - required time)
+  Source:                 u_lane_original/gearbox32to66_cmp/gearbox_cnt_reg[7]/C
                             (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/buffer_reg[3]/CE
-                            (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
+  Destination:            u_lane_original/gearbox32to66_cmp/data66_t_valid_reg/D
+                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
   Path Group:             clk_out1_clk_wiz_0_1
   Path Type:              Hold (Min at Fast Process Corner)
   Requirement:            0.000ns  (clk_out1_clk_wiz_0_1 rise@0.000ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        0.274ns  (logic 0.091ns (33.260%)  route 0.183ns (66.740%))
-  Logic Levels:           0  
-  Clock Path Skew:        0.190ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    -0.582ns
+  Data Path Delay:        0.224ns  (logic 0.128ns (57.079%)  route 0.096ns (42.921%))
+  Logic Levels:           1  (LUT6=1)
+  Clock Path Skew:        0.011ns (DCD - SCD - CPR)
+    Destination Clock Delay (DCD):    -0.581ns
     Source Clock Delay      (SCD):    -0.569ns
-    Clock Pessimism Removal (CPR):    -0.203ns
+    Clock Pessimism Removal (CPR):    -0.023ns
 
     Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
   -------------------------------------------------------------------    -------------------
@@ -1466,67 +1493,14 @@ Slack (MET) :             0.112ns  (arrival time - required time)
                                                      -2.780    -1.931 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           0.744    -1.187    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026    -1.161 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.592    -0.569    u_lane_original/gearbox32to66_cmp/clk_out1
-    SLICE_X55Y92         FDCE                                         r  u_lane_original/gearbox32to66_cmp/data66_valid_i_reg/C
+                         net (fo=516, routed)         0.592    -0.569    u_lane_original/gearbox32to66_cmp/clk_out1
+    SLICE_X55Y90         FDCE                                         r  u_lane_original/gearbox32to66_cmp/gearbox_cnt_reg[7]/C
   -------------------------------------------------------------------    -------------------
-    SLICE_X55Y92         FDCE (Prop_fdce_C_Q)         0.091    -0.478 r  u_lane_original/gearbox32to66_cmp/data66_valid_i_reg/Q
-                         net (fo=531, routed)         0.183    -0.295    u_lane_original/gearbox32to66_cmp/u_block_sync/gearbox_data66_valid
-    SLICE_X57Y89         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/buffer_reg[3]/CE
-  -------------------------------------------------------------------    -------------------
-
-                         (clock clk_out1_clk_wiz_0_1 rise edge)
-                                                      0.000     0.000 r  
-    V7                                                0.000     0.000 r  clk_p (IN)
-                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
-    V7                   IBUFDS (Prop_ibufds_I_O)     0.427     0.427 r  u_pll/inst/clkin1_ibufgds/O
-                         net (fo=1, routed)           0.553     0.980    u_pll/inst/clk_in1_clk_wiz_0
-    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
-                                                     -3.209    -2.229 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
-                         net (fo=1, routed)           0.807    -1.422    u_pll/inst/clk_out1_clk_wiz_0
-    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.030    -1.392 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.810    -0.582    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X57Y89         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/buffer_reg[3]/C
-                         clock pessimism              0.203    -0.379    
-    SLICE_X57Y89         FDRE (Hold_fdre_C_CE)       -0.028    -0.407    u_lane_original/gearbox32to66_cmp/u_block_sync/buffer_reg[3]
-  -------------------------------------------------------------------
-                         required time                          0.407    
-                         arrival time                          -0.295    
-  -------------------------------------------------------------------
-                         slack                                  0.112    
-
-Slack (MET) :             0.112ns  (arrival time - required time)
-  Source:                 u_lane_original/gearbox32to66_cmp/data66_valid_i_reg/C
-                            (rising edge-triggered cell FDCE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Destination:            u_lane_original/gearbox32to66_cmp/u_block_sync/buffer_reg[51]/CE
-                            (rising edge-triggered cell FDRE clocked by clk_out1_clk_wiz_0_1  {rise@0.000ns fall@3.125ns period=6.250ns})
-  Path Group:             clk_out1_clk_wiz_0_1
-  Path Type:              Hold (Min at Fast Process Corner)
-  Requirement:            0.000ns  (clk_out1_clk_wiz_0_1 rise@0.000ns - clk_out1_clk_wiz_0_1 rise@0.000ns)
-  Data Path Delay:        0.274ns  (logic 0.091ns (33.260%)  route 0.183ns (66.740%))
-  Logic Levels:           0  
-  Clock Path Skew:        0.190ns (DCD - SCD - CPR)
-    Destination Clock Delay (DCD):    -0.582ns
-    Source Clock Delay      (SCD):    -0.569ns
-    Clock Pessimism Removal (CPR):    -0.203ns
-
-    Location             Delay type                Incr(ns)  Path(ns)    Netlist Resource(s)
-  -------------------------------------------------------------------    -------------------
-                         (clock clk_out1_clk_wiz_0_1 rise edge)
-                                                      0.000     0.000 r  
-    V7                                                0.000     0.000 r  clk_p (IN)
-                         net (fo=0)                   0.000     0.000    u_pll/inst/clk_in1_p
-    V7                   IBUFDS (Prop_ibufds_I_O)     0.346     0.346 r  u_pll/inst/clkin1_ibufgds/O
-                         net (fo=1, routed)           0.503     0.849    u_pll/inst/clk_in1_clk_wiz_0
-    MMCME2_ADV_X1Y1      MMCME2_ADV (Prop_mmcme2_adv_CLKIN1_CLKOUT0)
-                                                     -2.780    -1.931 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
-                         net (fo=1, routed)           0.744    -1.187    u_pll/inst/clk_out1_clk_wiz_0
-    BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.026    -1.161 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.592    -0.569    u_lane_original/gearbox32to66_cmp/clk_out1
-    SLICE_X55Y92         FDCE                                         r  u_lane_original/gearbox32to66_cmp/data66_valid_i_reg/C
-  -------------------------------------------------------------------    -------------------
-    SLICE_X55Y92         FDCE (Prop_fdce_C_Q)         0.091    -0.478 r  u_lane_original/gearbox32to66_cmp/data66_valid_i_reg/Q
-                         net (fo=531, routed)         0.183    -0.295    u_lane_original/gearbox32to66_cmp/u_block_sync/gearbox_data66_valid
-    SLICE_X57Y89         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/buffer_reg[51]/CE
+    SLICE_X55Y90         FDCE (Prop_fdce_C_Q)         0.100    -0.469 r  u_lane_original/gearbox32to66_cmp/gearbox_cnt_reg[7]/Q
+                         net (fo=4, routed)           0.096    -0.373    u_lane_original/gearbox32to66_cmp/gearbox_cnt_reg__0[7]
+    SLICE_X54Y90         LUT6 (Prop_lut6_I1_O)        0.028    -0.345 r  u_lane_original/gearbox32to66_cmp/data66_t_valid_i_1/O
+                         net (fo=1, routed)           0.000    -0.345    u_lane_original/gearbox32to66_cmp/data66_t_valid5_out
+    SLICE_X54Y90         FDCE                                         r  u_lane_original/gearbox32to66_cmp/data66_t_valid_reg/D
   -------------------------------------------------------------------    -------------------
 
                          (clock clk_out1_clk_wiz_0_1 rise edge)
@@ -1539,15 +1513,15 @@ Slack (MET) :             0.112ns  (arrival time - required time)
                                                      -3.209    -2.229 r  u_pll/inst/mmcm_adv_inst/CLKOUT0
                          net (fo=1, routed)           0.807    -1.422    u_pll/inst/clk_out1_clk_wiz_0
     BUFGCTRL_X0Y0        BUFG (Prop_bufg_I_O)         0.030    -1.392 r  u_pll/inst/clkout1_buf/O
-                         net (fo=1071, routed)        0.810    -0.582    u_lane_original/gearbox32to66_cmp/u_block_sync/clk_out1
-    SLICE_X57Y89         FDRE                                         r  u_lane_original/gearbox32to66_cmp/u_block_sync/buffer_reg[51]/C
-                         clock pessimism              0.203    -0.379    
-    SLICE_X57Y89         FDRE (Hold_fdre_C_CE)       -0.028    -0.407    u_lane_original/gearbox32to66_cmp/u_block_sync/buffer_reg[51]
+                         net (fo=516, routed)         0.811    -0.581    u_lane_original/gearbox32to66_cmp/clk_out1
+    SLICE_X54Y90         FDCE                                         r  u_lane_original/gearbox32to66_cmp/data66_t_valid_reg/C
+                         clock pessimism              0.023    -0.558    
+    SLICE_X54Y90         FDCE (Hold_fdce_C_D)         0.087    -0.471    u_lane_original/gearbox32to66_cmp/data66_t_valid_reg
   -------------------------------------------------------------------
-                         required time                          0.407    
-                         arrival time                          -0.295    
+                         required time                          0.471    
+                         arrival time                          -0.345    
   -------------------------------------------------------------------
-                         slack                                  0.112    
+                         slack                                  0.126    
 
 
 
@@ -1567,31 +1541,31 @@ Min Period        n/a     BUFG/I              n/a            1.349         6.250
 Min Period        n/a     ISERDESE2/CLKDIV    n/a            1.249         6.250       5.001      ILOGIC_X0Y50     u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop0[0].iserdes_m/CLKDIV
 Min Period        n/a     ISERDESE2/CLKDIV    n/a            1.249         6.250       5.001      ILOGIC_X1Y149    u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop0[0].iserdes_s/CLKDIV
 Min Period        n/a     MMCME2_ADV/CLKOUT0  n/a            0.937         6.250       5.313      MMCME2_ADV_X1Y1  u_pll/inst/mmcm_adv_inst/CLKOUT0
-Min Period        n/a     FDCE/C              n/a            0.750         6.250       5.500      SLICE_X59Y92     u_lane_original/gearbox32to66_cmp/buffer194_reg[50]/C
-Min Period        n/a     FDCE/C              n/a            0.750         6.250       5.500      SLICE_X64Y90     u_lane_original/gearbox32to66_cmp/buffer194_reg[53]/C
-Min Period        n/a     FDCE/C              n/a            0.750         6.250       5.500      SLICE_X63Y91     u_lane_original/gearbox32to66_cmp/buffer194_reg[55]/C
-Min Period        n/a     FDCE/C              n/a            0.750         6.250       5.500      SLICE_X53Y92     u_lane_original/gearbox32to66_cmp/data66_t_valid_reg/C
+Min Period        n/a     FDCE/C              n/a            0.750         6.250       5.500      SLICE_X56Y89     u_lane_original/gearbox32to66_cmp/buffer194_reg[47]/C
+Min Period        n/a     FDCE/C              n/a            0.750         6.250       5.500      SLICE_X60Y92     u_lane_original/gearbox32to66_cmp/buffer194_reg[48]/C
+Min Period        n/a     FDCE/C              n/a            0.750         6.250       5.500      SLICE_X56Y92     u_lane_original/gearbox32to66_cmp/buffer194_reg[4]/C
+Min Period        n/a     FDCE/C              n/a            0.750         6.250       5.500      SLICE_X61Y93     u_lane_original/gearbox32to66_cmp/buffer194_reg[54]/C
 Max Period        n/a     MMCME2_ADV/CLKOUT0  n/a            213.360       6.250       207.110    MMCME2_ADV_X1Y1  u_pll/inst/mmcm_adv_inst/CLKOUT0
-Low Pulse Width   Slow    FDRE/C              n/a            0.400         3.125       2.725      SLICE_X58Y98     u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/meq_min_reg/C
-Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X56Y95     u_lane_original/valid_cnt_reg[2]/C
-Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X56Y94     u_lane_original/valid_cnt_reg[3]/C
-Low Pulse Width   Slow    FDRE/C              n/a            0.400         3.125       2.725      SLICE_X58Y95     u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/msxor_ctd_reg[1]/C
-Low Pulse Width   Slow    FDRE/C              n/a            0.400         3.125       2.725      SLICE_X59Y95     u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/msxor_ctdx_reg[1]/C
-Low Pulse Width   Slow    FDRE/C              n/a            0.400         3.125       2.725      SLICE_X58Y95     u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/msxor_cti_reg[1]/C
-Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X60Y92     u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[2]/C
-Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X60Y92     u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[4]/C
-Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X60Y92     u_lane_original/xapp1017_serdes_1280.serdes_data32_reg[6]/C
-Low Pulse Width   Slow    FDRE/C              n/a            0.400         3.125       2.725      SLICE_X59Y95     u_lane_original/xapp1017_serdes_1280.serdes_cmp/loop3[0].dc_inst/msxor_ctix_reg[1]/C
-High Pulse Width  Fast    FDCE/C              n/a            0.350         3.125       2.775      SLICE_X67Y87     u_lane_original/gearbox32to66_cmp/buffer194_reg[101]/C
-High Pulse Width  Fast    FDRE/C              n/a            0.350         3.125       2.775      SLICE_X49Y77     u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[63][2]/C
-High Pulse Width  Fast    FDCE/C              n/a            0.350         3.125       2.775      SLICE_X66Y87     u_lane_original/gearbox32to66_cmp/buffer194_reg[109]/C
-High Pulse Width  Fast    FDCE/C              n/a            0.350         3.125       2.775      SLICE_X66Y87     u_lane_original/gearbox32to66_cmp/buffer194_reg[115]/C
-High Pulse Width  Fast    FDCE/C              n/a            0.350         3.125       2.775      SLICE_X67Y87     u_lane_original/gearbox32to66_cmp/buffer194_reg[117]/C
-High Pulse Width  Fast    FDCE/C              n/a            0.350         3.125       2.775      SLICE_X67Y87     u_lane_original/gearbox32to66_cmp/buffer194_reg[121]/C
-High Pulse Width  Fast    FDCE/C              n/a            0.350         3.125       2.775      SLICE_X66Y87     u_lane_original/gearbox32to66_cmp/buffer194_reg[123]/C
-High Pulse Width  Fast    FDRE/C              n/a            0.350         3.125       2.775      SLICE_X48Y82     u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[44][2]/C
-High Pulse Width  Fast    FDRE/C              n/a            0.350         3.125       2.775      SLICE_X48Y82     u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[44][3]/C
-High Pulse Width  Fast    FDRE/C              n/a            0.350         3.125       2.775      SLICE_X48Y82     u_lane_original/gearbox32to66_cmp/u_block_sync/valid_hdr_cnt_reg_reg[44][4]/C
+Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X60Y92     u_lane_original/gearbox32to66_cmp/buffer194_reg[48]/C
+Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X61Y93     u_lane_original/gearbox32to66_cmp/buffer194_reg[54]/C
+Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X57Y95     u_lane_original/xapp1017_serdes_1280.serdes_cnt_reg[1]/C
+Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X57Y94     u_lane_original/xapp1017_serdes_1280.serdes_cnt_reg[4]/C
+Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X60Y92     u_lane_original/gearbox32to66_cmp/buffer194_reg[76]/C
+Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X60Y92     u_lane_original/gearbox32to66_cmp/buffer194_reg[78]/C
+Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X60Y92     u_lane_original/gearbox32to66_cmp/buffer194_reg[80]/C
+Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X59Y94     u_lane_original/gearbox32to66_cmp/buffer194_reg[82]/C
+Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X61Y93     u_lane_original/gearbox32to66_cmp/buffer194_reg[84]/C
+Low Pulse Width   Slow    FDCE/C              n/a            0.400         3.125       2.725      SLICE_X61Y92     u_lane_original/gearbox32to66_cmp/buffer194_reg[86]/C
+High Pulse Width  Fast    FDCE/C              n/a            0.350         3.125       2.775      SLICE_X60Y81     u_lane_original/gearbox32to66_cmp/buffer194_reg[173]/C
+High Pulse Width  Fast    FDRE/C              n/a            0.350         3.125       2.775      SLICE_X54Y81     u_lane_original/gearbox32to66_cmp/u_header_seeker/buffer_reg[40]/C
+High Pulse Width  Fast    FDRE/C              n/a            0.350         3.125       2.775      SLICE_X56Y81     u_lane_original/gearbox32to66_cmp/u_header_seeker/buffer_reg[44]/C
+High Pulse Width  Fast    FDCE/C              n/a            0.350         3.125       2.775      SLICE_X60Y81     u_lane_original/gearbox32to66_cmp/buffer194_reg[181]/C
+High Pulse Width  Fast    FDCE/C              n/a            0.350         3.125       2.775      SLICE_X60Y81     u_lane_original/gearbox32to66_cmp/buffer194_reg[183]/C
+High Pulse Width  Fast    FDRE/C              n/a            0.350         3.125       2.775      SLICE_X56Y81     u_lane_original/gearbox32to66_cmp/u_header_seeker/buffer_reg[4]/C
+High Pulse Width  Fast    FDRE/C              n/a            0.350         3.125       2.775      SLICE_X56Y81     u_lane_original/gearbox32to66_cmp/u_header_seeker/buffer_reg[52]/C
+High Pulse Width  Fast    FDRE/C              n/a            0.350         3.125       2.775      SLICE_X54Y81     u_lane_original/gearbox32to66_cmp/u_header_seeker/buffer_reg[60]/C
+High Pulse Width  Fast    FDRE/C              n/a            0.350         3.125       2.775      SLICE_X48Y82     u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][0]/C
+High Pulse Width  Fast    FDRE/C              n/a            0.350         3.125       2.775      SLICE_X48Y82     u_lane_original/gearbox32to66_cmp/u_header_seeker/seeker_pos_idx_reg_reg[0][1]/C
 
 
 

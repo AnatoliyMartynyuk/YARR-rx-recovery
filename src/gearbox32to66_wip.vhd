@@ -83,7 +83,7 @@ end component header_seeker;
 
 begin
 
-    u_block_sync : block_sync port map (
+    u_header_seeker : header_seeker port map (
         -- Sys connect
         rst_i           => rst_i,
         clk_i           => clk_i,

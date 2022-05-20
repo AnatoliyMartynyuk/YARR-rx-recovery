@@ -70,7 +70,6 @@ proc create_report { reportName command } {
   }
 }
 OPTRACE "synth_1" START { ROLLUP_AUTO }
-set_param chipscope.maxJobs 1
 OPTRACE "Creating in-memory project" START { }
 create_project -in_memory -part xc7k160tfbg484-3
 
@@ -88,7 +87,7 @@ set_property ip_cache_permissions {read write} [current_project]
 OPTRACE "Creating in-memory project" END { }
 OPTRACE "Adding files" START { }
 read_verilog -library xil_defaultlib -sv {
-  C:/Users/User/Documents/YARR-rx-recovery/src/block_sync.sv
+  C:/Users/User/Documents/YARR-rx-recovery/src/header_seeker.sv
   C:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.srcs/sources_1/new/vc709_top.sv
 }
 read_verilog -library xil_defaultlib C:/Users/User/Documents/YARR-rx-recovery/src/descrambler.v

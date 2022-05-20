@@ -2,8 +2,8 @@
 # Vivado v2020.1 (64-bit)
 # SW Build 2902540 on Wed May 27 19:54:49 MDT 2020
 # IP Build 2902112 on Wed May 27 22:43:36 MDT 2020
-# Start of session at: Mon May 16 23:24:16 2022
-# Process ID: 9068
+# Start of session at: Fri May 20 13:31:28 2022
+# Process ID: 14796
 # Current directory: C:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.runs/synth_1
 # Command line: vivado.exe -log vc709_top.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source vc709_top.tcl
 # Log file: C:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.runs/synth_1/vc709_top.vds
@@ -25,16 +25,16 @@ INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k160
 INFO: [Device 21-403] Loading part xc7k160tfbg484-3
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 2 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 3516
+INFO: [Synth 8-7075] Helper process launched with PID 6312
 ---------------------------------------------------------------------------------
-Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1034.785 ; gain = 0.000
+Starting RTL Elaboration : Time (s): cpu = 00:00:04 ; elapsed = 00:00:05 . Memory (MB): peak = 1034.547 ; gain = 0.000
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-6157] synthesizing module 'vc709_top' [C:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.srcs/sources_1/new/vc709_top.sv:23]
 INFO: [Synth 8-6157] synthesizing module 'IDELAYCTRL' [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:35056]
 	Parameter SIM_DEVICE bound to: 7SERIES - type: string 
 INFO: [Synth 8-6155] done synthesizing module 'IDELAYCTRL' (1#1) [C:/Xilinx/Vivado/2020.1/scripts/rt/data/unisim_comp.v:35056]
-INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [C:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.runs/synth_1/.Xil/Vivado-9068-DESKTOP-HC8675R/realtime/clk_wiz_0_stub.v:5]
-INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (2#1) [C:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.runs/synth_1/.Xil/Vivado-9068-DESKTOP-HC8675R/realtime/clk_wiz_0_stub.v:5]
+INFO: [Synth 8-6157] synthesizing module 'clk_wiz_0' [C:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.runs/synth_1/.Xil/Vivado-14796-DESKTOP-HC8675R/realtime/clk_wiz_0_stub.v:5]
+INFO: [Synth 8-6155] done synthesizing module 'clk_wiz_0' (2#1) [C:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.runs/synth_1/.Xil/Vivado-14796-DESKTOP-HC8675R/realtime/clk_wiz_0_stub.v:5]
 INFO: [Synth 8-638] synthesizing module 'aurora_rx_lane' [C:/Users/User/Documents/YARR-rx-recovery/src/aurora_rx_lane_wip.vhd:41]
 	Parameter S bound to: 8 - type: integer 
 	Parameter D bound to: 1 - type: integer 
@@ -42,7 +42,7 @@ INFO: [Synth 8-638] synthesizing module 'aurora_rx_lane' [C:/Users/User/Document
 	Parameter REF_FREQ bound to: 310.000000 - type: double 
 	Parameter HIGH_PERFORMANCE_MODE bound to: TRUE - type: string 
 	Parameter DATA_FORMAT bound to: PER_CLOCK - type: string 
-INFO: [Synth 8-3491] module 'serdes_1_to_468_idelay_ddr' declared at 'C:/Users/User/Documents/YARR-rx-recovery/src/serdes_1_to_468_idelay_ddr.vhd:65' bound to instance 'serdes_cmp' of component 'serdes_1_to_468_idelay_ddr' [C:/Users/User/Documents/YARR-rx-recovery/src/aurora_rx_lane_wip.vhd:212]
+INFO: [Synth 8-3491] module 'serdes_1_to_468_idelay_ddr' declared at 'C:/Users/User/Documents/YARR-rx-recovery/src/serdes_1_to_468_idelay_ddr.vhd:65' bound to instance 'serdes_cmp' of component 'serdes_1_to_468_idelay_ddr' [C:/Users/User/Documents/YARR-rx-recovery/src/aurora_rx_lane_wip.vhd:210]
 INFO: [Synth 8-638] synthesizing module 'serdes_1_to_468_idelay_ddr' [C:/Users/User/Documents/YARR-rx-recovery/src/serdes_1_to_468_idelay_ddr.vhd:96]
 	Parameter S bound to: 8 - type: integer 
 	Parameter D bound to: 1 - type: integer 
@@ -130,15 +130,16 @@ INFO: [Synth 8-113] binding component instance 'idelay_s' to cell 'IDELAYE2' [C:
 	Parameter SRVAL_Q4 bound to: 1'b0 
 INFO: [Synth 8-113] binding component instance 'iserdes_s' to cell 'ISERDESE2' [C:/Users/User/Documents/YARR-rx-recovery/src/serdes_1_to_468_idelay_ddr.vhd:454]
 INFO: [Synth 8-256] done synthesizing module 'serdes_1_to_468_idelay_ddr' (4#1) [C:/Users/User/Documents/YARR-rx-recovery/src/serdes_1_to_468_idelay_ddr.vhd:96]
-INFO: [Synth 8-3491] module 'gearbox32to66' declared at 'C:/Users/User/Documents/YARR-rx-recovery/src/gearbox32to66_wip.vhd:13' bound to instance 'gearbox32to66_cmp' of component 'gearbox32to66' [C:/Users/User/Documents/YARR-rx-recovery/src/aurora_rx_lane_wip.vhd:445]
+INFO: [Synth 8-3491] module 'gearbox32to66' declared at 'C:/Users/User/Documents/YARR-rx-recovery/src/gearbox32to66_wip.vhd:13' bound to instance 'gearbox32to66_cmp' of component 'gearbox32to66' [C:/Users/User/Documents/YARR-rx-recovery/src/aurora_rx_lane_wip.vhd:443]
 INFO: [Synth 8-638] synthesizing module 'gearbox32to66' [C:/Users/User/Documents/YARR-rx-recovery/src/gearbox32to66_wip.vhd:28]
-INFO: [Synth 8-3491] module 'block_sync' declared at 'C:/Users/User/Documents/YARR-rx-recovery/src/block_sync.sv:4' bound to instance 'u_block_sync' of component 'block_sync' [C:/Users/User/Documents/YARR-rx-recovery/src/gearbox32to66_wip.vhd:70]
-INFO: [Synth 8-6157] synthesizing module 'block_sync' [C:/Users/User/Documents/YARR-rx-recovery/src/block_sync.sv:4]
+INFO: [Synth 8-3491] module 'header_seeker' declared at 'C:/Users/User/Documents/YARR-rx-recovery/src/header_seeker.sv:4' bound to instance 'u_header_seeker' of component 'header_seeker' [C:/Users/User/Documents/YARR-rx-recovery/src/gearbox32to66_wip.vhd:86]
+INFO: [Synth 8-6157] synthesizing module 'header_seeker' [C:/Users/User/Documents/YARR-rx-recovery/src/header_seeker.sv:4]
 	Parameter c_DATA_HEADER bound to: 2'b01 
 	Parameter c_CMD_HEADER bound to: 2'b10 
-INFO: [Synth 8-6155] done synthesizing module 'block_sync' (5#1) [C:/Users/User/Documents/YARR-rx-recovery/src/block_sync.sv:4]
+	Parameter seeker_positions bound to: 462'b000000100001110001101001001100110010011111010010101010110110001011011101111010000100000101000100000010110001110001000100101000010111001101000111010100000000000100001000000111000101000011010010000001001100101100011001001110000111110000010100010110010001001011100111010100011010100101011110110101011101110000010000011000100100011110010101001101101000010100111010110101100110111001011111100001100001100001001000110000011110010010001010100110000011011001111001000010 
+INFO: [Synth 8-6155] done synthesizing module 'header_seeker' (5#1) [C:/Users/User/Documents/YARR-rx-recovery/src/header_seeker.sv:4]
 INFO: [Synth 8-256] done synthesizing module 'gearbox32to66' (6#1) [C:/Users/User/Documents/YARR-rx-recovery/src/gearbox32to66_wip.vhd:28]
-INFO: [Synth 8-3491] module 'descrambler' declared at 'C:/Users/User/Documents/YARR-rx-recovery/src/descrambler.v:5' bound to instance 'descrambler_cmp' of component 'descrambler' [C:/Users/User/Documents/YARR-rx-recovery/src/aurora_rx_lane_wip.vhd:497]
+INFO: [Synth 8-3491] module 'descrambler' declared at 'C:/Users/User/Documents/YARR-rx-recovery/src/descrambler.v:5' bound to instance 'descrambler_cmp' of component 'descrambler' [C:/Users/User/Documents/YARR-rx-recovery/src/aurora_rx_lane_wip.vhd:488]
 INFO: [Synth 8-6157] synthesizing module 'descrambler' [C:/Users/User/Documents/YARR-rx-recovery/src/descrambler.v:5]
 	Parameter RX_DATA_WIDTH bound to: 64 - type: integer 
 INFO: [Synth 8-6155] done synthesizing module 'descrambler' (7#1) [C:/Users/User/Documents/YARR-rx-recovery/src/descrambler.v:5]
@@ -147,18 +148,18 @@ WARNING: [Synth 8-689] width (1) of port connection 'rx_data_o' does not match p
 WARNING: [Synth 8-689] width (1) of port connection 'rx_header_o' does not match port width (2) of module 'aurora_rx_lane' [C:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.srcs/sources_1/new/vc709_top.sv:87]
 INFO: [Synth 8-6155] done synthesizing module 'vc709_top' (9#1) [C:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.srcs/sources_1/new/vc709_top.sv:23]
 ---------------------------------------------------------------------------------
-Finished RTL Elaboration : Time (s): cpu = 00:00:07 ; elapsed = 00:00:07 . Memory (MB): peak = 1128.285 ; gain = 93.500
+Finished RTL Elaboration : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 1095.008 ; gain = 60.461
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 1128.285 ; gain = 93.500
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1095.008 ; gain = 60.461
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:08 ; elapsed = 00:00:08 . Memory (MB): peak = 1128.285 ; gain = 93.500
+Finished RTL Optimization Phase 1 : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 1095.008 ; gain = 60.461
 ---------------------------------------------------------------------------------
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.062 . Memory (MB): peak = 1128.312 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.045 . Memory (MB): peak = 1102.176 ; gain = 0.000
 INFO: [Netlist 29-17] Analyzing 4 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
@@ -183,20 +184,20 @@ INFO: [Project 1-236] Implementation specific constraints were found while readi
 Resolution: To avoid this warning, move constraints listed in [.Xil/vc709_top_propImpl.xdc] to another XDC file and exclude this new file from synthesis with the used_in_synthesis property (File Properties dialog in GUI) and re-run elaboration/synthesis.
 Completed Processing XDC Constraints
 
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1236.109 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1232.203 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
-Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.021 . Memory (MB): peak = 1236.109 ; gain = 0.000
+Constraint Validation Runtime : Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.013 . Memory (MB): peak = 1232.203 ; gain = 0.000
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 1236.109 ; gain = 201.324
+Finished Constraint Validation : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1232.203 ; gain = 197.656
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7k160tfbg484-3
 ---------------------------------------------------------------------------------
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 1236.109 ; gain = 201.324
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1232.203 ; gain = 197.656
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying 'set_property' XDC Constraints
@@ -207,10 +208,10 @@ Applied set_property IO_BUFFER_TYPE = NONE for clk_p. (constraint file  c:/Users
 Applied set_property CLOCK_BUFFER_TYPE = NONE for clk_p. (constraint file  c:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.srcs/sources_1/ip/clk_wiz_0/clk_wiz_0/clk_wiz_0_in_context.xdc, line 10).
 Applied set_property DONT_TOUCH = true for u_pll. (constraint file  auto generated constraint, line ).
 ---------------------------------------------------------------------------------
-Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:15 ; elapsed = 00:00:15 . Memory (MB): peak = 1236.109 ; gain = 201.324
+Finished applying 'set_property' XDC Constraints : Time (s): cpu = 00:00:14 ; elapsed = 00:00:15 . Memory (MB): peak = 1232.203 ; gain = 197.656
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:17 ; elapsed = 00:00:17 . Memory (MB): peak = 1236.109 ; gain = 201.324
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:15 ; elapsed = 00:00:16 . Memory (MB): peak = 1232.203 ; gain = 197.656
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start RTL Component Statistics 
@@ -218,9 +219,9 @@ Start RTL Component Statistics
 Detailed RTL Component Info : 
 +---Adders : 
 	   2 Input    8 Bit       Adders := 2     
-	   2 Input    7 Bit       Adders := 1     
-	   2 Input    6 Bit       Adders := 70    
-	   2 Input    5 Bit       Adders := 7     
+	   2 Input    7 Bit       Adders := 7     
+	   2 Input    6 Bit       Adders := 6     
+	   2 Input    5 Bit       Adders := 10    
 	   3 Input    5 Bit       Adders := 2     
 	   2 Input    4 Bit       Adders := 2     
 	   2 Input    3 Bit       Adders := 2     
@@ -240,12 +241,11 @@ Detailed RTL Component Info :
 	               58 Bit    Registers := 1     
 	               33 Bit    Registers := 1     
 	               32 Bit    Registers := 5     
-	                8 Bit    Registers := 12    
-	                7 Bit    Registers := 8     
-	                6 Bit    Registers := 95    
-	                5 Bit    Registers := 11    
-	                4 Bit    Registers := 4     
-	                3 Bit    Registers := 1     
+	                8 Bit    Registers := 11    
+	                7 Bit    Registers := 1     
+	                6 Bit    Registers := 6     
+	                5 Bit    Registers := 10    
+	                4 Bit    Registers := 2     
 	                2 Bit    Registers := 8     
 	                1 Bit    Registers := 28    
 +---Muxes : 
@@ -253,23 +253,17 @@ Detailed RTL Component Info :
 	   2 Input   32 Bit        Muxes := 4     
 	   3 Input    8 Bit        Muxes := 2     
 	   2 Input    8 Bit        Muxes := 3     
-	   2 Input    7 Bit        Muxes := 15    
-	   6 Input    7 Bit        Muxes := 2     
-	   3 Input    7 Bit        Muxes := 1     
-	   2 Input    6 Bit        Muxes := 84    
-	   6 Input    6 Bit        Muxes := 6     
-	   2 Input    5 Bit        Muxes := 16    
+	   2 Input    7 Bit        Muxes := 3     
+	   2 Input    6 Bit        Muxes := 1     
+	   2 Input    5 Bit        Muxes := 15    
 	   3 Input    5 Bit        Muxes := 1     
 	  22 Input    5 Bit        Muxes := 1     
-	   6 Input    5 Bit        Muxes := 4     
 	   2 Input    4 Bit        Muxes := 3     
-	   6 Input    4 Bit        Muxes := 2     
-	   6 Input    3 Bit        Muxes := 1     
 	  12 Input    2 Bit        Muxes := 4     
-	   3 Input    2 Bit        Muxes := 2     
-	   2 Input    2 Bit        Muxes := 2     
-	   2 Input    1 Bit        Muxes := 99    
-	   3 Input    1 Bit        Muxes := 3     
+	   3 Input    2 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 37    
+	   3 Input    1 Bit        Muxes := 2     
 	   6 Input    1 Bit        Muxes := 8     
 	   5 Input    1 Bit        Muxes := 1     
 ---------------------------------------------------------------------------------
@@ -288,25 +282,44 @@ Finished Part Resource Summary
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:30 ; elapsed = 00:00:31 . Memory (MB): peak = 1236.109 ; gain = 201.324
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:00:22 ; elapsed = 00:00:23 . Memory (MB): peak = 1232.203 ; gain = 197.656
+---------------------------------------------------------------------------------
+---------------------------------------------------------------------------------
+Start ROM, RAM, DSP and Shift Register Reporting
+---------------------------------------------------------------------------------
+
+ROM: Preliminary Mapping	Report
++--------------+------------------+---------------+----------------+
+|Module Name   | RTL Object       | Depth x Width | Implemented As | 
++--------------+------------------+---------------+----------------+
+|header_seeker | seeker_positions | 32x7          | LUT            | 
+|header_seeker | seeker_positions | 32x7          | LUT            | 
+|header_seeker | seeker_positions | 32x7          | LUT            | 
+|header_seeker | seeker_positions | 32x7          | LUT            | 
+|header_seeker | seeker_positions | 32x7          | LUT            | 
+|header_seeker | seeker_positions | 32x7          | LUT            | 
++--------------+------------------+---------------+----------------+
+
+---------------------------------------------------------------------------------
+Finished ROM, RAM, DSP and Shift Register Reporting
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Applying XDC Timing Constraints
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:37 ; elapsed = 00:00:38 . Memory (MB): peak = 1236.109 ; gain = 201.324
+Finished Applying XDC Timing Constraints : Time (s): cpu = 00:00:30 ; elapsed = 00:00:32 . Memory (MB): peak = 1232.203 ; gain = 197.656
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:00:38 ; elapsed = 00:00:39 . Memory (MB): peak = 1236.109 ; gain = 201.324
+Finished Timing Optimization : Time (s): cpu = 00:00:31 ; elapsed = 00:00:32 . Memory (MB): peak = 1232.203 ; gain = 197.656
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:00:39 ; elapsed = 00:00:40 . Memory (MB): peak = 1240.277 ; gain = 205.492
+Finished Technology Mapping : Time (s): cpu = 00:00:32 ; elapsed = 00:00:33 . Memory (MB): peak = 1232.203 ; gain = 197.656
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -324,37 +337,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1246.953 ; gain = 212.168
+Finished IO Insertion : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 1232.203 ; gain = 197.656
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:00:43 ; elapsed = 00:00:44 . Memory (MB): peak = 1246.953 ; gain = 212.168
+Finished Renaming Generated Instances : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 1232.203 ; gain = 197.656
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:44 ; elapsed = 00:00:44 . Memory (MB): peak = 1246.953 ; gain = 212.168
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 1232.203 ; gain = 197.656
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:00:44 ; elapsed = 00:00:44 . Memory (MB): peak = 1246.953 ; gain = 212.168
+Finished Renaming Generated Ports : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 1232.203 ; gain = 197.656
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:00:44 ; elapsed = 00:00:45 . Memory (MB): peak = 1246.953 ; gain = 212.168
+Finished Handling Custom Attributes : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 1232.203 ; gain = 197.656
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:00:44 ; elapsed = 00:00:45 . Memory (MB): peak = 1246.953 ; gain = 212.168
+Finished Renaming Generated Nets : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 1232.203 ; gain = 197.656
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -372,46 +385,46 @@ Report Cell Usage:
 |      |Cell       |Count |
 +------+-----------+------+
 |1     |clk_wiz    |     1|
-|2     |CARRY4     |     4|
+|2     |CARRY4     |     2|
 |3     |IDELAYCTRL |     1|
 |4     |IDELAYE2   |     2|
 |5     |ISERDESE2  |     2|
-|6     |LUT1       |    81|
-|7     |LUT2       |   148|
-|8     |LUT3       |   336|
-|9     |LUT4       |   342|
-|10    |LUT5       |   259|
-|11    |LUT6       |   657|
-|12    |MUXF7      |    15|
-|13    |MUXF8      |     5|
-|14    |FDCE       |   309|
+|6     |LUT1       |    21|
+|7     |LUT2       |    43|
+|8     |LUT3       |   141|
+|9     |LUT4       |    47|
+|10    |LUT5       |   159|
+|11    |LUT6       |   350|
+|12    |MUXF7      |    33|
+|13    |MUXF8      |    11|
+|14    |FDCE       |   303|
 |15    |FDPE       |     3|
-|16    |FDRE       |   752|
+|16    |FDRE       |   203|
 |17    |FDSE       |     3|
 |18    |IBUF       |     3|
 |19    |OBUF       |     4|
 |20    |OBUFT      |     4|
 +------+-----------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:00:44 ; elapsed = 00:00:45 . Memory (MB): peak = 1246.953 ; gain = 212.168
+Finished Writing Synthesis Report : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 1232.203 ; gain = 197.656
 ---------------------------------------------------------------------------------
 Synthesis finished with 0 errors, 0 critical warnings and 0 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:00:33 ; elapsed = 00:00:42 . Memory (MB): peak = 1246.953 ; gain = 104.344
-Synthesis Optimization Complete : Time (s): cpu = 00:00:44 ; elapsed = 00:00:45 . Memory (MB): peak = 1246.953 ; gain = 212.168
+Synthesis Optimization Runtime : Time (s): cpu = 00:00:26 ; elapsed = 00:00:35 . Memory (MB): peak = 1232.203 ; gain = 60.461
+Synthesis Optimization Complete : Time (s): cpu = 00:00:36 ; elapsed = 00:00:37 . Memory (MB): peak = 1232.203 ; gain = 197.656
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.034 . Memory (MB): peak = 1246.953 ; gain = 0.000
-INFO: [Netlist 29-17] Analyzing 28 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.017 . Memory (MB): peak = 1232.203 ; gain = 0.000
+INFO: [Netlist 29-17] Analyzing 50 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 1 inverter(s) to 2 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 1258.535 ; gain = 0.000
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00.001 . Memory (MB): peak = 1233.492 ; gain = 0.000
 INFO: [Project 1-111] Unisim Transformation Summary:
 No Unisim elements were transformed.
 
 INFO: [Common 17-83] Releasing license: Synthesis
 45 Infos, 10 Warnings, 1 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:00:50 ; elapsed = 00:01:04 . Memory (MB): peak = 1258.535 ; gain = 223.750
+synth_design: Time (s): cpu = 00:00:42 ; elapsed = 00:00:45 . Memory (MB): peak = 1233.492 ; gain = 198.945
 INFO: [Common 17-1381] The checkpoint 'C:/Users/User/Documents/YARR-rx-recovery/YARR_rx/YARR_rx.runs/synth_1/vc709_top.dcp' has been generated.
 INFO: [runtcl-4] Executing : report_utilization -file vc709_top_utilization_synth.rpt -pb vc709_top_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Mon May 16 23:25:27 2022...
+INFO: [Common 17-206] Exiting Vivado at Fri May 20 13:32:20 2022...

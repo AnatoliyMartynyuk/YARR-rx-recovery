@@ -151,7 +151,7 @@ module sim_aurora_lane();
     initial begin
         repeat(32) wait(rx_valid);
 
-        for (i = 1; i < 65; i++) begin
+        for (i = 0; i < 66; i++) begin
             wait(tx_counter == 0);
             wait(tx_counter == 0);
 
@@ -189,32 +189,15 @@ module sim_aurora_lane();
     // monitors disruptions in lane output data
     initial begin
         $timeformat(-9, 2, "ns");
-        $display(" offset     : desync     : resync     : duration   : slips      : blocks      ");
+        $display(" offset     : desync     : resync     : duration   : blocks      ");
         forever begin
             wait(rx_valid == 0);
             time_1 = $realtime;
             wait(rx_valid == 1);
             if (curr_rx_cnt > last_rx_cnt + 1 && rx_data_word_v) begin
-                $display("%12d %10t %10t %10t %12d %12d", i, time_1, $realtime, $realtime - time_1, gbox_slip_cntr, curr_rx_cnt - last_rx_cnt + 1);
+                $display("%12d %10t %10t %10t %12d", i, time_1, $realtime, $realtime - time_1, curr_rx_cnt - last_rx_cnt + 1);
 
             end
-        end
-    end
-
-    // counts slips for gearbox and serdes
-    always_ff @(posedge clk_rx_i) begin
-        if (~rst_n_i | rx_valid) begin
-            gbox_slip_cntr   <= 0;
-            block_cntr       <= 0;
-        end
-
-        else begin
-            gbox_slip_d1   <= u_aurora_rx_lane.gearbox_slip;
-
-            if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip) gbox_slip_cntr <= gbox_slip_cntr + 1;
-            if (tx_counter == 'd64) block_cntr <= block_cntr + 1;
-            if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip && gbox_slip_cntr == 65) $warning("65 GEARBOX SLIPS HAVE BEEN SEEN!!!");
-            if (~gbox_slip_d1 & u_aurora_rx_lane.gearbox_slip && gbox_slip_cntr == 131) $error("131 GEARBOX SLIPS HAVE BEEN SEEN!!!");
         end
     end
     

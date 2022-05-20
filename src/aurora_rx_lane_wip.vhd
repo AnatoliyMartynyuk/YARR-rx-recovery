@@ -126,8 +126,7 @@ architecture behavioral of aurora_rx_lane is
 
     constant c_DATA_HEADER  : std_logic_vector(1 downto 0) := "01";
     constant c_CMD_HEADER   : std_logic_vector(1 downto 0) := "10";
-    constant c_SYNC_MAX     : unsigned(7 downto 0) := to_unsigned(32, 8);
-    constant c_VALID_WAIT   : unsigned(7 downto 0) := to_unsigned(16, 8);
+    constant c_SYNC_MAX     : unsigned(7 downto 0) := to_unsigned(16, 8);
 
     signal rst : std_logic;
 
@@ -171,7 +170,6 @@ architecture behavioral of aurora_rx_lane is
     
     -- Block Sync
     signal sync_cnt     : unsigned(7 downto 0);
-    signal valid_cnt    : unsigned(7 downto 0);
     
     -- SERDES debug
     signal bit_time_value   : std_logic_vector(4 downto 0);
@@ -457,20 +455,13 @@ begin
     begin
         if (rst_n_i = '0') then
             sync_cnt                <= (others => '0');
-            valid_cnt               <= (others => '0');
             scrambled_data66        <= (others => '0');
             scrambled_data_valid    <= '0';
-            gearbox_slip            <= '0';
 
         elsif rising_edge(clk_rx_i) then
             scrambled_data_valid    <= '0';
 
             if (gearbox_data66_valid = '1') then
-                gearbox_slip <= '0'; -- Keep high until next valid so gearbox sees it
-                
-                if (valid_cnt < c_VALID_WAIT) then
-                    valid_cnt <= valid_cnt + 1;
-                end if;
 
                 if ((gearbox_data66(65 downto 64) = c_DATA_HEADER) or
                     (gearbox_data66(65 downto 64) = c_CMD_HEADER)) then
@@ -479,10 +470,10 @@ begin
                         sync_cnt <= sync_cnt + 1;
                     end if;
 
-                elsif (valid_cnt = c_VALID_WAIT) then
-                    sync_cnt        <= (others => '0');       
-                    gearbox_slip    <= '1';
-                    valid_cnt       <= (others => '0');
+                else
+
+                    sync_cnt        <= (others => '0');      
+
                 end if;
                 
                 -- Output proc

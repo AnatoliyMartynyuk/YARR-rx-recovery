@@ -151,7 +151,7 @@ module sim_aurora_lane();
     initial begin
         repeat(32) wait(rx_valid);
 
-        for (i = 0; i < 65; i++) begin
+        for (i = 1; i < 65; i++) begin
             wait(tx_counter == 0);
             wait(tx_counter == 0);
 
@@ -174,7 +174,17 @@ module sim_aurora_lane();
     integer serdes_slip_cntr, gbox_slip_cntr, block_cntr;
     logic gbox_slip_d1; 
 
+    logic [31:0] last_rx_cnt, curr_rx_cnt;
+    logic        rx_data_word_v;
 
+
+    assign rx_data_word_v = rx_data_out[31:0] == rx_data_out[63:32];
+    assign curr_rx_cnt = rx_data_out[31:0];
+
+    always_ff @(posedge clk_rx_i) begin
+        if      (~rst_n_i) last_rx_cnt <= '0;
+        else if (rx_valid & rx_data_word_v) last_rx_cnt <= curr_rx_cnt;
+    end
 
     // monitors disruptions in lane output data
     initial begin
@@ -184,15 +194,15 @@ module sim_aurora_lane();
             wait(rx_valid == 0);
             time_1 = $realtime;
             wait(rx_valid == 1);
-            if ($realtime - time_1 > 96ns) begin
-                $display("%12d %10t %10t %10t %12d %12d", i, time_1, $realtime, $realtime - time_1, gbox_slip_cntr, block_cntr);
+            if (curr_rx_cnt > last_rx_cnt + 1 && rx_data_word_v) begin
+                $display("%12d %10t %10t %10t %12d %12d", i, time_1, $realtime, $realtime - time_1, gbox_slip_cntr, curr_rx_cnt - last_rx_cnt + 1);
 
             end
         end
     end
 
     // counts slips for gearbox and serdes
-    always_ff @(posedge clk_ddr_i) begin
+    always_ff @(posedge clk_rx_i) begin
         if (~rst_n_i | rx_valid) begin
             gbox_slip_cntr   <= 0;
             block_cntr       <= 0;
@@ -209,6 +219,12 @@ module sim_aurora_lane();
     end
     
     // ----------------------------------------------------------------------
+
+    // ----------------------------------------------------------------------
+
+
+
+
 
 
 endmodule

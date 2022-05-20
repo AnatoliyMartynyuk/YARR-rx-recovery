@@ -18,6 +18,8 @@ add wave -noupdate -group top /sim_aurora_lane/tx_counter
 add wave -noupdate -group top /sim_aurora_lane/cnt
 add wave -noupdate -group top /sim_aurora_lane/tx_data_valid
 add wave -noupdate -group top -radix unsigned /sim_aurora_lane/u_aurora_rx_lane/sync_cnt
+add wave -noupdate -group top /sim_aurora_lane/last_rx_cnt
+add wave -noupdate -group top /sim_aurora_lane/curr_rx_cnt
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/rst_n_i
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/clk_rx_i
 add wave -noupdate -group internal /sim_aurora_lane/u_aurora_rx_lane/clk_serdes_i
@@ -92,8 +94,10 @@ add wave -noupdate -group sync /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_c
 add wave -noupdate -group sync /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_cmp/u_block_sync/offset_stg1_reg
 add wave -noupdate -group sync /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_cmp/u_block_sync/max_cnt_stg2
 add wave -noupdate -group sync /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_cmp/u_block_sync/offset_stg2
+add wave -noupdate -group sync /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_cmp/u_block_sync/max_cnt_stg3
+add wave -noupdate -group sync /sim_aurora_lane/u_aurora_rx_lane/gearbox32to66_cmp/u_block_sync/offset_stg3
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {43644058596 fs} 0}
+WaveRestoreCursors {{Cursor 1} {536645268836 fs} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 230
 configure wave -valuecolwidth 100
@@ -109,4 +113,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {43551985364 fs} {43705614637 fs}
+WaveRestoreZoom {536302470132 fs} {541218606836 fs}

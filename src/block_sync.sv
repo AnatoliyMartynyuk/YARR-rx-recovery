@@ -51,7 +51,7 @@ module block_sync (
         // determine whether the proposed header is valid. Increment count if so
         for (int j = 0; j < 66; j++) begin
             if (headers[j] == c_DATA_HEADER || headers[j] == c_CMD_HEADER) begin
-                valid_hdr_cnt[j] = valid_hdr_cnt_reg[j] + 1'b1;
+                valid_hdr_cnt[j] = &valid_hdr_cnt_reg[j] ? valid_hdr_cnt_reg[j] : valid_hdr_cnt_reg[j] + 1'b1;
             end
             else begin
                 valid_hdr_cnt[j] = '0;
@@ -143,7 +143,7 @@ module block_sync (
     end
 
     always_ff @(posedge clk_i) begin
-        block_offset  <= offset_stg3;
+        if (buffer_dv) block_offset  <= offset_stg3;
     end
 
 endmodule

@@ -126,12 +126,12 @@ begin
                 if (shift_cnt = '1') then
 
                     -- on a slip, move window only 1 over - equivilent to a shift of 1 bits to the right. Still outputs a data_v
-                    if (slip_i = '1') then
-                        gearbox_cnt    <= gearbox_cnt + 1;
-                        data66_t_valid <= '1';
+                    --if (slip_i = '1') then
+                    --    gearbox_cnt    <= gearbox_cnt + 1;
+                    --    data66_t_valid <= '1';
                     
                     -- every 33rd word should not have data_v enabled, reset output window
-                    elsif (gearbox_cnt = 64 or gearbox_cnt = 65) then
+                    if (gearbox_cnt = 64 or gearbox_cnt = 65) then
                         gearbox_cnt    <= gearbox_cnt - 64;
                         data66_t_valid <= '0';
                     

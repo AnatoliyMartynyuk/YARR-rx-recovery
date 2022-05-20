@@ -43,6 +43,22 @@ architecture rtl of gearbox32to66 is
         );
     end component block_sync;
 
+    component header_seeker
+    port (
+        -- Sys connect
+        rst_i           : in std_logic;
+        clk_i           : in std_logic;
+
+        -- input
+        gbox_buffer     : in std_logic_vector(193 downto 0);
+        gbox_cnt        : in unsigned(5 downto 0);
+        buffer_dv       : in std_logic;
+
+        -- Output
+        block_offset    : out unsigned(6 downto 0)
+    );
+end component header_seeker;
+
     signal gearbox_cnt      : unsigned(7 downto 0);
     signal data66_cnt       : unsigned(7 downto 0);
     signal shift_cnt        : std_logic;

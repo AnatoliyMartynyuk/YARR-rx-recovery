@@ -1,12 +1,12 @@
-module sim_block_sync();
+module sim_aligner();
     logic         rst_i, clk_i;
     logic         buffer_dv;
     logic [193:0] gbox_buffer;
     logic [  5:0] gbox_cnt;
     logic [  6:0] block_offset;
 
-    //block_sync dut (.*);
-    header_seeker dut (.*);
+    aligner dut (.*);
+    //seeker6 dut (.*);
 
     // set up clock
     initial begin

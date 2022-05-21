@@ -1,7 +1,7 @@
 // determines which 2 consecutive bit of 67 in a 193 bit buffer are most likely the header bits
 // abuffer is updated every 8 clock cyles. We can be behind by a word
 
-module block_sync (
+module aligner (
     input  logic         rst_i, clk_i, // system inputs
     input  logic [193:0] gbox_buffer , // complete buffer
     input  logic [  5:0] gbox_cnt    , // buffer view window index

@@ -5,8 +5,9 @@ module sim_aligner();
     logic [  5:0] gbox_cnt;
     logic [  6:0] block_offset;
 
-    aligner dut (.*);
+    //aligner dut (.*);
     //seeker6 dut (.*);
+    seeker1 dut(.*);
 
     // set up clock
     initial begin

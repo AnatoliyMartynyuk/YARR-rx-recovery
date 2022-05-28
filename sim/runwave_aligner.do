@@ -2,6 +2,7 @@ vlib work
 
 # src files
 vlog -work work ../src/seeker6.sv
+vlog -work work ../src/seeker1.sv
 vlog -work work ../src/aligner.sv
 
 # sim files

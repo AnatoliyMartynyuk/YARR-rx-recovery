@@ -43,7 +43,7 @@ architecture rtl of gearbox32to66 is
         );
     end component block_sync;
 
-    component header_seeker
+    component seeker1
     port (
         -- Sys connect
         rst_i           : in std_logic;
@@ -57,7 +57,7 @@ architecture rtl of gearbox32to66 is
         -- Output
         block_offset    : out unsigned(6 downto 0)
     );
-end component header_seeker;
+end component seeker1;
 
     signal gearbox_cnt      : unsigned(7 downto 0);
     signal data66_cnt       : unsigned(7 downto 0);
@@ -83,7 +83,7 @@ end component header_seeker;
 
 begin
 
-    u_header_seeker : header_seeker port map (
+    u_seeker : seeker1 port map (
         -- Sys connect
         rst_i           => rst_i,
         clk_i           => clk_i,

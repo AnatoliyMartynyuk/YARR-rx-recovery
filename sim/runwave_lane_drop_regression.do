@@ -24,7 +24,9 @@ vcom -work work ../src/aurora_rx_lane_wip.vhd
 #vcom -work work ../src/aurora_rx_lane.vhd
 #vcom -work work ../src/aurora_ch_bond.vhd
 vcom -work work ../src/rr_arbiter.vhd
-vlog -work work ../src/block_sync.sv
+vlog -work work ../src/seeker1.sv
+vlog -work work ../src/seeker6.sv
+
 
 
 

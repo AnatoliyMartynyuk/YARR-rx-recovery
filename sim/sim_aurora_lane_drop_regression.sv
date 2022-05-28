@@ -147,17 +147,20 @@ module sim_aurora_lane();
     // ----------------------------------------------------------------------
     //                          Testing Sequence
 
-    integer i;
+    integer i, j;
     initial begin
         repeat(32) wait(rx_valid);
 
-        for (i = 0; i < 66; i++) begin
-            wait(tx_counter == 0);
-            wait(tx_counter == 0);
+        for (j = 0; j < 500; j++) begin
+            for (i = 0; i < 66; i++) begin
+            
+                wait(tx_counter == 0);
+                wait(tx_counter == 0);
 
-            force tx_counter = i; @(posedge clk_ddr_i);
-            release tx_counter; 
-            repeat(64) begin wait(rx_valid); wait(~rx_valid); end
+                force tx_counter = i; @(posedge clk_ddr_i);
+                release tx_counter; 
+                repeat(64) begin wait(rx_valid); wait(~rx_valid); end
+            end
         end
 
         $stop;

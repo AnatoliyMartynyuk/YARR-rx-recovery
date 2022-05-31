@@ -147,13 +147,14 @@ module sim_aurora_lane();
     // ----------------------------------------------------------------------
     //                          Testing Sequence
 
-    integer i, j;
+    integer i, sample_cnt;
+    assign samples_max = 25;
+
     initial begin
         repeat(32) wait(rx_valid);
 
-        for (j = 0; j < 500; j++) begin
-            for (i = 0; i < 66; i++) begin
-            
+        for (i = 0; i < 66; i++) begin
+            for (sample_cnt = 0; sample_cnt < samples_max; sample_cnt++) begin
                 wait(tx_counter == 0);
                 wait(tx_counter == 0);
 
@@ -189,9 +190,10 @@ module sim_aurora_lane();
         else if (rx_valid & rx_data_word_v) last_rx_cnt <= curr_rx_cnt;
     end
 
-    // monitors disruptions in lane output data
+    // monitors disruptions in lane output data on a per failure level
+    /*
     initial begin
-        $timeformat(-9, 2, "ns");
+        $timeformat(-9, 2);
         $display(" offset     : desync     : resync     : duration   : blocks      ");
         forever begin
             wait(rx_valid == 0);
@@ -200,6 +202,27 @@ module sim_aurora_lane();
             if (curr_rx_cnt > last_rx_cnt + 1 && rx_data_word_v) begin
                 $display("%12d %10t %10t %10t %12d", i, time_1, $realtime, $realtime - time_1, curr_rx_cnt - last_rx_cnt + 1);
 
+            end
+        end
+    end
+    */
+
+    integer total_count;
+
+    // monitors disruptions in lane output data on an average per drop level
+    initial begin
+        $timeformat(-9, 2);
+        $display(" offset     : blocks      ");
+        forever begin
+            wait(rx_valid == 0);
+            wait(rx_valid == 1);
+            if (curr_rx_cnt > last_rx_cnt + 1 && rx_data_word_v) begin
+                total_count = total_count + curr_rx_cnt - last_rx_cnt + 1;
+                if (sample_cnt == samples_max - 1) begin
+                    total_count = total_count/samples_max;
+                    $display("%12d %12d", i,  curr_rx_cnt - last_rx_cnt + 1);
+                    total_count = 0;
+                end
             end
         end
     end

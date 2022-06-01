@@ -50,6 +50,8 @@ module seeker1 (
         end
     end
 
-    assign block_offset = counter_used ? 65 - seeker_pos_idx_c : seeker_pos_idx_c;
+    always_ff @(posedge clk_i) begin
+        if (buffer_dv) block_offset <= counter_used ? 65 - seeker_pos_idx_c : seeker_pos_idx_c;
+    end
 
 endmodule

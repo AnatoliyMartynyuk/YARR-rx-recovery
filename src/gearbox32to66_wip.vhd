@@ -27,23 +27,7 @@ end gearbox32to66;
 
 architecture rtl of gearbox32to66 is
 
-    component block_sync
-        port (
-            -- Sys connect
-            rst_i           : in std_logic;
-            clk_i           : in std_logic;
-
-            -- input
-            gbox_buffer     : in std_logic_vector(193 downto 0);
-            gbox_cnt        : in unsigned(5 downto 0);
-            buffer_dv       : in std_logic;
-
-            -- Output
-            block_offset    : out unsigned(6 downto 0)
-        );
-    end component block_sync;
-
-    component seeker1
+    component aligner
     port (
         -- Sys connect
         rst_i           : in std_logic;
@@ -57,7 +41,7 @@ architecture rtl of gearbox32to66 is
         -- Output
         block_offset    : out unsigned(6 downto 0)
     );
-end component seeker1;
+end component aligner;
 
     signal gearbox_cnt      : unsigned(7 downto 0);
     signal data66_cnt       : unsigned(7 downto 0);
@@ -83,7 +67,7 @@ end component seeker1;
 
 begin
 
-    u_seeker : seeker1 port map (
+    u_aligner : aligner port map (
         -- Sys connect
         rst_i           => rst_i,
         clk_i           => clk_i,

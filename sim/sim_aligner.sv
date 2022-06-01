@@ -7,7 +7,7 @@ module sim_aligner();
 
     //aligner dut (.*);
     //seeker6 dut (.*);
-    seeker1 dut(.*);
+    seeker33 dut(.*);
 
     // set up clock
     initial begin

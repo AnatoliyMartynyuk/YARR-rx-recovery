@@ -147,19 +147,21 @@ module sim_aurora_lane();
     // ----------------------------------------------------------------------
     //                          Testing Sequence
 
-    integer i, sample_cnt;
-    assign samples_max = 25;
+    integer offset, offset_last, sample_cnt, samples_max;
+    logic SEE_flag;
 
     initial begin
-        repeat(32) wait(rx_valid);
 
-        for (i = 0; i < 66; i++) begin
+        repeat(32) wait(rx_valid);
+        samples_max = 25;
+        for (offset = 0; offset < 67; offset++) begin
             for (sample_cnt = 0; sample_cnt < samples_max; sample_cnt++) begin
                 wait(tx_counter == 0);
-                wait(tx_counter == 0);
+                wait(tx_counter == 65);
 
-                force tx_counter = i; @(posedge clk_ddr_i);
-                release tx_counter; 
+                @(posedge clk_ddr_i) force tx_counter = offset; SEE_flag <= 1; @(posedge clk_ddr_i); 
+                release tx_counter; SEE_flag = 0; #0.1 
+                
                 repeat(64) begin wait(rx_valid); wait(~rx_valid); end
             end
         end
@@ -182,7 +184,11 @@ module sim_aurora_lane();
     logic        rx_data_word_v;
 
 
-    assign rx_data_word_v = rx_data_out[31:0] == rx_data_out[63:32];
+    // assign rules to verify if a "valid" data word is actually valid
+    // 1. First and second half of data has to match (format of input)
+    // 2. The cnt embedded in the rx word has to be behind the current tx count (will break at overflow)
+    // 3. The rx cnt can't be more than 10 (somewhat arbitrary) behind the tx count
+    assign rx_data_word_v = (rx_data_out[31:0] == rx_data_out[63:32]) && (rx_data_out[31:0] < cnt) && (rx_data_out[31:0] + 10 > cnt);
     assign curr_rx_cnt = rx_data_out[31:0];
 
     always_ff @(posedge clk_rx_i) begin
@@ -191,39 +197,42 @@ module sim_aurora_lane();
     end
 
     // monitors disruptions in lane output data on a per failure level
+    
     /*
     initial begin
-        $timeformat(-9, 2);
-        $display(" offset     : desync     : resync     : duration   : blocks      ");
+        $timeformat(-9, 2, "ns");
+        $display(" offset     : desync     : resync     : blocks      ");
         forever begin
             wait(rx_valid == 0);
             time_1 = $realtime;
             wait(rx_valid == 1);
-            if (curr_rx_cnt > last_rx_cnt + 1 && rx_data_word_v) begin
-                $display("%12d %10t %10t %10t %12d", i, time_1, $realtime, $realtime - time_1, curr_rx_cnt - last_rx_cnt + 1);
+            if ((curr_rx_cnt > last_rx_cnt + 1) && rx_data_word_v) begin
+                $display("%12d %10t %10t %12d", offset, time_1, $realtime, curr_rx_cnt - last_rx_cnt + 1);
 
             end
         end
     end
     */
-
+    
     integer total_count;
 
     // monitors disruptions in lane output data on an average per drop level
     initial begin
         $timeformat(-9, 2);
         $display(" offset     : blocks      ");
+        total_count = 0;
         forever begin
             wait(rx_valid == 0);
             wait(rx_valid == 1);
             if (curr_rx_cnt > last_rx_cnt + 1 && rx_data_word_v) begin
                 total_count = total_count + curr_rx_cnt - last_rx_cnt + 1;
-                if (sample_cnt == samples_max - 1) begin
-                    total_count = total_count/samples_max;
-                    $display("%12d %12d", i,  curr_rx_cnt - last_rx_cnt + 1);
-                    total_count = 0;
                 end
+            if (offset != offset_last) begin
+                    total_count = total_count/samples_max;
+                    $display("%12d %12d", offset_last,  total_count);
+                    total_count = 0;
             end
+            offset_last = offset;
         end
     end
     

@@ -116,14 +116,6 @@ architecture behavioral of aurora_rx_lane is
     signal c_SLIP_SERDES_MAX : unsigned(7 downto 0);
     signal c_SERDES8_CYCLE : unsigned(3 downto 0);
 
---    constant g_SERDES_TYPE        : string := "CUSTOM";
---    constant c_SLIP_SERDES_MAX    : unsigned(7 downto 0) := to_unsigned(1, 8); 
---    constant c_SERDES8_CYCLE      : unsigned(3 downto 0) := to_unsigned(0, 4);
-
---    constant g_SERDES_TYPE        : string := "XAPP1017";
---    constant c_SLIP_SERDES_MAX    : unsigned(7 downto 0) := to_unsigned(8, 8);
---    constant c_SERDES8_CYCLE      : unsigned(3 downto 0) := to_unsigned(1, 4);
-
     constant c_DATA_HEADER  : std_logic_vector(1 downto 0) := "01";
     constant c_CMD_HEADER   : std_logic_vector(1 downto 0) := "10";
     constant c_SYNC_MAX     : unsigned(7 downto 0) := to_unsigned(16, 8);
@@ -445,24 +437,28 @@ begin
         clk_i           => clk_rx_i,
         data32_i        => serdes_data32,
         data32_valid_i  => serdes_data32_valid,
-        --slip_i          => gearbox_slip,
         slip_i          => '0',
         data66_o        => gearbox_data66,
         data66_valid_o  => gearbox_data66_valid
     );
 
+    -- tracks number of consecutive valid headers and determines when to pass on data to descramble
     block_sync_proc: process(clk_rx_i, rst_n_i)
     begin
+        -- on a reset, clear all counters and set scrambler input to 0s
         if (rst_n_i = '0') then
             sync_cnt                <= (others => '0');
             scrambled_data66        <= (others => '0');
             scrambled_data_valid    <= '0';
 
         elsif rising_edge(clk_rx_i) then
+            -- set default value
             scrambled_data_valid    <= '0';
 
+            -- remaining behavior only happens for each 66b block
             if (gearbox_data66_valid = '1') then
 
+                -- increment for every VALID 66b block up to saturation (c_SYNC_MAX)
                 if ((gearbox_data66(65 downto 64) = c_DATA_HEADER) or
                     (gearbox_data66(65 downto 64) = c_CMD_HEADER)) then
 
@@ -470,13 +466,13 @@ begin
                         sync_cnt <= sync_cnt + 1;
                     end if;
 
+                -- if ever an invalid is seen reset the counter
                 else
-
-                    sync_cnt        <= (others => '0');      
+                    sync_cnt <= (others => '0');      
 
                 end if;
                 
-                -- Output proc
+                -- once synced, the data is passed on to the descrambler
                 if (sync_cnt = c_SYNC_MAX) then
                     scrambled_data66        <= gearbox_data66(65 downto 0);
                     scrambled_data_valid    <= '1';

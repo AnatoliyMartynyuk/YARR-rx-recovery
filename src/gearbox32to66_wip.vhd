@@ -27,7 +27,7 @@ end gearbox32to66;
 
 architecture rtl of gearbox32to66 is
 
-    component aligner
+    component seeker11
     port (
         -- Sys connect
         rst_i           : in std_logic;
@@ -41,7 +41,7 @@ architecture rtl of gearbox32to66 is
         -- Output
         block_offset    : out unsigned(6 downto 0)
     );
-end component aligner;
+end component seeker11;
 
     signal gearbox_cnt      : unsigned(7 downto 0);
     signal data66_cnt       : unsigned(7 downto 0);
@@ -67,7 +67,7 @@ end component aligner;
 
 begin
 
-    u_aligner : aligner port map (
+    u_aligner : seeker11 port map (
         -- Sys connect
         rst_i           => rst_i,
         clk_i           => clk_i,
@@ -80,10 +80,10 @@ begin
     );
 
     data66_valid_o <= data66_valid_i;
+
+    -- simulation values to monitor indexes from which 66b block is being taken
     block_msb_idx <= 128-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(6 downto 0));
     block_lsb_idx <= 63-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(6 downto 0));
-    --block_msb_idx <= 128-to_integer(gearbox_cnt(5 downto 0));
-    --block_lsb_idx <= 63-to_integer(gearbox_cnt(5 downto 0));
     
     shift_proc: process(clk_i, rst_i)
     begin
@@ -120,15 +120,9 @@ begin
                 buffer194(193 downto 0) <= buffer194(161 downto 0) & data32_i;   -- shift in new data
                 data66_t <= buffer194(128-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(6 downto 0))
                          downto 63-to_integer(gearbox_cnt(5 downto 0))+to_integer(blk_idx_offset(6 downto 0)));       -- evaluate new 66b block to output
-                --data66_t <= buffer194(block_msb_idx downto block_lsb_idx);
                 
                 -- evaluated every other cycle, determines whether to move the gearbox output window or not
                 if (shift_cnt = '1') then
-
-                    -- on a slip, move window only 1 over - equivilent to a shift of 1 bits to the right. Still outputs a data_v
-                    --if (slip_i = '1') then
-                    --    gearbox_cnt    <= gearbox_cnt + 1;
-                    --    data66_t_valid <= '1';
                     
                     -- every 33rd word should not have data_v enabled, reset output window
                     if (gearbox_cnt = 64 or gearbox_cnt = 65) then

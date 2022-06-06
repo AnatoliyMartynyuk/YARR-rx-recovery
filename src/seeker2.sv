@@ -66,7 +66,6 @@ module seeker2 (
     always_ff @(posedge clk_i) begin
         if (buffer_dv) begin
             block_offset   <= seeker_chosen ? 65 - seeker_pos_idx_c[1] : seeker_pos_idx_c[0];
-            block_offset_i <= seeker_chosen ? 65 - seeker_pos_idx_c[1] : seeker_pos_idx_c[0];
         end
     end
 

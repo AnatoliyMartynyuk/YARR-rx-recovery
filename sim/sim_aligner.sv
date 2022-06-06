@@ -1,19 +1,20 @@
 module sim_aligner();
     logic         rst_i, clk_i;
-    logic         buffer_dv;
+    logic         buffer_dv, gbox_dv;
     logic [193:0] gbox_buffer;
     logic [  5:0] gbox_cnt;
     logic [  6:0] block_offset;
 
     //aligner dut (.*);
     //seeker6 dut (.*);
-    seeker33 dut(.*);
+    seeker11 dut(.*);
 
     // set up clock
     initial begin
         clk_i = '1;
         forever begin #50 clk_i = ~clk_i; end 
     end
+    assign gbox_dv = buffer_dv;
 
     integer i;
     initial begin

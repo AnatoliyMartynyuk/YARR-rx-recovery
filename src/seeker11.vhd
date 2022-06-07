@@ -156,7 +156,7 @@ begin
             end if;
 
             -- not all sets have 4 items
-            if (j /= 2) then
+            if (j < 2) then
                 if (seeker_valid_cnt(j*4 + 3) > seeker_valid_cnt(j*4 + 2)) then
                     max_cnt_stg1(j) <= seeker_valid_cnt(j*4 + 3);
                     offset_stg1(j)  <= seeker_pos_idx_c(J*4 + 3);

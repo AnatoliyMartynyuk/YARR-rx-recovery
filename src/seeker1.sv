@@ -17,7 +17,6 @@ module seeker1 (
     logic [66:0] buffer;
     logic [ 1:0] seeker;
     logic [ 6:0] seeker_pos_idx_n, seeker_pos_idx_c;                          
-    logic counter_used;
 
 
     always_ff @(posedge clk_i) begin
@@ -26,32 +25,28 @@ module seeker1 (
         end
     end
 
-    assign seeker =  counter_used ? buffer[66 - seeker_pos_idx_c -: 2] : buffer[1 + seeker_pos_idx_c -: 2];
+    assign seeker =  buffer[1 + seeker_pos_idx_c -: 2];
 
     always_comb begin
         // only incremement the position counter after both sides of buffer are checked
         // once 32 is reached, reset the buffer
-        seeker_pos_idx_n = seeker_pos_idx_c;
-        if (counter_used == 1) begin
-            seeker_pos_idx_n = seeker_pos_idx_c >= 33 ? '0 : seeker_pos_idx_c + 1'b1;
-        end
+        seeker_pos_idx_n = seeker_pos_idx_c >= 65 ? '0 : seeker_pos_idx_c + 1'b1;
+
     end
 
     always_ff @(posedge clk_i) begin
         if (rst_i) begin
             seeker_pos_idx_c <= '0;
-            counter_used <= '0;
         end
 
         // if an invalid header is seen update which side of buffer is being checked and update pos_idx
         else if (!(seeker == c_DATA_HEADER || seeker == c_CMD_HEADER)) begin
-            counter_used <= ~counter_used;
             seeker_pos_idx_c <= seeker_pos_idx_n;
         end
     end
 
     always_ff @(posedge clk_i) begin
-        if (buffer_dv) block_offset <= counter_used ? 65 - seeker_pos_idx_c : seeker_pos_idx_c;
+        if (buffer_dv) block_offset <= seeker_pos_idx_c;
     end
 
 endmodule

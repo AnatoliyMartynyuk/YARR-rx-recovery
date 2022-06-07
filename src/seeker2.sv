@@ -30,19 +30,19 @@ module seeker2 (
 
     // assign two seekers seached opposite ends of the buffer
     assign seeker[0] = buffer[ 1 + seeker_pos_idx_c[0] -: 2];
-    assign seeker[1] = buffer[66 - seeker_pos_idx_c[1] -: 2];
+    assign seeker[1] = buffer[ 1 + seeker_pos_idx_c[1] -: 2];
 
     // determines the next positions checked by seekers
     always_comb begin
-            seeker_pos_idx_n[0] = seeker_pos_idx_c[0] >= 33 ? '0 : seeker_pos_idx_c[0] + 1'b1;
-            seeker_pos_idx_n[1] = seeker_pos_idx_c[1] >= 33 ? '0 : seeker_pos_idx_c[1] + 1'b1;
+            seeker_pos_idx_n[0] = seeker_pos_idx_c[0] >= 32 ? '0 : seeker_pos_idx_c[0] + 1'b1;
+            seeker_pos_idx_n[1] = seeker_pos_idx_c[1] <= 33 ? 'd65 : seeker_pos_idx_c[1] - 1'b1;
     end
 
     // updates seeker position if an incorrect header is seen
     
     always_ff @(posedge clk_i) begin
         if (rst_i) begin
-            seeker_pos_idx_c <= '0;
+            seeker_pos_idx_c <= {7'd0, 7'd65};
         end
         else begin
             if (!(seeker[0] == c_DATA_HEADER || seeker[0] == c_CMD_HEADER)) seeker_pos_idx_c[0] <= seeker_pos_idx_n[0];
@@ -65,7 +65,7 @@ module seeker2 (
 
     always_ff @(posedge clk_i) begin
         if (buffer_dv) begin
-            block_offset   <= seeker_chosen ? 65 - seeker_pos_idx_c[1] : seeker_pos_idx_c[0];
+            block_offset   <= seeker_chosen ? seeker_pos_idx_c[1] : seeker_pos_idx_c[0];
         end
     end
 

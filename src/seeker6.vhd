@@ -50,6 +50,8 @@ architecture rtl of seeker3 is
 
     type t_seekerCounters is array (0 to 5) of unsigned (5 downto 0);
     signal seeker_valid_cnt : t_seekerCounters;    -- number of valid headers seen at seeker's position
+
+    type t_maxCountersStg1 is array (0 to 1) of unsigned (5 downto 0);
     signal max_cnt_stg1     : t_seekerCounters;
     signal max_cnt_stg1_reg : t_seekerCounters;
 

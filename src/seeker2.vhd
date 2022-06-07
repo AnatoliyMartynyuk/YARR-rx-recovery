@@ -61,17 +61,17 @@ begin
 
     -- assign bits to the seekers so that they seach opposite ends of the buffer
     seekers(0) <= headers_buffer((1 + to_integer(seeker_pos_idx_c(0))) downto to_integer(seeker_pos_idx_c(0)));
-    seekers(1) <= headers_buffer((66 - to_integer(seeker_pos_idx_c(1))) downto (65 - to_integer(seeker_pos_idx_c(1))));
+    seekers(1) <= headers_buffer((1 + to_integer(seeker_pos_idx_c(1))) downto (to_integer(seeker_pos_idx_c(1))));
 
     -- assign next header position
-    seeker_pos_idx_n(0) <= (others => '0') when (seeker_pos_idx_c(0) >= 33) else seeker_pos_idx_c(0) + 1;
-    seeker_pos_idx_n(1) <= (others => '0') when (seeker_pos_idx_c(1) >= 33) else seeker_pos_idx_c(1) + 1;
+    seeker_pos_idx_n(0) <= (others => '0') when (seeker_pos_idx_c(0) >= 32) else seeker_pos_idx_c(0) + 1;
+    seeker_pos_idx_n(1) <= to_unsigned(65, 7) when (seeker_pos_idx_c(1) <= 33) else seeker_pos_idx_c(1) - 1;
 
     -- update current header position if the current position shows an invalid header
     update_pos : process (clk_i, rst_i)
     begin
         if (rst_i = '1') then
-            seeker_pos_idx_c <= (to_unsigned(0, 7), to_unsigned(0, 7));
+            seeker_pos_idx_c <= (to_unsigned(0, 7), to_unsigned(65, 7));
 
         elsif rising_edge(clk_i) then
             if (NOT (seekers(0) = c_DATA_HEADER OR seekers(0) = c_CMD_HEADER)) then seeker_pos_idx_c(0) <= seeker_pos_idx_n(0); end if;
@@ -104,7 +104,7 @@ begin
 
         elsif (rising_edge(clk_i)) then
             if (buffer_dv = '1') then
-                block_offset <= (to_unsigned(65, 7) - seeker_pos_idx_c(1)) when (seeker_chosen = '1') else seeker_pos_idx_c(0);
+                block_offset <= (seeker_pos_idx_c(1)) when (seeker_chosen = '1') else seeker_pos_idx_c(0);
             end if;
         end if;
     end process set_offset;

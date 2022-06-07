@@ -153,7 +153,7 @@ module sim_aurora_lane();
     initial begin
 
         repeat(32) wait(rx_valid);
-        samples_max = 25;
+        samples_max = 66;
         for (offset = 0; offset < 67; offset++) begin
             for (sample_cnt = 0; sample_cnt < samples_max; sample_cnt++) begin
                 wait(tx_counter == 0);

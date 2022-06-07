@@ -6,19 +6,13 @@ add wave -noupdate /sim_aligner/dut/gbox_buffer
 add wave -noupdate /sim_aligner/dut/gbox_cnt
 add wave -noupdate /sim_aligner/dut/buffer_dv
 add wave -noupdate -radix unsigned /sim_aligner/dut/block_offset
-add wave -noupdate /sim_aligner/dut/buffer
-add wave -noupdate /sim_aligner/dut/seeker
-add wave -noupdate -radix unsigned /sim_aligner/dut/seeker_pos_idx_reg
-add wave -noupdate -radix unsigned /sim_aligner/dut/valid_hdr_cnt_reg
-add wave -noupdate -radix unsigned /sim_aligner/dut/max_cnt_stg1
-add wave -noupdate -radix unsigned /sim_aligner/dut/max_cnt_stg1_reg
-add wave -noupdate -radix unsigned /sim_aligner/dut/offset_stg1
-add wave -noupdate -radix unsigned /sim_aligner/dut/offset_stg1_reg
-add wave -noupdate -radix unsigned /sim_aligner/dut/max_cnt_stg2
-add wave -noupdate -radix unsigned /sim_aligner/dut/offset_stg2
-add wave -noupdate /sim_aligner/dut/count_lock
+add wave -noupdate /sim_aligner/dut/seekers
+add wave -noupdate -radix unsigned /sim_aligner/dut/seeker_pos_idx_n
+add wave -noupdate -radix unsigned /sim_aligner/dut/seeker_pos_idx_c
+add wave -noupdate /sim_aligner/dut/headers_buffer
+add wave -noupdate /sim_aligner/dut/seeker_chosen
 TreeUpdate [SetDefaultTree]
-WaveRestoreCursors {{Cursor 1} {453 fs} 0}
+WaveRestoreCursors {{Cursor 1} {903391 fs} 0}
 quietly wave cursor active 1
 configure wave -namecolwidth 150
 configure wave -valuecolwidth 118
@@ -34,4 +28,4 @@ configure wave -griddelta 40
 configure wave -timeline 0
 configure wave -timelineunits ns
 update
-WaveRestoreZoom {0 fs} {9662 fs}
+WaveRestoreZoom {903169 fs} {912831 fs}

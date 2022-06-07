@@ -25,14 +25,14 @@ vcom -work work ../src/aurora_rx_lane_wip.vhd
 #vcom -work work ../src/aurora_ch_bond.vhd
 vcom -work work ../src/rr_arbiter.vhd
 vlog -work work ../src/seeker1.sv
-#vlog -work work ../src/seeker2.sv
-vcom -work work ../src/seeker2.vhd
-#vlog -work work ../src/seeker3.sv
-vcom -work work ../src/seeker3.vhd
-#vlog -work work ../src/seeker6.sv
-vcom -work work ../src/seeker6.vhd
-#vlog -work work ../src/seeker11.sv
-vcom -work work ../src/seeker11.vhd
+vlog -work work ../src/seeker2.sv
+#vcom -work work ../src/seeker2.vhd
+vlog -work work ../src/seeker3.sv
+#vcom -work work ../src/seeker3.vhd
+vlog -work work ../src/seeker6.sv
+#vcom -work work ../src/seeker6.vhd
+vlog -work work ../src/seeker11.sv
+#vcom -work work ../src/seeker11.vhd
 vlog -work work ../src/seeker22.sv
 vlog -work work ../src/seeker33.sv
 
